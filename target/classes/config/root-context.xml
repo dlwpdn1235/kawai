@@ -8,7 +8,7 @@
 
 		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 			<property name="basePackage" value="com.kawai.dao"/>
-			<property name="annotationClass" value="com.kawai.dao.MyKawai"/>
+			<property name="annotationClass" value="com.kawai.dao.KawaiMapper"/>
 		</bean>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
