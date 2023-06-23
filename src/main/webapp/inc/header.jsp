@@ -81,6 +81,11 @@
     -webkit-animation-duration: 1s;
     visibility: visible;
   }
+  
+  img{
+  	width: 50px;
+  }
+  
 
   </style>
 </head>
