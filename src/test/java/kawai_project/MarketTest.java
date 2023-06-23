@@ -16,7 +16,7 @@ import com.kawai.service.MarketService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:config/*-context.xml")
-public class test {
+public class MarketTest {
 	@Autowired
 	MarketProductMapper dao;
 	
@@ -51,7 +51,6 @@ public class test {
 	dto.setmIp("아피");
 	dto.setmPrice(3000);
 	dto.setmDate("2023-06-23");
-	dto.setUser(user.);
 	int result = dao.marketInsert(dto);
 	System.out.println(result);
 	}
