@@ -4,8 +4,15 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+
 		<typeAlias type="com.kawai.dto.CommDto" alias="CommDto"/>
 		<typeAlias type="com.kawai.dto.CommDtoBookinfo" alias="CommDtoBookinfo"/>
 		<typeAlias type="com.kawai.dto.CommDtoCommunityLike" alias="CommunityLike"/>
+
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserVO"/>
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserRoleVO"/>
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountEventVO"/>
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountCouponVO"/>
+
 	</typeAliases>
 </configuration>
