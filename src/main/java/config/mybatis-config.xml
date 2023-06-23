@@ -4,6 +4,9 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-<!-- 		<typeAlias type="com.kawai.dto" alias=""/> -->
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserVO"/>
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserRoleVO"/>
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountEventVO"/>
+		<typeAlias alias="UserVO" type="com.kawai.dto.AccountCouponVO"/>
 	</typeAliases>
 </configuration>
