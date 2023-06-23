@@ -16,7 +16,17 @@
 		<property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
 		<property name="mapperLocations">
 			<list>
+
 				<value>classpath:/config/book-mapper.xml</value> 
+
+<!-- 				<value>classpath:/config/dto(명)-mapper.xml</value> -->
+				<value>classpath:/config/market-mapper.xml</value>
+				<value>classpath:/config/community-mapper.xml</value>
+				<value>classpath:/config/communitybookinfo-mapper.xml</value>
+				<value>classpath:/config/communityLike-mapper.xml</value>
+				<value>classpath:/config/comminquiry-mapper.xml</value>
+				<value>classpath:/config/commAnswer-mapper.xml</value>
+
 			</list>
 		</property>
 	</bean>
