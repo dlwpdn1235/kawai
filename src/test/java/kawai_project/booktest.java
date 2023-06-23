@@ -17,7 +17,7 @@ import com.kawai.dto.BookHashTagVO;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:config/root-context.xml")
 
-public class test {
+public class booktest {
 	@Autowired ApplicationContext context;
 	@Autowired BookHashTagDao dao;
 	
