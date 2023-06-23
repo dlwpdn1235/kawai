@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.CommDaoBookinfo">
+	<insert id="commBookinfoInsert"  parameterType="CommDtoBookinfo"  >
+		insert into 
+		bookinfo(book_title, book_description, book_author, book_publisher, book_image, book_pubdate)
+		values(#{book_title},#{book_description},#{book_author},#{book_publisher},#{book_image},#{book_pubdate})
+	</insert>
+	<update id="commBookinfoUpdate" parameterType="CommDtoBookinfo" >
+		update bookinfo set book_title=#{book_title}, book_description=#{book_description}, 
+		book_author=#{book_author}, book_publisher=#{book_publisher}, book_image=#{book_image}, book_pubdate=#{book_pubdate}
+		where bookinfo_id=#{bookinfo_id}
+	</update>
+	<delete id="commBookinfoDelete" parameterType="int"  >
+		delete from bookinfo where bookinfo_id=#{bookinfo_id}
+	</delete>
+	
+</mapper>

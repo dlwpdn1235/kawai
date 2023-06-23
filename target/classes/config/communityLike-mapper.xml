@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.CommDaoLike">
+	<insert id="communityLikeInsert"  parameterType="CommunityLike"  >
+		insert into community_like
+		values(#{community_id}, #{user_id})
+	</insert>
+	<delete id="communityLikeDelete" parameterType="int"  >
+		delete 
+		from community 
+		where community_id=#{community_id}
+	</delete>
+	<select id="commCommunityAllRead" resultType="CommDto">
+		select * 
+		from community 
+		order by community_date desc
+	</select>
+	<select id="commCommunityRead" parameterType="int">
+		SELECT *
+		FROM userinfo
+		LEFT JOIN bookinfo USING (bookinfo_id)
+		WHERE userinfo.community_id = #{community_id}	
+	</select>
+	<update id="commCommunityHit" parameterType="int">
+		update community
+		set community_hit = community_hit+1
+		WHERE community_id = #{community_id}
+	</update>
+
+</mapper>
