@@ -14,9 +14,9 @@
 		<typeAlias type="com.kawai.dto.CommDtoCommunityLike" alias="CommunityLike"/>
 
 		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserVO"/>
-		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserRoleVO"/>
-		<typeAlias alias="UserVO" type="com.kawai.dto.AccountEventVO"/>
-		<typeAlias alias="UserVO" type="com.kawai.dto.AccountCouponVO"/>
+		<typeAlias alias="UserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>
+		<typeAlias alias="EventVO" type="com.kawai.dto.AccountEventVO"/>
+		<typeAlias alias="CouponVO" type="com.kawai.dto.AccountCouponVO"/>
 
 
 	</typeAliases>
