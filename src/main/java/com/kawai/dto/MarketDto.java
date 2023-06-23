@@ -66,6 +66,7 @@ public class MarketDto {
 	public List<UserDto> getUser() {
 		return user;
 	}
+	
 	public void setUser(List<UserDto> user) {
 		this.user = user;
 	}

@@ -5,7 +5,7 @@ import java.util.List;
 import com.kawai.dto.MarketDto;
 
 @KawaiMapper
-public interface MarketProductMapper {
+public interface MarketDao {
 	public int marketInsert(MarketDto dto);
 	public int marketUpdate(MarketDto dto);
 	public int marketDelete(int no);

@@ -6,10 +6,8 @@
 	<typeAliases>
 
 <!-- 		<typeAlias type="com.kawai.dto" alias=""/> -->
-			<typeAlias type="com.kawai.dto.MarketDto" alias="Market"/>
-	    <typeAlias type="com.kawai.dto.CommDtoBookinfo" alias="CommDtoBookinfo"/>
-	    <typeAlias type="com.kawai.dto.MarketPayDto" alias="MarketPay"/>
-
+		<typeAlias type="com.kawai.dto.MarketDto" alias="Market"/>
+	  	<typeAlias type="com.kawai.dto.MarketPayDto" alias="MarketPay"/>
 
 		<typeAlias type="com.kawai.dto.CommDto" alias="CommDto"/>
 		<typeAlias type="com.kawai.dto.CommDtoBookinfo" alias="CommDtoBookinfo"/>

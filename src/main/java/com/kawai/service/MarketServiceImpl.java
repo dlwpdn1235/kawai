@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kawai.dao.MarketProductMapper;
+import com.kawai.dao.MarketDao;
 import com.kawai.dto.CommDtoBookinfo;
 import com.kawai.dto.MarketDto;
 import com.kawai.dto.MarketPayDto;
@@ -14,7 +14,7 @@ import com.kawai.dto.MarketPayDto;
 public class MarketServiceImpl implements MarketService{
 	
 	@Autowired
-	MarketProductMapper dao;
+	MarketDao dao;
 
 	@Override
 	public int marketInsert(MarketDto dto) {

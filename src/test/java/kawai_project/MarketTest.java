@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kawai.dao.MarketProductMapper;
+import com.kawai.dao.MarketDao;
 import com.kawai.dto.MarketDto;
 import com.kawai.dto.UserDto;
 import com.kawai.service.MarketService;
@@ -18,14 +18,16 @@ import com.kawai.service.MarketService;
 @ContextConfiguration(locations="classpath:config/*-context.xml")
 public class MarketTest {
 	@Autowired
-	MarketProductMapper dao;
+	MarketDao dao;
 	
 	@Autowired
 	MarketService service;
 	
 	@Autowired
 	UserDto user;
+
 	
+	// Update
 	@Test @Ignore
 	public void test0() {
 		MarketDto dto = new MarketDto();
@@ -34,7 +36,7 @@ public class MarketTest {
 		dto.setMarket_id(1);
 		System.out.println(dao.marketUpdate(dto));
 	}
-	
+	// Delete
 	@Test @Ignore
 	public void test1() {
 	    MarketDto dto = new MarketDto();
@@ -42,25 +44,26 @@ public class MarketTest {
 	    int result = dao.marketDelete(dto.getMarket_id());
 	    System.out.println(result);
 	}
-	
-	@Test
+
+	// Insert
+	@Test @Ignore
 	public void test2() {
 	MarketDto dto = new MarketDto();
+	dto.setMarket_id(1);
 	dto.setmTitle("제목");
 	dto.setmContent("내용");
 	dto.setmIp("아피");
 	dto.setmPrice(3000);
 	dto.setmDate("2023-06-23");
-	int result = dao.marketInsert(dto);
-	System.out.println(result);
+	System.out.println(dao.marketInsert(dto));
 	}
-	
-	@Test @Ignore
+
+	// List
+	@Test //@Ignore
 	public void test3() {
 	    List<MarketDto> marketList = dao.marketList();
 	    for (MarketDto dto : marketList) {
 	        System.out.println(dto);
-	        ////
 	    }
 	}
 }
