@@ -6,14 +6,14 @@ public class MarketPayDto {
 	private int mPay_id;
 	private int mPayCount;
 	private String mPayDate;
+	private String user;
 	private List<MarketOrderDto> order;
-	private List<AccountUserVO> user;
 	private List<MarketDto> market;
 	public MarketPayDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MarketPayDto(int mPay_id, int mPayCount, String mPayDate, List<MarketOrderDto> order, List<AccountUserVO> user,
+	public MarketPayDto(int mPay_id, int mPayCount, String mPayDate, List<MarketOrderDto> order, String user,
 			List<MarketDto> market) {
 		super();
 		this.mPay_id = mPay_id;
@@ -47,10 +47,10 @@ public class MarketPayDto {
 	public void setOrder(List<MarketOrderDto> order) {
 		this.order = order;
 	}
-	public List<AccountUserVO> getUser() {
+	public String getUser() {
 		return user;
 	}
-	public void setUser(List<AccountUserVO> user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 	public List<MarketDto> getMarket() {
@@ -64,6 +64,7 @@ public class MarketPayDto {
 		return "MarketPayDto [mPay_id=" + mPay_id + ", mPayCount=" + mPayCount + ", mPayDate=" + mPayDate + ", order="
 				+ order + ", user=" + user + ", market=" + market + "]";
 	}
+	
 	
 	
 }

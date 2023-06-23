@@ -24,4 +24,15 @@
 	<delete id="marketDelete" parameterType="Market">
 		delete from market where market_id =#{market_id}
 	</delete>
+	
+	
+	
+	
+	
+	<select id="marketOrderList" resultType="MarketOrder">
+		select * morder a.no
+		left join market_id ON market_id = morder_id 
+		
+
+	</select>
 </mapper>

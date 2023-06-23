@@ -9,14 +9,14 @@ public class MarketOrderDto {
 	private int RecPrice;
 	private String mRecContent;
 	private String mRecAddress;
-	private List<AccountUserVO> user;
+	private String user;
 	private List<MarketDto> market;
 	public MarketOrderDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public MarketOrderDto(int mOrder_id, String mRecIp, String mRecDate, int recPrice, String mRecContent,
-			String mRecAddress, List<AccountUserVO> user, List<MarketDto> market) {
+			String mRecAddress, String user, List<MarketDto> market) {
 		super();
 		this.mOrder_id = mOrder_id;
 		this.mRecIp = mRecIp;
@@ -63,10 +63,10 @@ public class MarketOrderDto {
 	public void setmRecAddress(String mRecAddress) {
 		this.mRecAddress = mRecAddress;
 	}
-	public List<AccountUserVO> getUser() {
+	public String getUser() {
 		return user;
 	}
-	public void setUser(List<AccountUserVO> user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 	public List<MarketDto> getMarket() {
@@ -81,6 +81,7 @@ public class MarketOrderDto {
 				+ ", RecPrice=" + RecPrice + ", mRecContent=" + mRecContent + ", mRecAddress=" + mRecAddress + ", user="
 				+ user + ", market=" + market + "]";
 	}
+	
 	
 	
 }

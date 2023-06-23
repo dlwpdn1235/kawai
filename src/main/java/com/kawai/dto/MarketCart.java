@@ -7,12 +7,12 @@ public class MarketCart {
 	private int mCount;
 	private String mCartDate;
 	private List<MarketDto> market;
-	private List<AccountUserVO> user;
+	private String user;
 	public MarketCart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MarketCart(int mCart_id, int mCount, String mCartDate, List<MarketDto> market, List<AccountUserVO> user) {
+	public MarketCart(int mCart_id, int mCount, String mCartDate, List<MarketDto> market, String user) {
 		super();
 		this.mCart_id = mCart_id;
 		this.mCount = mCount;
@@ -44,10 +44,10 @@ public class MarketCart {
 	public void setMarket(List<MarketDto> market) {
 		this.market = market;
 	}
-	public List<AccountUserVO> getUser() {
+	public String getUser() {
 		return user;
 	}
-	public void setUser(List<AccountUserVO> user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 	@Override
@@ -55,6 +55,7 @@ public class MarketCart {
 		return "MarketCart [mCart_id=" + mCart_id + ", mCount=" + mCount + ", mCartDate=" + mCartDate + ", market="
 				+ market + ", user=" + user + "]";
 	}
+	
 	
 	
 }
