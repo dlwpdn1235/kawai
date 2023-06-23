@@ -8,13 +8,11 @@
 		bookinfo(book_title, book_description, book_author, book_publisher, book_image, book_pubdate)
 		values(#{book_title},#{book_description},#{book_author},#{book_publisher},#{book_image},#{book_pubdate})
 	</insert>
-	
 	<update id="commBookinfoUpdate" parameterType="CommDtoBookinfo" >
 		update bookinfo set book_title=#{book_title}, book_description=#{book_description}, 
 		book_author=#{book_author}, book_publisher=#{book_publisher}, book_image=#{book_image}, book_pubdate=#{book_pubdate}
 		where bookinfo_id=#{bookinfo_id}
 	</update>
-	
 	<delete id="commBookinfoDelete" parameterType="int"  >
 		delete from bookinfo where bookinfo_id=#{bookinfo_id}
 	</delete>
