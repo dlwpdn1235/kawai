@@ -60,6 +60,7 @@ public class MarketTest {
 	    List<MarketDto> marketList = dao.marketList();
 	    for (MarketDto dto : marketList) {
 	        System.out.println(dto);
+	        //
 	    }
 	}
 }
