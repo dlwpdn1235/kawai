@@ -16,7 +16,7 @@
 		<property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
 		<property name="mapperLocations">
 			<list>
-<!-- 				<value>classpath:/config/dto(명)-mapper.xml</value> -->
+				<value>classpath:/config/book-mapper.xml</value> 
 			</list>
 		</property>
 	</bean>

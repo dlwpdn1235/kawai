@@ -11,12 +11,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kawai.dao.BookHashTagDao;
+import com.kawai.dto.BookHashTagVO;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:config/root-context.xml")
-@Ignore
+
 public class test {
-	@Autowired
-	ApplicationContext context;
+	@Autowired ApplicationContext context;
+	@Autowired BookHashTagDao dao;
 	
 	JdbcTemplate jdbc;
 	@Autowired
@@ -24,9 +27,17 @@ public class test {
 		jdbc = new JdbcTemplate(dataSource);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void test0() {
 		System.out.println(jdbc.query("select * from test", ((rs,index)->rs.getInt(1)) ) );
 		
+	}
+	@Test //@Ignore
+	public void test1() {
+		BookHashTagVO vo = new BookHashTagVO(); 
+		vo.setTag_name("#sally");
+		System.out.println( dao.bookinsert(vo) );
+		//(1)  readAll
+		//for( BookHashTagVO u  : dao.readAll()) { System.out.println(u); }
 	}
 }

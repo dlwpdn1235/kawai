@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.kawai.dao.BookHashTagDao">
+  <insert id="bookinsert" parameterType="BookHashTagVO">
+  		insert into hashtag (tag_name) values ( #{tag_name} )
+  	</insert>
+  	<!-- <update id="update" parameterType="UserVO">
+  		update userinfo set name=#{name} , age=#{age} where no=#{no}
+  	</update>
+  	<delete id="delete" parameterType="int">
+  		delete from userinfo where no=#{no}
+  	</delete>
+  	<select id="read" parameterType="int" resultType="UserVO">
+  		select * from userinfo where no=#{no}
+  	</select>
+  	<select id="readAll" resultType="UserVO">
+  		select * from userinfo order by no desc
+  	</select>  -->
+  </mapper>
