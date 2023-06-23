@@ -7,5 +7,7 @@
 		<typeAlias type="com.kawai.dto.CommDto" alias="CommDto"/>
 		<typeAlias type="com.kawai.dto.CommDtoBookinfo" alias="CommDtoBookinfo"/>
 		<typeAlias type="com.kawai.dto.CommDtoCommunityLike" alias="CommunityLike"/>
+		<typeAlias type="com.kawai.dto.CommDtoInquiry" alias="CommInquiry"/>
+		<typeAlias type="com.kawai.dto.CommDtoAnswer" alias="CommAnswer"/>
 	</typeAliases>
 </configuration>

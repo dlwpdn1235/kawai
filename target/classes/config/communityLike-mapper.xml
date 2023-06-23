@@ -7,26 +7,20 @@
 		insert into community_like
 		values(#{community_id}, #{user_id})
 	</insert>
-	<delete id="communityLikeDelete" parameterType="int"  >
+	<delete id="communityLikeDelete" parameterType="CommunityLike"  >
 		delete 
-		from community 
+		from community_like 
 		where community_id=#{community_id}
+		AND user_id=#{user_id}
 	</delete>
-	<select id="commCommunityAllRead" resultType="CommDto">
-		select * 
-		from community 
-		order by community_date desc
-	</select>
-	<select id="commCommunityRead" parameterType="int">
+	<select id="communityLikeAllRead" resultType="CommunityLike">
 		SELECT *
-		FROM userinfo
-		LEFT JOIN bookinfo USING (bookinfo_id)
-		WHERE userinfo.community_id = #{community_id}	
+		FROM community
+		LEFT JOIN community_like USING (community_id)
+		WHERE community_like.user_id = #{user_id}
+		ORDER BY community_date DESC;
 	</select>
-	<update id="commCommunityHit" parameterType="int">
-		update community
-		set community_hit = community_hit+1
-		WHERE community_id = #{community_id}
-	</update>
+
+
 
 </mapper>
