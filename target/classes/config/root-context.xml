@@ -17,6 +17,7 @@
 		<property name="mapperLocations">
 			<list>
 <!-- 				<value>classpath:/config/dto(명)-mapper.xml</value> -->
+					<value>classpath:/config/market-mapper.xml</value>
 			</list>
 		</property>
 	</bean>

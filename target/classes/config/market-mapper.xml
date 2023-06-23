@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.MarketProductMapper">
+
+	<insert id="marketInsert" parameterType="Market">
+	insert into market(mTitle,mContent,mIp,mPrice,mDate) values(#{mTitle},#{mContent},#{mIp},#{mPrice},#{mDate})
+	</insert>
+	<update id="marketUpdate" parameterType="Market">
+	update market set mTitle=#{mTitle} , mContent=#{mContent} where market_id=#{market_id}
+	</update>
+	
+	<select id="marketList" resultType="Market">
+		select * from market
+	</select>
+	
+	<update id="marketCount" parameterType="Market">
+		UPDATE mpay AS m JOIN ( SELECT market_id, SUM(mPrice=#{mPrice}) AS total_price FROM market GROUP BY market_id ) AS t ON m.market_id = t.market_id SET m.mPayCount = t.total_price;
+	</update>
+
+	<delete id="marketDelete" parameterType="Market">
+		delete from market where market_id =#{market_id}
+	</delete>
+</mapper>
