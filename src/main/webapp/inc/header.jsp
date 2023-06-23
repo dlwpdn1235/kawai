@@ -85,7 +85,11 @@
   img{
   	width: 50px;
   }
-  
+	
+#gogogo{
+	width:250px;
+}  
+
 
   </style>
 </head>
