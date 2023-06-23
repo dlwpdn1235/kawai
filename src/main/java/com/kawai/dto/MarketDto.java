@@ -1,7 +1,5 @@
 package com.kawai.dto;
 
-import java.util.List;
-
 public class MarketDto {
 	private int market_id;
 	private String mTitle;
@@ -9,14 +7,14 @@ public class MarketDto {
 	private String mIp;
 	private int mPrice;
 	private String mDate;
-	private List<UserDto> user;
-	private List<CommDtoBookinfo> bookInfo;
+	private String user_id;
+	private CommDtoBookinfo bookInfo;
 	public MarketDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public MarketDto(int market_id, String mTitle, String mContent, String mIp, int mPrice, String mDate,
-			List<UserDto> user, List<CommDtoBookinfo> bookInfo) {
+			String user_id, CommDtoBookinfo bookInfo) {
 		super();
 		this.market_id = market_id;
 		this.mTitle = mTitle;
@@ -24,8 +22,13 @@ public class MarketDto {
 		this.mIp = mIp;
 		this.mPrice = mPrice;
 		this.mDate = mDate;
-		this.user = user;
+		this.user_id = user_id;
 		this.bookInfo = bookInfo;
+	}
+	@Override
+	public String toString() {
+		return "MarketDto [market_id=" + market_id + ", mTitle=" + mTitle + ", mContent=" + mContent + ", mIp=" + mIp
+				+ ", mPrice=" + mPrice + ", mDate=" + mDate + ", user_id=" + user_id + ", bookInfo=" + bookInfo + "]";
 	}
 	public int getMarket_id() {
 		return market_id;
@@ -63,23 +66,17 @@ public class MarketDto {
 	public void setmDate(String mDate) {
 		this.mDate = mDate;
 	}
-	public List<UserDto> getUser() {
-		return user;
+	public String getUser_id() {
+		return user_id;
 	}
-	
-	public void setUser(List<UserDto> user) {
-		this.user = user;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-	public List<CommDtoBookinfo> getBookInfo() {
+	public CommDtoBookinfo getBookInfo() {
 		return bookInfo;
 	}
-	public void setBookInfo(List<CommDtoBookinfo> bookInfo) {
+	public void setBookInfo(CommDtoBookinfo bookInfo) {
 		this.bookInfo = bookInfo;
-	}
-	@Override
-	public String toString() {
-		return "MarketDto [market_id=" + market_id + ", mTitle=" + mTitle + ", mContent=" + mContent + ", mIp=" + mIp
-				+ ", mPrice=" + mPrice + ", mDate=" + mDate + ", user=" + user + ", bookInfo=" + bookInfo + "]";
 	}
 	
 }

@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kawai.dao.MarketDao;
+import com.kawai.dto.CommDtoBookinfo;
 import com.kawai.dto.MarketDto;
-import com.kawai.dto.UserDto;
 import com.kawai.service.MarketService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,8 +23,7 @@ public class MarketTest {
 	@Autowired
 	MarketService service;
 	
-	@Autowired
-	UserDto user;
+
 
 	
 	// Update
@@ -46,20 +45,23 @@ public class MarketTest {
 	}
 
 	// Insert
-	@Test @Ignore
+	@Test //@Ignore
 	public void test2() {
 	MarketDto dto = new MarketDto();
-	dto.setMarket_id(1);
+	dto.setMarket_id(2);
 	dto.setmTitle("제목");
 	dto.setmContent("내용");
-	dto.setmIp("아피");
+	dto.setmIp("111,111,111"); 
 	dto.setmPrice(3000);
-	dto.setmDate("2023-06-23");
+	CommDtoBookinfo info = new CommDtoBookinfo();
+	info.setBookinfo_id(1);
+	dto.setBookInfo(info);
+	dto.setUser_id("admin");
 	System.out.println(dao.marketInsert(dto));
 	}
 
 	// List
-	@Test //@Ignore
+	@Test @Ignore
 	public void test3() {
 	    List<MarketDto> marketList = dao.marketList();
 	    for (MarketDto dto : marketList) {

@@ -5,9 +5,10 @@
 <mapper namespace="com.kawai.dao.MarketDao">
 
 	<insert id="marketInsert" parameterType="Market">
-	insert into market(mTitle,mContent,mIp,mPrice,mDate) values(mTitle=#{mTitle},mContent=#{mContent},mIp=#{mIp},
-	mPrice=#{mPrice},mDate=#{mDate})
+	insert into market(mTitle,mContent,mIp,mPrice,user_id,bookInfo_id) values(#{mTitle},#{mContent},#{mIp},
+	#{mPrice},#{user_id},#{bookInfo.bookinfo_id})
 	</insert>
+
 	<update id="marketUpdate" parameterType="Market">
 	update market set mTitle=#{mTitle} , mContent=#{mContent} where market_id=#{market_id}
 	</update>
