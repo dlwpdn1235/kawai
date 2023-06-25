@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.CommDaoComment">
+	<insert id="commentInsert"  parameterType="CommComment"  >
+		INSERT INTO comment (comment, comment_date, comment_ip, comment_group, 
+		comment_step, comment_indent, user_id, community_id)
+		SELECT #{comment}, NOW(), #{comment_ip},
+		IFNULL(MAX(comment_group), 0) + 1,
+		IF(#{community_id} IS NULL, IFNULL(MAX(comment_step), 0) + 1000, 1000),
+		0, #{user_id}, #{community_id}
+		FROM comment;
+	</insert>
+	<insert id="commCommentInsert"  parameterType="CommComment"  >
+		INSERT INTO comment (comment, comment_date, comment_ip, comment_group, 
+		                     comment_step, comment_indent, user_id, community_id)
+		SELECT #{comment}, NOW(), #{comment_ip},
+		       t.comment_group, 
+		       IFNULL(MAX(t.comment_step), 0) - 1, 
+		       t.comment_indent + 1, #{user_id}, #{community_id}
+		FROM (SELECT comment_group, comment_step, comment_indent
+		      FROM comment
+		      WHERE comment_id = #{comment_id}) AS t;
+	</insert>
+	<update id="commentUpdate" parameterType="CommComment" >
+		UPDATE comment
+		SET comment = #{comment},
+		    comment_ip = #{comment_ip},
+		    comment_date = now()
+		WHERE comment_id=#{comment_id}
+	</update>
+	<delete id="commentDelete" parameterType="int"  >
+		delete 
+		from comment 
+		where comment_id=#{comment_id}
+	</delete>
+	<select id="commCommentAllRead" parameterType="int" resultType="CommComment">
+		SELECT comment.*, IFNULL(COUNT(comment_like.comment_id), 0) AS commentLikeCnt
+		FROM comment
+		LEFT JOIN comment_like ON comment.comment_id = comment_like.comment_id
+		WHERE comment.community_id = #{community_id}
+		GROUP BY comment.comment_id
+		ORDER BY comment.comment_group ASC, comment.comment_step ASC, comment.comment_date ASC;
+	</select>
+
+</mapper>
