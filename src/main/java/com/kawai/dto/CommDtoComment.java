@@ -7,8 +7,8 @@ public class CommDtoComment {
 	private int comment_group;
 	private int comment_step;
 	private int comment_indent;
-	private int user_id;
-	private String user_name;
+	private String user_id;
+	private String comment_ip;
 	private int community_id;
 	private int commentLikeCnt;
 	public CommDtoComment() {
@@ -16,7 +16,7 @@ public class CommDtoComment {
 		// TODO Auto-generated constructor stub
 	}
 	public CommDtoComment(int comment_id, String comment, String comment_date, int comment_group, int comment_step,
-			int comment_indent, int user_id, String user_name, int community_id, int commentLikeCnt) {
+			int comment_indent, String user_id, String comment_ip, int community_id, int commentLikeCnt) {
 		super();
 		this.comment_id = comment_id;
 		this.comment = comment;
@@ -25,15 +25,15 @@ public class CommDtoComment {
 		this.comment_step = comment_step;
 		this.comment_indent = comment_indent;
 		this.user_id = user_id;
-		this.user_name = user_name;
+		this.comment_ip = comment_ip;
 		this.community_id = community_id;
 		this.commentLikeCnt = commentLikeCnt;
 	}
 	@Override
 	public String toString() {
-		return "Comment [comment_id=" + comment_id + ", comment=" + comment + ", comment_date=" + comment_date
+		return "CommDtoComment [comment_id=" + comment_id + ", comment=" + comment + ", comment_date=" + comment_date
 				+ ", comment_group=" + comment_group + ", comment_step=" + comment_step + ", comment_indent="
-				+ comment_indent + ", user_id=" + user_id + ", user_name=" + user_name + ", community_id="
+				+ comment_indent + ", user_id=" + user_id + ", comment_ip=" + comment_ip + ", community_id="
 				+ community_id + ", commentLikeCnt=" + commentLikeCnt + "]";
 	}
 	public int getComment_id() {
@@ -72,17 +72,17 @@ public class CommDtoComment {
 	public void setComment_indent(int comment_indent) {
 		this.comment_indent = comment_indent;
 	}
-	public int getUser_id() {
+	public String getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(int user_id) {
+	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
-	public String getUser_name() {
-		return user_name;
+	public String getComment_ip() {
+		return comment_ip;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setComment_ip(String comment_ip) {
+		this.comment_ip = comment_ip;
 	}
 	public int getCommunity_id() {
 		return community_id;
@@ -96,4 +96,5 @@ public class CommDtoComment {
 	public void setCommentLikeCnt(int commentLikeCnt) {
 		this.commentLikeCnt = commentLikeCnt;
 	}
+	
 }
