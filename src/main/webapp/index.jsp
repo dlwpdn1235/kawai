@@ -2,6 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/inc/header.jsp" %>
 	<div class = "container panel">
-
+	<script>location.href="main.kawai"</script>
 	</div>
 <%@ include file="/inc/footer.jsp" %>
