@@ -5,6 +5,11 @@
 <configuration>
 	<typeAliases>
 
+		<typeAlias type="com.kawai.dto.BookStoreVO" alias="BookStoreVO" />
+		<typeAlias type="com.kawai.dto.BookHashTagVO" alias="BookHashTagVO" />
+		<typeAlias type="com.kawai.dto.BookImgVO" alias="BookImgVO" />
+		<typeAlias type="com.kawai.dto.BookLikesVO" alias="BookLikesVO" />
+    
 <!-- 		<typeAlias type="com.kawai.dto" alias=""/> -->
 		<typeAlias type="com.kawai.dto.MarketDto" alias="Market"/>
 	  	<typeAlias type="com.kawai.dto.MarketPayDto" alias="MarketPay"/>
@@ -24,6 +29,7 @@
 		<typeAlias alias="UserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>
 		<typeAlias alias="EventVO" type="com.kawai.dto.AccountEventVO"/>
 		<typeAlias alias="CouponVO" type="com.kawai.dto.AccountCouponVO"/>
+
 
 
 
