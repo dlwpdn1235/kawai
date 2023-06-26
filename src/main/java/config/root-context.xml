@@ -21,7 +21,9 @@
 				<value>classpath:/config/communitybookinfo-mapper.xml</value>
 				<value>classpath:/config/communityLike-mapper.xml</value>
 				<value>classpath:/config/comminquiry-mapper.xml</value>
-				<value>classpath:/config/commAnswer-mapper.xml</value>
+				<value>classpath:/config/commanswer-mapper.xml</value>
+				<value>classpath:/config/commcomment-mapper.xml</value>
+				<value>classpath:/config/commcommentlike-mapper.xml</value>
 			</list>
 		</property>
 	</bean>

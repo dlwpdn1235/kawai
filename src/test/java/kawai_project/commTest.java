@@ -10,14 +10,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kawai.dao.CommDao;
 import com.kawai.dao.CommDaoAnswer;
 import com.kawai.dao.CommDaoBookinfo;
+import com.kawai.dao.CommDaoComment;
+import com.kawai.dao.CommDaoCommentLike;
 import com.kawai.dao.CommDaoInquiry;
 import com.kawai.dao.CommDaoLike;
 import com.kawai.dto.CommDto;
 import com.kawai.dto.CommDtoAnswer;
 import com.kawai.dto.CommDtoBookinfo;
 import com.kawai.dto.CommDtoCategory;
+import com.kawai.dto.CommDtoComment;
+import com.kawai.dto.CommDtoCommentLike;
 import com.kawai.dto.CommDtoCommunityLike;
 import com.kawai.dto.CommDtoInquiry;
+import com.kawai.dto.CommDtoSearch;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:config/*-context.xml")
@@ -32,6 +37,10 @@ public class commTest {
 	CommDaoInquiry inquiry;
 	@Autowired
 	CommDaoAnswer answerdao;
+	@Autowired
+	CommDaoComment commentdao;
+	@Autowired
+	CommDaoCommentLike commentlike;
 	
 	@Test @Ignore
 	public void bookinfoInsert() {
@@ -61,7 +70,6 @@ public class commTest {
 		info.setCommcategory(info3);
 		dao.commCommunityInsert(info);
 //		dao.commCommunityUpdate(info);
-		System.out.println(dao.commCommunityAllRead());
 	}
 	@Test @Ignore
 	public void communityHit() {
@@ -70,6 +78,17 @@ public class commTest {
 	@Test @Ignore
 	public void communityRead() {
 		System.out.println(dao.commCommunityRead(3));
+	}
+	@Test //@Ignore
+	public void communityAllRead() {
+		CommDtoSearch search = new CommDtoSearch();
+		search.setCategory_id(0);
+		search.setCondition(1);
+		search.setDay(0);
+		search.setSearchKeyword("");
+		search.setSearchType(0);
+		search.setCount(0);
+		System.out.println(dao.commCommunityAllRead(search));
 	}
 	@Test @Ignore
 	public void communityDelete() {
@@ -139,6 +158,41 @@ public class commTest {
 	@Test @Ignore
 	public void commAnswerDelete() {
 		System.out.println(answerdao.commAnswerDelete(1));
+	}
+	@Test @Ignore
+	public void commCommentInsert() {
+		CommDtoComment comment = new CommDtoComment();
+		comment.setComment("추천요1");
+		comment.setComment_ip("111-111-111");
+		comment.setCommunity_id(3);
+		comment.setComment_id(6);
+		comment.setUser_id("user001");
+//		System.out.println(commentdao.commentInsert(comment));
+		System.out.println(commentdao.commCommentInsert(comment));
+//		System.out.println(commentdao.commentUpdate(comment));
+	}
+	@Test @Ignore
+	public void commCommentDelete() {
+		System.out.println(commentdao.commentDelete(5));
+	}
+	@Test @Ignore
+	public void commCommentAllRead() {
+		System.out.println(commentdao.commCommentAllRead(3));
+	}
+	@Test @Ignore
+	public void commCommentLikeInsert() {
+		CommDtoCommentLike comment = new CommDtoCommentLike();
+		comment.setComment_id(8);
+		comment.setUser_id("user001");
+		System.out.println(commentlike.commentLikeInsert(comment));
+	}
+	@Test @Ignore
+	public void commCommentLikeDelete() {
+		CommDtoCommentLike comment = new CommDtoCommentLike();
+		comment.setComment_id(8);
+		comment.setUser_id("user001");
+		System.out.println(commentlike.commentLikeDelete(comment));
+
 	}
 	
 }
