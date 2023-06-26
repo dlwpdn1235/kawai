@@ -16,8 +16,7 @@
 		<typeAlias type="com.kawai.dto.CommDtoCommunityLike" alias="CommunityLike"/>
 		<typeAlias type="com.kawai.dto.CommDtoInquiry" alias="CommInquiry"/>
 		<typeAlias type="com.kawai.dto.CommDtoAnswer" alias="CommAnswer"/>
-
-
+    
 		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserVO"/>
 		<typeAlias alias="UserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>
 		<typeAlias alias="EventVO" type="com.kawai.dto.AccountEventVO"/>
