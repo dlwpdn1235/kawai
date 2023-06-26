@@ -1,33 +1,40 @@
 package com.kawai.dto;
 
-import java.time.LocalTime;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.util.List;
+
 
 public class BookStoreVO {
+	private List<String> hashtags;
 	private int bs_no;
 	private String user_id;
 	private int tag_id;
 	private String bs_name;
-	private LocalTime bs_startdate;
-	private LocalTime bs_enddate;
+	private Time bs_start_date;
+	private Time bs_end_date;
 	private String bs_closeday;
 	private String bs_phonenum;
 	private String bs_postnum;
 	private String bs_address;
 	private String bs_address_detail;
-	private String bs_opendate;
+	private LocalDateTime bs_opendate;
 	private String bs_content;
 	private String bs_reg_date;
-	public BookStoreVO() { super(); }
-	public BookStoreVO(int bs_no, String user_id, int tag_id, String bs_name, LocalTime bs_startdate,
-			LocalTime bs_enddate, String bs_closeday, String bs_phonenum, String bs_postnum, String bs_address,
-			String bs_address_detail, String bs_opendate, String bs_content, String bs_reg_date) {
+	public BookStoreVO() {
 		super();
+	}
+	public BookStoreVO(List<String> hashtags, int bs_no, String user_id, int tag_id, String bs_name, Time bs_start_date,
+			Time bs_end_date, String bs_closeday, String bs_phonenum, String bs_postnum, String bs_address,
+			String bs_address_detail, LocalDateTime bs_opendate, String bs_content, String bs_reg_date) {
+		super();
+		this.hashtags = hashtags;
 		this.bs_no = bs_no;
 		this.user_id = user_id;
 		this.tag_id = tag_id;
 		this.bs_name = bs_name;
-		this.bs_startdate = bs_startdate;
-		this.bs_enddate = bs_enddate;
+		this.bs_start_date = bs_start_date;
+		this.bs_end_date = bs_end_date;
 		this.bs_closeday = bs_closeday;
 		this.bs_phonenum = bs_phonenum;
 		this.bs_postnum = bs_postnum;
@@ -36,6 +43,12 @@ public class BookStoreVO {
 		this.bs_opendate = bs_opendate;
 		this.bs_content = bs_content;
 		this.bs_reg_date = bs_reg_date;
+	}
+	public List<String> getHashtags() {
+		return hashtags;
+	}
+	public void setHashtags(List<String> hashtags) {
+		this.hashtags = hashtags;
 	}
 	public int getBs_no() {
 		return bs_no;
@@ -61,17 +74,17 @@ public class BookStoreVO {
 	public void setBs_name(String bs_name) {
 		this.bs_name = bs_name;
 	}
-	public LocalTime getBs_startdate() {
-		return bs_startdate;
+	public Time getBs_start_date() {
+		return bs_start_date;
 	}
-	public void setBs_startdate(LocalTime bs_startdate) {
-		this.bs_startdate = bs_startdate;
+	public void setBs_start_date(Time bs_start_date) {
+		this.bs_start_date = bs_start_date;
 	}
-	public LocalTime getBs_enddate() {
-		return bs_enddate;
+	public Time getBs_end_date() {
+		return bs_end_date;
 	}
-	public void setBs_enddate(LocalTime bs_enddate) {
-		this.bs_enddate = bs_enddate;
+	public void setBs_end_date(Time bs_end_date) {
+		this.bs_end_date = bs_end_date;
 	}
 	public String getBs_closeday() {
 		return bs_closeday;
@@ -103,10 +116,10 @@ public class BookStoreVO {
 	public void setBs_address_detail(String bs_address_detail) {
 		this.bs_address_detail = bs_address_detail;
 	}
-	public String getBs_opendate() {
+	public LocalDateTime getBs_opendate() {
 		return bs_opendate;
 	}
-	public void setBs_opendate(String bs_opendate) {
+	public void setBs_opendate(LocalDateTime bs_opendate) {
 		this.bs_opendate = bs_opendate;
 	}
 	public String getBs_content() {
@@ -123,14 +136,11 @@ public class BookStoreVO {
 	}
 	@Override
 	public String toString() {
-		return "BookStoreVO [bs_no=" + bs_no + ", user_id=" + user_id + ", tag_id=" + tag_id + ", bs_name=" + bs_name
-				+ ", bs_startdate=" + bs_startdate + ", bs_enddate=" + bs_enddate + ", bs_closeday=" + bs_closeday
-				+ ", bs_phonenum=" + bs_phonenum + ", bs_postnum=" + bs_postnum + ", bs_address=" + bs_address
-				+ ", bs_address_detail=" + bs_address_detail + ", bs_opendate=" + bs_opendate + ", bs_content="
-				+ bs_content + ", bs_reg_date=" + bs_reg_date + "]";
+		return "BookStoreVO [hashtags=" + hashtags + ", bs_no=" + bs_no + ", user_id=" + user_id + ", tag_id=" + tag_id
+				+ ", bs_name=" + bs_name + ", bs_start_date=" + bs_start_date + ", bs_end_date=" + bs_end_date
+				+ ", bs_closeday=" + bs_closeday + ", bs_phonenum=" + bs_phonenum + ", bs_postnum=" + bs_postnum
+				+ ", bs_address=" + bs_address + ", bs_address_detail=" + bs_address_detail + ", bs_opendate="
+				+ bs_opendate + ", bs_content=" + bs_content + ", bs_reg_date=" + bs_reg_date + "]";
 	}
-	
-	
-	
 	
 }

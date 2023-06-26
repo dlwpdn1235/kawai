@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- bookimg -->
+  <!-- bookimg   bookstore 만들고 다시 test readall은 됬음 -->
+  
+   <mapper namespace="com.kawai.dao.BookImgDao">
+   
+   	 <insert id="imginsert" parameterType="BookImgVO">
+  		INSERT INTO img (img_no, img_file_name)
+		SELECT #{bs_no}, #{img_file_name}
+		FROM bookstore
+		WHERE bs_no = #{bs_no}
+  	</insert>
+  	<!-- 
+  	<update id="imgupdate" parameterType="BookImgVO">
+  		update img set img_file_name =#{img_file_name} where img_no=#{img_no}
+  		
+  		UPDATE img
+		SET img_file_name = #{img_file_name}
+		WHERE img_no = #{bs_no};
+  	</update>
+  	<delete id="imgdelete" parameterType="int">
+  		delete from img where img_no = #{img_no}
+  	</delete>
+  	-->
+  	<select id="imgread" parameterType="int" resultType="BookImgVO">
+  		select * from img where img_no=#{img_no}
+  	</select> 
+  	 
+  	<select id="imgreadAll" resultType="BookImgVO">
+  		select * from img order by img_no desc
+  	</select>
+  	 
+  </mapper>

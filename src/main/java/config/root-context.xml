@@ -16,7 +16,10 @@
 		<property name="configLocation" value="classpath:/config/mybatis-config.xml"/>
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:/config/book-mapper.xml</value> 
+				<value>classpath:/config/book_tag-mapper.xml</value> 
+				<value>classpath:/config/book_img-mapper.xml</value> 
+				<value>classpath:/config/book_store-mapper.xml</value> 
+				<value>classpath:/config/book_likes-mapper.xml</value> 
 			</list>
 		</property>
 	</bean>

@@ -7,10 +7,10 @@ import com.kawai.dto.BookHashTagVO;
 @KawaiMapper
 public interface BookHashTagDao {
 	// CRUD  -- update
-	public int bookinsert(BookHashTagVO vo);
-	public int update(BookHashTagVO vo);
-	public int delete(int no); 
+	public int taginsert(BookHashTagVO vo);
+	public int tagupdate(BookHashTagVO vo);
+	public int tagdelete(int no); 
 	// CRUD  -- selectOne (1개)  selectList(여러줄)
-	public  BookHashTagVO read(int no);
-	public  List<BookHashTagVO>  readAll();
+	public  BookHashTagVO tagread(int no);
+	public  List<BookHashTagVO>  tagreadAll();
 }

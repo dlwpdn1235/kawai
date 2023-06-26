@@ -6,6 +6,21 @@ public class BookImgVO {
 	private int img_no;
 	private String img_file_name;
 	private LocalDateTime img_reg_date;
+	private int bs_no;
+	
+	public BookImgVO(int img_no, String img_file_name, LocalDateTime img_reg_date, int bs_no) {
+		super();
+		this.img_no = img_no;
+		this.img_file_name = img_file_name;
+		this.img_reg_date = img_reg_date;
+		this.bs_no = bs_no;
+	}
+	public int getBs_no() {
+		return bs_no;
+	}
+	public void setBs_no(int bs_no) {
+		this.bs_no = bs_no;
+	}
 	public BookImgVO() {
 		super();
 	}
