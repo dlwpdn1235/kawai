@@ -5,7 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-
 		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 			<property name="basePackage" value="com.kawai.dao"/>
 			<property name="annotationClass" value="com.kawai.dao.KawaiMapper"/>
@@ -25,7 +24,12 @@
 				<value>classpath:/config/communitybookinfo-mapper.xml</value>
 				<value>classpath:/config/communityLike-mapper.xml</value>
 				<value>classpath:/config/comminquiry-mapper.xml</value>
+
 				<value>classpath:/config/commAnswer-mapper.xml</value>
+
+				<value>classpath:/config/commanswer-mapper.xml</value>
+				<value>classpath:/config/commcomment-mapper.xml</value>
+				<value>classpath:/config/commcommentlike-mapper.xml</value>
 
 			</list>
 		</property>

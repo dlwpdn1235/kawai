@@ -21,6 +21,9 @@
 		<typeAlias type="com.kawai.dto.CommDtoCommunityLike" alias="CommunityLike"/>
 		<typeAlias type="com.kawai.dto.CommDtoInquiry" alias="CommInquiry"/>
 		<typeAlias type="com.kawai.dto.CommDtoAnswer" alias="CommAnswer"/>
+		<typeAlias type="com.kawai.dto.CommDtoComment" alias="CommComment"/>
+		<typeAlias type="com.kawai.dto.CommDtoCommentLike" alias="CommCommentLike"/>
+		<typeAlias type="com.kawai.dto.CommDtoSearch" alias="CommSearch"/>
     
 		<typeAlias alias="UserVO" type="com.kawai.dto.AccountUserVO"/>
 		<typeAlias alias="UserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>
