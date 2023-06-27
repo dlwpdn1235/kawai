@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.MarketDao">
+
+	<insert id="marketInsert" parameterType="MarketPay">
+		insert into market(mTitle,mContent,mIp,mPrice,user_id,bookInfo_id)
+		values(#{mTitle},#{mContent},#{mIp},
+		#{mPrice},#{user_id},#{bookInfo.bookinfo_id})
+	</insert>
+
+	<update id="marketUpdate" parameterType="MarketPay">
+		update market set mTitle=#{mTitle} , mContent=#{mContent} where
+		market_id=#{market_id}
+	</update>
+
+	<select id="marketList" parameterType="MarketPage"
+		resultType="Market">
+		select * from market m
+
+		<if test="marketSearch != 0 and marketSerchKeyWord != ''">
+			<where>
+				<choose>
+					<when test="marketSearch == 1">
+						m.mTitle = #{marketSerchKeyWord}
+					</when>
+					<when test="marketSearch == 2">
+						inner join bookinfo bi on m.bookinfo_id = bi.bookinfo_id
+						and bi.book_title = #{marketSerchKeyWord}
+					</when>
+					<when test="marketSearch == 3">
+						inner join bookinfo bi on m.bookinfo_id = bi.bookinfo_id
+						and bi.book_author = #{marketSerchKeyWord}
+					</when>
+					<when test="marketSearch == 4">
+						inner join bookinfo bi on m.bookinfo_id = bi.bookinfo_id
+						and bi.book_publisher = #{marketSerchKeyWord}
+					</when>
+				</choose>
+
+			</where>
+		</if>
+
+		<choose>
+			<when test="marketOption == 1">
+				order by m.mDate desc
+			</when>
+			<when test="marketOption == 2">
+				order by m.mPrice desc
+			</when>
+			<when test="marketOption == 3">
+				order by m.mPrice asc
+			</when>
+			<otherwise>
+				order by m.mDate desc
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="marketListCount != 0">
+				limit #{marketPageCount},#{marketListCount}
+			</when>
+			<otherwise>
+				limit #{marketPageCount},10
+			</otherwise>
+		</choose>
+
+	</select>
+
+	<update id="marketCount" parameterType="Market">
+		UPDATE mpay AS m JOIN (
+		SELECT market_id, SUM(mPrice=#{mPrice}) AS total_price FROM market
+		GROUP BY market_id ) AS t ON m.market_id = t.market_id SET m.mPayCount
+		= t.total_price;
+	</update>
+
+	<delete id="marketDelete" parameterType="Market">
+		delete from market where
+		market_id =#{market_id}
+	</delete>
+
+</mapper>
