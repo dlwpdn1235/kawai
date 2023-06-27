@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.kawai.dto.CommDtoComment;
 
-@KawaiMapper
+
 public interface CommDaoComment {
 	public int commentInsert(CommDtoComment commDtoComment);
 	public int commentUpdate(CommDtoComment commDtoComment);
