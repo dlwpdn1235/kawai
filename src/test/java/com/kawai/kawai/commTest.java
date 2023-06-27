@@ -34,7 +34,7 @@ import com.kawai.dto.CommDtoSearch;
 								 "file:src/main/webapp/WEB-INF/spring/**/servlet-kawai-context.xml"})
 public class commTest {
 	@Autowired
-	CommDao dao;
+	CommDao dao; 
 	@Autowired
 	CommDaoBookinfo dao2;
 	@Autowired
