@@ -1,4 +1,4 @@
-package kawai_project;
+package com.kawai.test;
 
 import java.util.ArrayList;
 import java.util.List;
