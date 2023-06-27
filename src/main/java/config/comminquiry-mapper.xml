@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.CommDaoInquiry">
+	<insert id="commInquiryInsert"  parameterType="CommInquiry"  >
+		insert into 
+		inquiry(inquiry_title, inquiry_content, inquiry_ip, user_id, market_id, inquiry_category_id)
+		values(#{inquiry_title},#{inquiry_content},#{inquiry_ip},#{user_id},#{market_id},#{inquiry_category_id})
+	</insert>
+	<update id="commInquiryUpdate" parameterType="CommInquiry" >
+		UPDATE inquiry
+		SET inquiry_title = #{inquiry_title},
+		    inquiry_content = #{inquiry_content},
+		    inquiry_ip = #{inquiry_ip},
+		    inquiry_date = now()
+		WHERE inquiry_id=#{inquiry_id}
+	</update>
+	<delete id="commInquiryDelete" parameterType="int"  >
+		delete 
+		from inquiry 
+		where inquiry_id=#{inquiry_id}
+	</delete>
+	<select id="commInquiryAllRead" resultType="CommInquiry"><!-- 조건으로 엔서답변 들어오면 그기준도 넣어주기 -->
+		select * 
+		from inquiry 
+		order by inquiry_date desc
+	</select>
+	<select id="commInquiryRead" parameterType="int" resultType="CommInquiry">
+		SELECT *
+		FROM inquiry
+		WHERE inquiry_id = #{inquiry_id}	
+	</select>
+
+</mapper>

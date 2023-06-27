@@ -8,13 +8,11 @@
   
    <mapper namespace="com.kawai.dao.BookLikesDao">
    
-   <!-- 
+  
    	 <insert id="likesinsert" parameterType="BookLikesVO">
   		INSERT INTO likes (fk_id, fk_bs_no)
 		VALUES (#{fk_id}, #{fk_bs_no})
   	</insert>
-  	 -->
-  	 
   	 
   	<!-- 
   	<update id="likesupdate" parameterType="BookLikesVO">
@@ -34,9 +32,8 @@
   		select * from likes where fk_bs_no=#{fk_bs_no}
   	</select> 
   	
-  	 <!-- 
   	<select id="likesreadAll" resultType="BookLikesVO">
   		select * from likes order by fk_id desc
   	</select>
-  	  -->
+  	
   </mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.CommDao">
+	<insert id="commCommunityInsert" parameterType="CommDto">
+		insert
+		into
+		community(community_title, community_content, community_ip, user_id, bookinfo_id,
+		comm_category_id)
+		values(#{community_title},#{community_content},#{community_ip},#{user_id},#{bookinfo.bookinfo_id},#{commcategory.category_id})
+	</insert>
+	<update id="commCommunityUpdate" parameterType="CommDto">
+		UPDATE
+		community
+		SET community_title = #{community_title},
+		community_content = #{community_content},
+		community_ip = #{community_ip},
+		community_date = now(),
+		bookinfo_id = #{bookinfo.bookinfo_id}
+		WHERE community_id=#{community_id}
+	</update>
+	<delete id="commCommunityDelete" parameterType="int">
+		delete
+		from community
+		where community_id=#{community_id}
+	</delete>
+	<select id="commCommunityAllRead" parameterType="CommSearch" resultType="CommDto">
+	  SELECT c.*
+	  FROM community c
+	  <where>
+	    <if test="category_id != 0">
+	      AND c.comm_category_id = #{category_id}
+	    </if>
+	    <if test="condition == 1">
+	      AND c.community_date >= NOW() - INTERVAL 2 HOUR
+	    </if>
+	    <if test="condition == 3">
+	      AND c.community_date >= NOW() - INTERVAL #{day} DAY
+	    </if>
+	    <if test="searchKeyword != '' and searchType != 0">
+	      <choose>
+	        <when test="searchType == 1">
+	          AND c.community_title LIKE CONCAT('%', #{searchKeyword}, '%')
+	        </when>
+	        <when test="searchType == 2">
+	          AND c.user_id LIKE CONCAT('%', #{searchKeyword}, '%')
+	        </when>
+	      </choose>
+	    </if>
+	  </where>
+	  <if test="condition == 2">
+	    ORDER BY c.community_date DESC
+	  </if>
+	  <if test="condition != 2">
+	    ORDER BY c.community_hit DESC
+	  </if>
+	  LIMIT #{count}, 10;
+	</select>
+	<select id="commCommunityRead" parameterType="int"
+		resultType="CommDto">
+		SELECT community.*,
+		IFNULL(COUNT(community_like.community_id), 0) AS like_count
+		FROM
+		community
+		LEFT JOIN community_like ON community.community_id =
+		community_like.community_id
+		LEFT JOIN bookinfo USING (bookinfo_id)
+		WHERE community.community_id = #{community_id}
+		GROUP BY
+		community.community_id;
+	</select>
+	<update id="commCommunityHit" parameterType="int">
+		update community
+		set
+		community_hit = community_hit+1
+		WHERE community_id = #{community_id}
+	</update>
+
+</mapper>
