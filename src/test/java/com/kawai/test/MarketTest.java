@@ -44,6 +44,9 @@ public class MarketTest {
 		dto.setMTitle("3");
 		dto.setMContent("내용");
 		dto.setMarket_id(1);
+		CommDtoBookinfo book = new CommDtoBookinfo(); 
+		book.setBookinfo_id(1);
+		dto.setBookInfo(book);
 		System.out.println(dao.marketUpdate(dto));
 	}
 	// Delete
@@ -112,9 +115,6 @@ public class MarketTest {
 		System.out.println(mOrderDao.mOrderReadAll());
 	}
 	
-	
-	
-	
 	// Delete
 	@Test @Ignore
 	public void marketOrderDelete() {
@@ -172,7 +172,6 @@ public class MarketTest {
 	
 	@Test @Ignore
 	public void marketPayDelete() {
-		MarketPayDto dto = new MarketPayDto();
 		int result = mPayDao.marketPayDelete(1);
 		System.out.println(result);
 	}
@@ -184,13 +183,14 @@ public class MarketTest {
 	}
 	
 	
+	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //marketCart   marketCart   marketCart   marketCart   marketCart   marketCart   marketCart   marketCart          //  
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@Test
+	@Test @Ignore
 	public void marketCartInsert() {
 		MarketCart dto = new MarketCart();
 		dto.setMarket_id(1);
@@ -200,7 +200,26 @@ public class MarketTest {
 	}
 	
 	@Test @Ignore
+	public void marketCartUpdate() {
+		MarketCart dto = new MarketCart();
+		dto.setMCart_id(1);
+		dto.setUser_id("admin");
+		dto.setMCount(4);
+		dto.setMarket_id(1);
+		System.out.println(mCartDao.marketCartUpdate(dto));
+	}
+	
+	@Test @Ignore
 	public void marketCartList() {
-		
+		System.out.println(mCartDao.marketCartList());
+	}
+	
+	
+	@Test @Ignore
+	public void marketCartDelete() {
+    MarketCart dto = new MarketCart();
+    dto.setMCart_id(1);
+    int result = mCartDao.marketCartDelete(1);
+    System.out.println(result);
 	}
 }
