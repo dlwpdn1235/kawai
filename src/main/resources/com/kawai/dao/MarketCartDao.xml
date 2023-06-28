@@ -8,7 +8,7 @@
 		insert into mcart (mCount,market_id,user_id) values(#{mCount},#{market_id},#{user_id})
 	</insert>
 
-	<select id="marketCartList" parameterType="MarketCart">
+	<select id="marketCartList" parameterType="MarketCart" resultType="MarketCart">
 	SELECT c.mcart_id, c.mCount, m.market_id, m.mTitle, m.mContent,
 	m.mPrice, m.mDate
 	FROM mCart c
@@ -17,9 +17,13 @@
 	</select>
 	
 	<update id="marketCartUpdate" parameterType="MarketCart">
-		update user_id=#{id} , user_name=#{name} , user_address =#{address} , user_phonenum=#{phonenum}
+		update mcart set mCount=#{mCount} , user_id=#{user_id} , market_id=#{market_id} , mCartDate = now()  
+		where mcart_id = market_id
 	</update>
  <!-- 	<select id="marketCartInsertList" parameterType="MarketCart"> 
  		select  
  	</select>  -->
+ 	<delete id="marketCartDelete" parameterType="marketCart">
+ 		delete from mcart where mCart_id = #{market_id} 
+ 	</delete>
 </mapper>
