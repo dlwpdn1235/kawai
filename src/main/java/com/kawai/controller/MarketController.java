@@ -17,9 +17,9 @@ public class MarketController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "kawai/marketList.kawai", method = RequestMethod.GET)
+	@RequestMapping(value = "/marketList.kawai", method = RequestMethod.GET)
 	public String home1(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		return "community/marketMain";
+		return "market/market";
 	}
 }
