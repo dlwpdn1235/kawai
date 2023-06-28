@@ -86,7 +86,7 @@ public class CommTest {
 	public void communityRead() {
 		System.out.println(dao.commCommunityRead(3));
 	}
-	@Test //@Ignore
+	@Test @Ignore
 	public void communityAllRead() {
 		CommDtoSearch search = new CommDtoSearch();
 		search.setCategory_id(0);
