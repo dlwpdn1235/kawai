@@ -21,21 +21,21 @@
 		from inquiry 
 		where inquiry_id=#{inquiry_id}
 	</delete>
-	<select id="commInquiryAllRead" parameterType="java.util.HashMap" resultType="CommInquiry"><!-- 조건으로 엔서답변 들어오면 그기준도 넣어주기 -->
-		SELECT inquiry.*, CASE WHEN answer.answer IS NOT NULL THEN TRUE ELSE FALSE END AS isAnswer, answer.answer_date
-		FROM inquiry
-		LEFT JOIN answer ON inquiry.inquiry_id = answer.inquiry_id
-		<where>
-			inquiry.user_id = #{user_id}
-		</where>
-		<choose>
-		    <when test="inquiry_condition == 1">
-		        ORDER BY answer.answer_date DESC NULLS LAST, inquiry.inquiry_date DESC
-		    </when>
-		    <otherwise>
-		        ORDER BY inquiry.inquiry_date DESC
-		    </otherwise>
-		</choose>
+	<select id="commInquiryAllRead" parameterType="java.util.HashMap" resultType="CommInquiry">
+	    SELECT inquiry.*, CASE WHEN answer.answer IS NOT NULL THEN TRUE ELSE FALSE END AS isAnswer, answer.answer_date
+	    FROM inquiry
+	    LEFT JOIN answer ON inquiry.inquiry_id = answer.inquiry_id
+	    <where>
+	        inquiry.user_id = #{user_id}
+	    </where>
+	    <choose>
+	        <when test="inquiry_condition == 1">
+	            ORDER BY CASE WHEN answer.answer_date IS NULL THEN 1 ELSE 0 END, answer.answer_date DESC, inquiry.inquiry_date DESC
+	        </when>
+	        <otherwise>
+	            ORDER BY inquiry.inquiry_date DESC
+	        </otherwise>
+	    </choose>
 	</select>
 	<select id="commInquiryRead" parameterType="int" resultType="CommInquiry">
 		SELECT *
