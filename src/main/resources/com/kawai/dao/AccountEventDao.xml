@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.AccountEventDao">
+<!-- 이벤트페이지 출석체크 및 출석일확인페이지 쿠폰발급 및 조회 에 필요한 sql구문들 -->
+
+<!-- 금일날짜 출석체크 유무 기존에 체크한적이 있다면 체크하지 않기 위함 -->
+<select id="accountEventCheck" parameterType="AccountEventVO" >
+select count(*) from event where id=#{id} and eventdate=#{eventdate}
+</select>
+<!-- 금일날짜 출석체크 해당날짜에 출석체크를 한 적 없다면 값 insert -->
+<insert id="accountEventDo" parameterType="AccountEventVO" >
+insert into event (id) values (#{id});
+</insert>
+<!-- 한 유저의 출석체크한 날짜조회(리스트) VIEW에 달력식으로 값 넣어줄 예정 -->
+<select id="accountEventList" parameterType="AccountEventVO">
+select * from event where id=#{id} order by id asc
+</select>
+<!-- 한 유저의 출석체크한 날짜일수 조회 20이 되면 쿠폰을 발급하기 위함 -->
+<select id="acoountEventDays" parameterType="AccountEventVO">
+select count(*) from event where id=#{id}
+</select>
+<resultMap type="accountUserVO" id="couponInsert">
+	<id property="id" column="id" />
+	<result property="id" column="id" />
+	<result property="name" column="name" />
+	<result property="email" column="email" />
+	<result property="adress" column="adress" />
+	<result property="email" column="email" />
+	<result property="email" column="email" />
+	<result property="email" column="email" />
+	
+</resultMap>
+
+</mapper>
