@@ -5,9 +5,14 @@
 <mapper namespace="com.kawai.dao.AccountUserDao">
 	<!-- 회원가입  role_id는 디폴트0으로 들어감. 관리자는 1인데 DB에서 직접 삽입할 예정 -->
 	<insert id="accountUserInsert" parameterType="AccountUserVO" >
-	insert into user (id,pass,name,birth,email,phonenum,postnum,address,create_ip)
- 	values (#{id},#{pass},#{name},#{birth},#{email},#{phonenum},#{postnum},#{address},#{create_ip});
+	insert into user (id,pass,name,birth,email,phonenum,postnum,address,create_ip) values
+	 (#{id},#{pass},#{name},#{birth},#{email},#{phonenum},#{postnum},#{address},#{create_ip})
 	</insert>
+	
+	<!-- 로그인 회원정보를 받아 session에 올려놓는 역할 -->
+	<select id="accountLogin" parameterType="AccountUserVO" >
+	select * from user where id=#{id} and pass=#{id}
+	</select>
 	
 	<!-- 회원정보 디테일  -->
 	<select id="accountUserRead" parameterType="AccountUserVO" >

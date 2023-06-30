@@ -21,7 +21,14 @@ select * from event where id=#{id} order by id asc
 <select id="acoountEventDays" parameterType="AccountEventVO">
 select count(*) from event where id=#{id}
 </select>
-<resultMap type="accountUserVO" id="couponInsert">
+
+<!-- 쿠폰발급 (유저아이디의 event테이블 카운트가 20이 되면 사용) -->
+<insert id="couponInsert" parameterType="AccountCouponVO">
+insert into coupon (id) values (#{id})
+</insert>
+
+<!-- join 하기위한 유저 소환 -->
+<resultMap id="userMap" type="accountUserVO" >
 	<id property="id" column="id" />
 	<result property="id" column="id" />
 	<result property="name" column="name" />
@@ -30,6 +37,20 @@ select count(*) from event where id=#{id}
 	<result property="adress" column="adress" />
 	<result property="phonenum" column="email" />
 	<result property="birth" column="birth" />
+	<collection property="couponList" resultMap="couponMap" />
 </resultMap>
+<!-- 쿠폰 조인하기위한 녀석 필요한것은 id값 뿐 쿠폰번호는 sql에서 디폴트를 난수로 내용은'해당월쿠폰'으로 디폴트 생성날짜는 커런트타임스탬프 / 스타트 앤드는 해당월의 시작일과 끝일 -->
+<resultMap id="couponMap" type="AccountCouponVO" >
+	<id property="id" column="id" />
+	<result property="id" column="id"/>
+</resultMap>
+<!-- 유저&쿠폰 조회 -->
+<select id="readCoupon" resultMap="userMap" >
+	select * from user a left join coupon b using(id) where id=#{id}
+</select>
+
+
+
+
 
 </mapper>

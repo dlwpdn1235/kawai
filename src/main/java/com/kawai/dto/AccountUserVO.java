@@ -17,11 +17,12 @@ public class AccountUserVO {
 	private String email;
 	private String phonenum;
 	private String postnum;
+	private String address;
 	private int role_id;
 	private String create_date;
 	private String create_ip;
 	private String picture;
-	private List<AccountUserRoleVO> userRoleVO;
-	private List<AccountEventVO> eventVO;
-	private List<AccountCouponVO> couponVO;
+	private List<AccountUserRoleVO> userRoleList;
+	private List<AccountEventVO> eventList;
+	private List<AccountCouponVO> couponList;
 }
