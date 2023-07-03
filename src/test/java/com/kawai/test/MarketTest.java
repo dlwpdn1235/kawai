@@ -49,15 +49,7 @@ public class MarketTest {
 		dto.setBookInfo(book);
 		System.out.println(dao.marketUpdate(dto));
 	}
-	// Delete
-	@Test @Ignore
-	public void marketDelete() {
-	    MarketDto dto = new MarketDto();
-	    dto.setMarket_id(1);
-	    int result = dao.marketDelete(dto.getMarket_id());
-	    System.out.println(result);
-	}
-
+	
 	// Insert
 	@Test @Ignore
 	public void marketInsert() {
@@ -176,7 +168,6 @@ public class MarketTest {
 		System.out.println(result);
 	}
 	
-	
 	@Test @Ignore
 	public void marketPayList() {
 		System.out.println(mPayDao.marketPayList());
@@ -211,9 +202,13 @@ public class MarketTest {
 	
 	@Test @Ignore
 	public void marketCartList() {
+		MarketCart dto = new MarketCart();
+		List<CommDtoBookinfo> booknum = dto.getBookinfo();
+		CommDtoBookinfo book = new CommDtoBookinfo();
+		
+		
 		System.out.println(mCartDao.marketCartList());
 	}
-	
 	
 	@Test @Ignore
 	public void marketCartDelete() {
