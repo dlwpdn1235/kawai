@@ -31,7 +31,7 @@
 		
 	<servlet-mapping>
 		<servlet-name>kawai</servlet-name>
-		<url-pattern>*.kawai</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 </web-app>

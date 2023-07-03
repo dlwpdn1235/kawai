@@ -85,6 +85,7 @@
   img{
   	width: 50px;
   }
+  
 	
 #gogogo{
 	width:250px;
@@ -107,7 +108,7 @@
     </div>
 	    <ul class="nav navbar-nav">
 	      <li><a href="#">지도</a></li>
-	      <li><a href="#">커뮤니티</a></li>
+	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
 	      <li><a href="#">마켓</a></li>
 	    </ul>
 	    <ul class="nav navbar-nav navbar-right">
