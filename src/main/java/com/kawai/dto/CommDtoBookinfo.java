@@ -11,5 +11,4 @@ public class CommDtoBookinfo {
 	private String book_publisher;
 	private String book_image;
 	private String book_pubdate;
-
 }

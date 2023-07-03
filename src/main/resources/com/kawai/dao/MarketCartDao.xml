@@ -9,10 +9,10 @@
 	</insert>
 
 	<select id="marketCartList" parameterType="MarketCart" resultType="MarketCart">
-	SELECT c.mcart_id, c.mCount, m.market_id, m.mTitle, m.mContent,
-	m.mPrice, m.mDate
+	SELECT c.*, b.*, u.*
 	FROM mCart c
 	LEFT JOIN market m ON c.mcart_id = m.market_id
+	LEFT JOIN bookinfo b ON b.bookinfo_id = m.market_id
 	LEFT JOIN user u ON u.id = m.market_id;
 	</select>
 	
@@ -26,4 +26,6 @@
  	<delete id="marketCartDelete" parameterType="marketCart">
  		delete from mcart where mCart_id = #{market_id} 
  	</delete>
+ 	
+
 </mapper>
