@@ -10,23 +10,23 @@
 	</insert>
 	
 	<!-- 로그인 회원정보를 받아 session에 올려놓는 역할 -->
-	<select id="accountLogin" parameterType="AccountUserVO" >
-	select * from user where id=#{id} and pass=#{id}
+	<select id="accountLogin" parameterType="AccountUserVO" resultType="AccountUserVO">
+	select * from user where id=#{id} and pass=#{pass}
 	</select>
 	
 	<!-- 회원정보 디테일  -->
-	<select id="accountUserRead" parameterType="AccountUserVO" >
+	<select id="accountUserRead" parameterType="String" resultType="AccountUserVO">
 	select * from user where id=#{id}
 	</select>
 	
 	<!-- 회원정보리스트 -->
-	<select id="accountUserList" parameterType="AccountUserVO">
+	<select id="accountUserList" parameterType="AccountUserVO" resultType="AccountUserVO" >
 	select * from user
 	</select>
 	
 	<!-- 회원정보 수정 -->
 	<update id="accountUserUpdate" parameterType="AccountUserVO">
-	update user set name=#{name},birth=#{birth},#{phonenum},#{postnum},#{address} where id=#{id}
+	update user set name=#{name},birth=#{birth},phonenum=#{phonenum},postnum=#{postnum},address=#{address} where id=#{id}
 	</update>
 	
 	<!-- 회원탈퇴 -->
