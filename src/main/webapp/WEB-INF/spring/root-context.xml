@@ -19,7 +19,7 @@
 	</bean>
 
 	<context:component-scan base-package="com.kawai"/>
-   	<context:property-placeholder location="file:src/main/resources/config/db.properties" />
+   	<context:property-placeholder location="classpath:/config/db.properties" />
    	<bean   id="dataSource"   class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property  name="driverClass"   value="${db.driverClass}"/>	
 		<property  name="url"   		value="${db.url}"/>	

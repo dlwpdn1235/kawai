@@ -176,12 +176,13 @@ public class CommTest {
 		comment.setComment("추천요1");
 		comment.setComment_ip("111-111-111");
 		comment.setCommunity_id(3);
-		comment.setComment_id(6);
+		comment.setComment_id(11);
 		comment.setUser_id("user001");
 //		System.out.println(commentdao.commentInsert(comment));
-		System.out.println(commentdao.commCommentInsert(comment));
+		System.out.println(commentdao.commentInsert(comment));
 //		System.out.println(commentdao.commentUpdate(comment));
 	}
+
 	@Test @Ignore
 	public void commCommentDelete() {
 		System.out.println(commentdao.commentDelete(5));
@@ -212,8 +213,17 @@ public class CommTest {
 		Map<String, Object> map = new HashMap<>();
 		map.put("community_id_list", community_id);
 		map.put("community_hide", 0);
-		System.out.println(dao.commCategoryUpdate(map));
+		System.out.println(dao.commHideUpdate(map));
 
+	}
+	@Test @Ignore
+	public void commBookinfoCheck() {
+		CommDtoBookinfo bookinfo = new CommDtoBookinfo();
+		bookinfo.setBook_title("승재형은 왜그럴까");
+		bookinfo.setBook_author("제우리");
+		bookinfo.setBook_publisher("그린아카데미");
+		bookinfo.setBook_pubdate("2023-01-20");
+		System.out.println(dao2.commBookinfoCheck(bookinfo));
 	}
 
 }
