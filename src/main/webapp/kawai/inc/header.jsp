@@ -85,11 +85,28 @@
   img{
   	width: 50px;
   }
+  
 	
 #gogogo{
 	width:250px;
 }  
 
+#marketCheck{
+margin-left:700px;
+}
+
+
+#marketLikeCheck + label {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-image: url('../img/marketLikeCheck.png');
+  background-size: cover;
+}
+
+#marketProductCheck{
+float:left;
+}
 
   </style>
 </head>
@@ -105,11 +122,13 @@
       </button>
       <a class="navbar-brand" href="#myPage">동네글방</a>
     </div>
+    
 	    <ul class="nav navbar-nav">
 	      <li><a href="#">지도</a></li>
-	      <li><a href="#">커뮤니티</a></li>
-	      <li><a href="#">마켓</a></li>
+	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
+	      <li><a href="${pageContext.request.contextPath}/market/marketview">마켓</a></li>
 	    </ul>
+	    
 	    <ul class="nav navbar-nav navbar-right">
 	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
 	      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>

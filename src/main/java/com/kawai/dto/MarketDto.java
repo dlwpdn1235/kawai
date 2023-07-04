@@ -12,5 +12,4 @@ public class MarketDto {
 	private String mDate;
 	private String user_id;
 	private CommDtoBookinfo bookInfo;
-
 }
