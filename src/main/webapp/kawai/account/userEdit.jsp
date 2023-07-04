@@ -12,6 +12,7 @@
 <body>
 	<div class="container panel panel-warning">
 		<h3 class = "panel-heading">나의 정보 수정</h3>
+		<p>수정폼</p>
 	</div>
 </body>
 </html>
