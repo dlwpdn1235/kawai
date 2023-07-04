@@ -12,6 +12,7 @@
 <body>
 	<div class="container panel panel-warning">
 		<h3 class = "panel-heading">출석체크 이벤트</h3>
+		<p>달력을 넣을 예정.</p>
 	</div>
 </body>
 </html>
