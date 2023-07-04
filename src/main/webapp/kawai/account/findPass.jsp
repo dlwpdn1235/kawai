@@ -12,6 +12,7 @@
 <body>
 	<div class="container panel panel-warning">
 		<h3 class = "panel-heading">비밀번호 찾기</h3>
+		
 	</div>
 </body>
 </html>
