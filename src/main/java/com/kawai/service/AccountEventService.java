@@ -7,7 +7,7 @@ import com.kawai.dto.AccountUserVO;
 
 public interface AccountEventService {
 	// 금일날짜 출석체크 유무 기존에 체크한적이 있다면 체크하지 않기 위함
-	public int accountEventCheck(AccountEventVO eventVO);
+	public int accountEventCheck(String id);
 	
 	// 금일날짜 출석체크 해당날짜에 출석체크를 한 적 없다면 값 입력
 	public int accountEventDo(String id);

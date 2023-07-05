@@ -130,8 +130,8 @@ float:left;
 	    </ul>
 	    
 	    <ul class="nav navbar-nav navbar-right">
-	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
-	      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
+	      <li><a href="${pageContext.request.contextPath}/account/singUp"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
+	      <li><a href="${pageContext.request.contextPath}/account/login"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
 	    </ul>
   </div>
 </nav>
