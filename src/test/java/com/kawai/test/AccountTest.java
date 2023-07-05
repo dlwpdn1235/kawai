@@ -43,11 +43,10 @@ public class AccountTest {
 		log.info(user.accountLogin(userVO));
 	}
 	
-	@Test @Ignore
-	public void accountUserReadTest() { //나의정보 테스트
-		log.info(user.accountUserRead("user001"));
-	}
-	
+	/*
+	 * @Test @Ignore public void accountUserReadTest() { //나의정보 테스트
+	 * log.info(user.accountUserRead("user001")); }
+	 */
 	@Test @Ignore
 	public void accountUserListTest() { //유저목록 테스트
 		log.info(user.accountUserList());

@@ -12,7 +12,7 @@ public interface AccountUserDao {
 	public AccountUserVO accountLogin(AccountUserVO user);
 	
 	// 회원정보 상세보기 accountUserRead
-	public AccountUserVO accountUserRead(String id);
+	public AccountUserVO accountUserRead(AccountUserVO user);
 	
 	// 회원목록 리스트 accountUserList
 	public List<AccountUserVO> accountUserList();
