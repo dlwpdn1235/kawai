@@ -5,7 +5,7 @@
 <mapper namespace="com.kawai.dao.AccountEventDao">
 <!-- 이벤트페이지 출석체크 및 출석일확인페이지 쿠폰발급 및 조회 에 필요한 sql구문들 -->
 
-<!-- 금일날짜 출석체크 유무 기존에 체크한적이 있다면 체크하지 않기 위함 -->
+<!-- 금일날짜 출석체크 유무 기존에 체크한적이 있다면 체크하지 않기 위함 해결-->
 <select id="accountEventCheck" parameterType="AccountEventVO" resultType="Integer" >
 select count(*) from event where id=#{id} and eventdate=#{eventdate}
 </select>

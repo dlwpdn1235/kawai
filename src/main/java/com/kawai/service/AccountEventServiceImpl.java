@@ -1,5 +1,7 @@
 package com.kawai.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,19 @@ import com.kawai.dto.AccountUserVO;
 public class AccountEventServiceImpl implements AccountEventService{
 	@Autowired AccountEventDao dao;
 	
-	
 	@Override
-	public int accountEventCheck(AccountEventVO eventVO) {
+	public int accountEventCheck(String id) {
+		// 세션에 있는 아이디값 - 날짜
+		//이 아이디값은 세션에 저장된 값을 끌어올 예정
+		
 		// 금일날짜 출석체크 유무 기존에 체크한적이 있다면 체크하지 않기 위함
+		LocalDate now = LocalDate.now();
+		AccountEventVO eventVO = new AccountEventVO();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatedNow = now.format(formatter);
+		eventVO.setId( id );
+		eventVO.setEventdate(formatedNow);
+		
 		return dao.accountEventCheck(eventVO);
 	}
 

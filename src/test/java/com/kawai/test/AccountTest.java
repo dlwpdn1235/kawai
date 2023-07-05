@@ -1,5 +1,8 @@
 package com.kawai.test;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +86,7 @@ public class AccountTest {
 		//금일날짜 출석체크 유무 기존에 체크한적이 있다면 체크하지 않기 위함
 		AccountEventVO eventVO = new AccountEventVO();
 		eventVO.setId("user001");
-		eventVO.setEventdate("2023-06-02");
+		eventVO.setEventdate("2023-07-05");
 		log.info(event.accountEventCheck(eventVO));
 	}
 	
@@ -117,4 +120,15 @@ public class AccountTest {
 		log.info(event.readCoupon("user001"));
 	}
 	
+	@Test //@Ignore
+	public void timetest() {
+		LocalDate now = LocalDate.now();
+		AccountEventVO eventVO = new AccountEventVO();
+		log.info(now);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatedNow = now.format(formatter);
+		eventVO.setId("user001");
+		eventVO.setEventdate(formatedNow);
+		log.info(event.accountEventCheck(eventVO));
+	}
 }

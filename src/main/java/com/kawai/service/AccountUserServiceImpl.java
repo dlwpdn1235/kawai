@@ -18,6 +18,8 @@ public class AccountUserServiceImpl implements AccountUserService {
 	@Override
 	public int accountUserInsert(HttpServletRequest request , AccountUserVO user) {
 		//회원가입 서비스
+		String basic_adress = request.getParameter("basic_addr");
+		user.setAddress(basic_adress + user.getAddress());
 		try {
 			user.setCreate_ip(InetAddress.getLocalHost().getHostAddress());
 		} catch (Exception e) { e.printStackTrace(); }
@@ -27,6 +29,9 @@ public class AccountUserServiceImpl implements AccountUserService {
 	@Override
 	public AccountUserVO accountLogin(HttpServletRequest request , AccountUserVO user) {
 		//로그인 서비스
+		if(dao.accountLogin(user)!=null) { //로그인이 되었다면
+			request.getSession().setAttribute("account", user);
+		}
 		return dao.accountLogin(user);
 	}
 
