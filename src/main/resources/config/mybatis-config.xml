@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+		
 		<typeAlias type="com.kawai.dto.MarketCart" alias="MarketCart"/>
 		<typeAlias type="com.kawai.dto.MarketDto" alias="Market"/>
 	  	<typeAlias type="com.kawai.dto.MarketPayDto" alias="MarketPay"/>
@@ -17,13 +18,18 @@
 		<typeAlias type="com.kawai.dto.CommDtoAnswer" alias="CommAnswer"/>
 		<typeAlias type="com.kawai.dto.CommDtoComment" alias="CommComment"/>
 		<typeAlias type="com.kawai.dto.CommDtoCommentLike" alias="CommCommentLike"/>
-		<typeAlias type="com.kawai.dto.CommDtoSearch" alias="CommSearch"/>
+		<typeAlias type="com.kawai.dto.CommDtoSearch" alias="CommSearch"/> 
+		
+		<typeAlias type="com.kawai.dto.BookHashTagVO" alias="BookHashTagVO"/>
+		<typeAlias type="com.kawai.dto.BookImgVO" alias="BookImgVO"/>
+		<typeAlias type="com.kawai.dto.BookLikesVO" alias="BookLikesVO"/>
+		<typeAlias type="com.kawai.dto.BookStoreVO" alias="BookStoreVO"/>
 		
 		<typeAlias alias="AccountUserVO" type="com.kawai.dto.AccountUserVO"/>
 		<typeAlias alias="AccountUserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>
 		<typeAlias alias="AccountEventVO" type="com.kawai.dto.AccountEventVO"/>
 		<typeAlias alias="AccountCouponVO" type="com.kawai.dto.AccountCouponVO"/>
-    
+
 	</typeAliases>
 	      
 </configuration>

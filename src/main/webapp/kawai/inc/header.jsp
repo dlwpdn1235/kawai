@@ -91,6 +91,52 @@
 	width:250px;
 }  
 
+/*
+06-30 도연 주소검색부분
+	map 수정
+*/
+.map_container {
+    padding-top: 75px;
+}
+dt.dt_find_search {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.address_search {
+  display: inline-block;
+  color: gray;
+}
+#search_button {
+  float: right;
+}
+#sample6_postcode { 
+  width: 150px;
+  margin-bottom: 12px;
+  padding: 0.5em;
+  background-color: transparent;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
+#sample6_address {
+  width: 450px;
+  margin-bottom: 12px;
+  padding: 0.5em;
+  background-color: transparent;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
+#sample6_detailAddress {
+  width: 300px;
+  margin-bottom: 12px;
+  padding: 0.5em;
+  background-color: transparent;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
+/*
+수정완
+*/
+
 #marketCheck{
 margin-left:700px;
 }
@@ -108,7 +154,7 @@ margin-left:700px;
 float:left;
 }
 
-  </style>
+ </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
