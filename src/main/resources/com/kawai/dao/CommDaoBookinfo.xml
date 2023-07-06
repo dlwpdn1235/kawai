@@ -16,5 +16,14 @@
 	<delete id="commBookinfoDelete" parameterType="int"  >
 		delete from bookinfo where bookinfo_id=#{bookinfo_id}
 	</delete>
+	<select id="commBookinfoCheck" parameterType="CommDtoBookinfo" resultType="Integer">
+	  SELECT bookinfo_id	  
+	  FROM bookinfo 
+	  WHERE 
+	    book_title = #{book_title}
+	    AND book_author = #{book_author}
+	    AND book_publisher = #{book_publisher}
+	    AND book_pubdate = #{book_pubdate}
+	</select>
 	
 </mapper>

@@ -2,16 +2,17 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.kawai.dao.MarketDao">
 
 	<insert id="marketInsert" parameterType="MarketPay">
-		insert into market(mTitle,mContent,mIp,mPrice,user_id,bookInfo_id)
+		insert into market(mTitle,mContent,mIp,mPrice,user_id)
 		values(#{mTitle},#{mContent},#{mIp},
-		#{mPrice},#{user_id},#{bookInfo.bookinfo_id})
+		#{mPrice},#{user_id})
 	</insert>
 
 	<update id="marketUpdate" parameterType="MarketPay">
-		update market set mTitle=#{mTitle} , mContent=#{mContent} where
+		update market set mTitle=#{mTitle} , mContent=#{mContent} , bookInfo_id=#{bookInfo.bookinfo_id} where
 		market_id=#{market_id}
 	</update>
 
@@ -19,23 +20,23 @@
 		resultType="Market">
 		select * from market m
 
-		<if test="marketSearch != 0 and marketSerchKeyWord != ''">
+		<if test="marketSearch != 0 and marketSearchKeyWord != ''">
 			<where>
 				<choose>
 					<when test="marketSearch == 1">
-						m.mTitle = #{marketSerchKeyWord}
+						m.mTitle = #{marketSearchKeyWord}
 					</when>
 					<when test="marketSearch == 2">
 						inner join bookinfo bi on m.bookinfo_id = bi.bookinfo_id
-						and bi.book_title = #{marketSerchKeyWord}
+						and bi.book_title = #{marketSearchKeyWord}
 					</when>
 					<when test="marketSearch == 3">
 						inner join bookinfo bi on m.bookinfo_id = bi.bookinfo_id
-						and bi.book_author = #{marketSerchKeyWord}
+						and bi.book_author = #{marketSearchKeyWord}
 					</when>
 					<when test="marketSearch == 4">
 						inner join bookinfo bi on m.bookinfo_id = bi.bookinfo_id
-						and bi.book_publisher = #{marketSerchKeyWord}
+						and bi.book_publisher = #{marketSearchKeyWord}
 					</when>
 				</choose>
 
@@ -61,10 +62,9 @@
 				limit #{marketPageCount},#{marketListCount}
 			</when>
 			<otherwise>
-				limit #{marketPageCount},10
+				limit #{marketPageCount},20
 			</otherwise>
 		</choose>
-
 	</select>
 
 	<update id="marketCount" parameterType="Market">
@@ -78,5 +78,6 @@
 		delete from market where
 		market_id =#{market_id}
 	</delete>
-
+	
+	
 </mapper>

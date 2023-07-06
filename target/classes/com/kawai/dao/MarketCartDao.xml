@@ -8,18 +8,24 @@
 		insert into mcart (mCount,market_id,user_id) values(#{mCount},#{market_id},#{user_id})
 	</insert>
 
-	<select id="marketCartList" parameterType="MarketCart">
-	SELECT c.mcart_id, c.mCount, m.market_id, m.mTitle, m.mContent,
-	m.mPrice, m.mDate
+	<select id="marketCartList" parameterType="MarketCart" resultType="MarketCart">
+	SELECT c.*, b.*, u.*
 	FROM mCart c
 	LEFT JOIN market m ON c.mcart_id = m.market_id
+	LEFT JOIN bookinfo b ON b.bookinfo_id = m.market_id
 	LEFT JOIN user u ON u.id = m.market_id;
 	</select>
 	
 	<update id="marketCartUpdate" parameterType="MarketCart">
-		update user_id=#{id} , user_name=#{name} , user_address =#{address} , user_phonenum=#{phonenum}
+		update mcart set mCount=#{mCount} , user_id=#{user_id} , market_id=#{market_id} , mCartDate = now()  
+		where mcart_id = market_id
 	</update>
  <!-- 	<select id="marketCartInsertList" parameterType="MarketCart"> 
  		select  
  	</select>  -->
+ 	<delete id="marketCartDelete" parameterType="marketCart">
+ 		delete from mcart where mCart_id = #{market_id} 
+ 	</delete>
+ 	
+
 </mapper>

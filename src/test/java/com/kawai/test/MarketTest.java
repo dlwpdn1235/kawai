@@ -44,17 +44,12 @@ public class MarketTest {
 		dto.setMTitle("3");
 		dto.setMContent("내용");
 		dto.setMarket_id(1);
+		CommDtoBookinfo book = new CommDtoBookinfo(); 
+		book.setBookinfo_id(1);
+		dto.setBookInfo(book);
 		System.out.println(dao.marketUpdate(dto));
 	}
-	// Delete
-	@Test @Ignore
-	public void marketDelete() {
-	    MarketDto dto = new MarketDto();
-	    dto.setMarket_id(1);
-	    int result = dao.marketDelete(dto.getMarket_id());
-	    System.out.println(result);
-	}
-
+	
 	// Insert
 	@Test @Ignore
 	public void marketInsert() {
@@ -111,9 +106,6 @@ public class MarketTest {
 	public void marketOrderList() {
 		System.out.println(mOrderDao.mOrderReadAll());
 	}
-	
-	
-	
 	
 	// Delete
 	@Test @Ignore
@@ -172,16 +164,15 @@ public class MarketTest {
 	
 	@Test @Ignore
 	public void marketPayDelete() {
-		MarketPayDto dto = new MarketPayDto();
 		int result = mPayDao.marketPayDelete(1);
 		System.out.println(result);
 	}
-	
 	
 	@Test @Ignore
 	public void marketPayList() {
 		System.out.println(mPayDao.marketPayList());
 	}
+	
 	
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -190,7 +181,7 @@ public class MarketTest {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	@Test
+	@Test @Ignore
 	public void marketCartInsert() {
 		MarketCart dto = new MarketCart();
 		dto.setMarket_id(1);
@@ -200,7 +191,30 @@ public class MarketTest {
 	}
 	
 	@Test @Ignore
+	public void marketCartUpdate() {
+		MarketCart dto = new MarketCart();
+		dto.setMCart_id(1);
+		dto.setUser_id("admin");
+		dto.setMCount(4);
+		dto.setMarket_id(1);
+		System.out.println(mCartDao.marketCartUpdate(dto));
+	}
+	
+	@Test @Ignore
 	public void marketCartList() {
+		MarketCart dto = new MarketCart();
+		List<CommDtoBookinfo> booknum = dto.getBookinfo();
+		CommDtoBookinfo book = new CommDtoBookinfo();
 		
+		
+		System.out.println(mCartDao.marketCartList());
+	}
+	
+	@Test @Ignore
+	public void marketCartDelete() {
+    MarketCart dto = new MarketCart();
+    dto.setMCart_id(1);
+    int result = mCartDao.marketCartDelete(1);
+    System.out.println(result);
 	}
 }

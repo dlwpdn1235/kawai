@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kawai.dao.AccountEventDao">
+<!-- 이벤트페이지 출석체크 및 출석일확인페이지 쿠폰발급 및 조회 에 필요한 sql구문들 -->
+
+<!-- 금일날짜 출석체크 유무 기존에 체크한적이 있다면 체크하지 않기 위함 해결-->
+<select id="accountEventCheck" parameterType="AccountEventVO" resultType="Integer" >
+select count(*) from event where id=#{id} and eventdate=#{eventdate}
+</select>
+<!-- 금일날짜 출석체크 해당날짜에 출석체크를 한 적 없다면 값 insert -->
+<insert id="accountEventDo" parameterType="string"  >
+insert into event (id) values (#{id});
+</insert>
+<!-- 한 유저의 출석체크한 날짜조회(리스트) VIEW에 달력식으로 값 넣어줄 예정 -->
+<select id="accountEventList" parameterType="string" resultType="AccountEventVO" >
+select * from event where id=#{id} order by id asc
+</select>
+
+<!-- 한 유저의 출석체크한 날짜일수 조회 20이 되면 쿠폰을 발급하기 위함 -->
+<select id="accountEventDays" parameterType="string" resultType="int">
+    SELECT COUNT(*) FROM event WHERE id = #{id}
+</select>
+
+<!-- 쿠폰발급 (유저아이디의 event테이블 카운트가 20이 되면 사용) -->
+<insert id="couponInsert" parameterType="string">
+insert into coupon (id) values (#{id})
+</insert>
+
+<!-- join 하기위한 유저 소환 -->
+<resultMap id="userMap" type="accountUserVO" >
+	<id property="id" column="id" />
+	<result property="id" column="id" />
+	<result property="name" column="name" />
+	<result property="email" column="email" />
+	<result property="postnum" column="postnum" />
+	<result property="adress" column="adress" />
+	<result property="phonenum" column="email" />
+	<result property="birth" column="birth" />
+	<collection property="couponList" resultMap="couponMap" />
+</resultMap>
+<!-- 쿠폰 조인하기위한 녀석 필요한것은 id값 뿐 쿠폰번호는 sql에서 디폴트를 난수로 내용은'해당월쿠폰'으로 디폴트 생성날짜는 커런트타임스탬프 / 스타트 앤드는 해당월의 시작일과 끝일 -->
+<resultMap id="couponMap" type="AccountCouponVO" >
+	<id property="id" column="id" />
+	<result property="id" column="id"/>
+	<result property="couponname" column="couponname"/>
+	<result property="context" column="context"/>
+	<result property="period" column="period"/>
+	<result property="start" column="start"/>
+	<result property="end" column="end"/>
+</resultMap>
+<!-- 유저&쿠폰 조회 -->
+<select id="readCoupon" resultMap="userMap" >
+	select * from user a left join coupon b using(id) where id=#{id}
+</select>
+
+
+
+</mapper>
