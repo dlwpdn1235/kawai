@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- bookimg -->
+  <!-- bookimg   bookstore 만들고 다시 test readall은 됬음 
+  		임시로 user_id default값 '김도연'으로 설정후, 테스트 아래 sql에 user_id 임시로 빼
+  -->
+  
+   <mapper namespace="com.kawai.dao.BookStoreDao">
+     <insert id="bookstoreinsert" parameterType="BookStoreVO">
+    INSERT INTO bookstore ( 
+    tag_id, bs_name , bs_phonenum , bs_address , bs_address_detail , bs_postnum , bs_closeday ,
+    bs_content, bs_opendate , bs_start_date , bs_end_date)
+    VALUES ( 
+            #{tag_id} , #{bs_name} , #{bs_phonenum} , #{bs_address} , #{bs_address_detail}, #{bs_postnum}
+             , #{bs_closeday} , #{bs_content} , #{bs_opendate} , #{bs_start_date} , #{bs_end_date})
+     </insert> 
+     
+  	<update id="bookstoreupdate" parameterType="BookStoreVO">
+  	UPDATE bookstore
+    SET tag_id = (SELECT tag_id FROM hashtag WHERE tag_id = #{tag_id}),
+        bs_start_date = #{bs_start_date},
+        bs_end_date = #{bs_end_date},
+        bs_closeday = #{bs_closeday},
+        bs_phonenum = #{bs_phonenum},
+        bs_opendate = #{bs_opendate},
+        bs_content = #{bs_content},
+        bs_reg_date = #{bs_reg_date}
+    WHERE bs_no = #{bs_no}
+  	</update> 
+  	
+  	<delete id="bookstoredelete" parameterType="int">
+  		delete from bookstore where bs_no = #{bs_no}
+  	</delete>
+  	 
+  	
+  	<select id="bookstoreread" parameterType="int" resultType="BookStoreVO">
+  		select * from bookstore where bs_no=#{bs_no}
+  	</select>
+  
+  	<select id="bookstorereadAll" resultType="BookStoreVO">
+  		select * from bookstore order by bs_no desc
+  	</select> 
+  	
+  
+  </mapper>
