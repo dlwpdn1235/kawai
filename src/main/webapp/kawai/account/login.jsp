@@ -10,8 +10,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container panel panel-warning">
-		<h3 class = "panel-heading">로그인</h3>
+	<div class="container">
+		<p class="text-center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFP0-wv89LkxDV8yIpgNVEe7T-0YIqczCH3A&usqp=CAU" alt="??" ><p>
+		<h3 class = "text-center">동네글방 로그인</h3>
+		
+		
+		
+		
+		
 	</div>
 </body>
 </html>

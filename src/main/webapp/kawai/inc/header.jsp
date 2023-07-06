@@ -166,7 +166,7 @@ float:left;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#myPage">동네글방</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/main/view">동네글방</a>
     </div>
     
 	    <ul class="nav navbar-nav">
