@@ -28,7 +28,7 @@
 		LEFT JOIN comment_like ON comment.comment_id = comment_like.comment_id
 		WHERE comment.community_id = #{community_id}
 		GROUP BY comment.comment_id
-		ORDER BY order by comment_step DSEC, comment_indent ASC
+		ORDER BY comment_step DESC, comment_indent ASC
 	</select>
 	<update id="commCommentStepUpdate" parameterType="java.util.HashMap">
 		UPDATE comment

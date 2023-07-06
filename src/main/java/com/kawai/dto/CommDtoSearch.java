@@ -1,8 +1,12 @@
 package com.kawai.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommDtoSearch {
 	private int category_id;
 	private int condition;

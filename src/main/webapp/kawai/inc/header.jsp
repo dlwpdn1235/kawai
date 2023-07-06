@@ -108,6 +108,11 @@ margin-left:700px;
 float:left;
 }
 
+.tmpt{
+  margin-top: 50px;
+  padding: 20px;2
+}
+
   </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">

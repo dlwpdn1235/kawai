@@ -63,19 +63,20 @@ public class CommTest {
 	@Test @Ignore
 	public void communityInsert() {
 		CommDto info = new CommDto();
-		info.setCommunity_title("승재형은 왜그럴까?라는 책의 리뷰입니다.");
-		info.setCommunity_content("이책은 진짜 승재형이 왜그럴까에대해 잘설명되어있습니다.");
+		info.setCommunity_title("공지사항 입니다.");
+		info.setCommunity_content("공지사항 내용입니다.");
 		info.setCommunity_ip("111-222-111");
 		info.setUser_id("user001");
 //		info.setCommunity_id(2);
 		CommDtoBookinfo info2 = new CommDtoBookinfo();
 		info2.setBookinfo_id(1);
 		info.setBookinfo(info2);
-		CommDtoCategory info3 = new CommDtoCategory();
-		info3.setCategory_id(2);
-		info.setCommcategory(info3);
+		info.setComm_category_id(1);
 		info.setCommunity_hide(1);
+		for(int i=0; i<5; i++){
+			
 		dao.commCommunityInsert(info);
+		}
 //		dao.commCommunityUpdate(info);
 	}
 	@Test @Ignore
@@ -92,7 +93,7 @@ public class CommTest {
 		search.setCategory_id(0);
 		search.setCondition(0);
 		search.setDay(0);
-		search.setSearchKeyword("");
+		search.setSearchKeyword("승재형");
 		search.setSearchType(1);
 		search.setCount(0);
 		search.setCommunity_hide(1);
