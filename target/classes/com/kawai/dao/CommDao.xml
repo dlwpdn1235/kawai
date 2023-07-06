@@ -6,11 +6,10 @@
 	<insert id="commCommunityInsert" parameterType="CommDto">
 		insert
 		into
-		community(community_title, community_content, community_ip, user_id,
-		bookinfo_id,
-		comm_category_id,community_hide)
+		community(community_title, community_content, community_ip, user_id, 
+		bookinfo_id,comm_category_id,community_hide)
 		values(#{community_title},#{community_content},#{community_ip},#{user_id},
-		#{bookinfo.bookinfo_id},#{commcategory.category_id},#{community_hide})
+		#{bookinfo.bookinfo_id},#{comm_category_id},#{community_hide})
 	</insert>
 	<update id="commCommunityUpdate" parameterType="CommDto">
 		UPDATE
@@ -74,8 +73,10 @@
 		<id property="community_id"         column="community_id" /> <!-- property : MemberVO -->
 		<result property="community_id"     column="community_id" /> <!-- column : db컬럼명 -->
 		<result property="community_title"  column="community_title" />
+		<result property="community_content"  column="community_content" />
 		<result property="community_hit"    column="community_hit" />
 		<result property="community_date"   column="community_date" />
+		<result property="comm_category_id"   column="comm_category_id" />
 		<result property="user_id"          column="user_id" />
 		<result property="communityLikeCnt" column="like_count" />
  		<association property="bookinfo"     resultMap="commDtoBookinfo" />

@@ -20,7 +20,17 @@
 		WHERE community_like.user_id = #{user_id}
 		ORDER BY community_date DESC;
 	</select>
-
+	<resultMap id="communityLike" type="CommunityLike">
+		<result property="community_id" column="community_id" /> <!-- column : db컬럼명 -->
+		<result property="user_id"  column="user_id" />
+		<result property="checkLike"  column="checkLike" />
+ 	</resultMap>
+	<select id="communityIsLike" parameterType="CommunityLike" resultMap="communityLike">
+		SELECT community_id, user_id, CASE WHEN COUNT(*) = 0 THEN false ELSE true END AS checkLike
+		FROM community_like
+		WHERE community_id = #{community_id}
+		AND user_id = #{user_id}
+	</select>
 
 
 </mapper>

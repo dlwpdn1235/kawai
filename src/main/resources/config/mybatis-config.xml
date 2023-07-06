@@ -18,7 +18,8 @@
 		<typeAlias type="com.kawai.dto.CommDtoAnswer" alias="CommAnswer"/>
 		<typeAlias type="com.kawai.dto.CommDtoComment" alias="CommComment"/>
 		<typeAlias type="com.kawai.dto.CommDtoCommentLike" alias="CommCommentLike"/>
-		<typeAlias type="com.kawai.dto.CommDtoSearch" alias="CommSearch"/> 
+		<typeAlias type="com.kawai.dto.CommDtoSearch" alias="CommSearch"/>
+		<typeAlias type="com.kawai.dto.CommDtoCategory" alias="CommCategory"/>
 		
 		<typeAlias type="com.kawai.dto.BookHashTagVO" alias="BookHashTagVO"/>
 		<typeAlias type="com.kawai.dto.BookImgVO" alias="BookImgVO"/>
