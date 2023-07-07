@@ -5,7 +5,7 @@
 <mapper namespace="com.kawai.dao.MarketCartDao">
 
 	<insert id="marketCartInsert" parameterType="MarketCart">
-		insert into mcart (mCount,market_id,user_id) values(#{mCount},#{market_id},#{user_id})
+		insert into mcart (market_id,user_id) values(#{market_id},#{user_id})
 	</insert>
 
 	<select id="marketCartList" parameterType="MarketCart" resultType="MarketCart">
@@ -17,15 +17,22 @@
 	</select>
 	
 	<update id="marketCartUpdate" parameterType="MarketCart">
-		update mcart set mCount=#{mCount} , user_id=#{user_id} , market_id=#{market_id} , mCartDate = now()  
+		update mcart set  user_id=#{user_id} , market_id=#{market_id} , mCartDate = now()  
 		where mcart_id = market_id
 	</update>
  <!-- 	<select id="marketCartInsertList" parameterType="MarketCart"> 
  		select  
  	</select>  -->
  	<delete id="marketCartDelete" parameterType="marketCart">
- 		delete from mcart where mCart_id = #{market_id} 
+ 		delete from mcart where mCart_id = #{no} 
  	</delete>
  	
+ 	<update id="marketCartCountUpdate">
+		UPDATE mcart
+		SET mcount = (
+		  SELECT COUNT(*) FROM mcart WHERE user_id = #{user_id} AND market_id = #{market_id}
+		)
+		WHERE user_id = #{user_id} AND market_id = #{market_id}
+ 	</update>
 
 </mapper>

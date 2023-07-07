@@ -18,6 +18,9 @@ public class MarketServiceImpl implements MarketService{
 
 	@Autowired
 	MarketDao dao;
+	
+	@Autowired
+	CommServiceBookinfo info;
 
 	@Override
 	public MarketDto marketRead(int no) {
@@ -48,11 +51,14 @@ public class MarketServiceImpl implements MarketService{
 
 	@Override
 	public int marketInsert(MarketDto dto) {
-
+		dto.getBookInfo().setBookinfo_id(info.commBookinfoInsert(dto.getBookInfo()));
 		return dao.marketInsert(dto);
 	}
 
+	@Override
+	public int commBookinfoInsert(MarketDto dto) {
+		dto.getBookInfo().setBookinfo_id(info.commBookinfoInsert(dto.getBookInfo()));
+		return dao.marketInsert(dto);
+	}
 
-
-	
 }

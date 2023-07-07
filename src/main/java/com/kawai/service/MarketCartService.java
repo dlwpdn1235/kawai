@@ -7,6 +7,6 @@ import com.kawai.dto.MarketCart;
 public interface MarketCartService {
 	public int marketCartInsert(MarketCart dto);
 	public int marketCartUpdate(MarketCart dto);
-	public int marketCartDelete(int no);
+	public int marketCartDelete(MarketCart dto);
 	public List<MarketCart>marketCartList();
 }
