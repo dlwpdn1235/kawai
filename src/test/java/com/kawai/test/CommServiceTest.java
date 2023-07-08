@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kawai.dto.CommDtoSearch;
 import com.kawai.service.CommService;
 import com.kawai.service.CommServiceCategory;
+import com.kawai.service.CommServiceComment;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/**/root-context.xml",
@@ -17,7 +18,8 @@ import com.kawai.service.CommServiceCategory;
 public class CommServiceTest {
 	@Autowired CommService commservice;
 	@Autowired CommServiceCategory category;
-	@Test //@Ignore
+	@Autowired CommServiceComment comment;
+	@Test @Ignore
 	public void communityAllRead() {
 		CommDtoSearch search = new CommDtoSearch();
 		search.setCategory_id(0);
@@ -29,5 +31,9 @@ public class CommServiceTest {
 		search.setCommunity_hide(1);
 		System.out.println(commservice.commCommunityAllRead(search));
 		System.out.println(category.commCategoryList());
-	} 
+	}
+	@Test @Ignore
+	public void communityComment() {
+		comment.commentInsert(null, null);
+	}
 }

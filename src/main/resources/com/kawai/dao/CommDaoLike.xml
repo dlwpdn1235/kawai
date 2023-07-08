@@ -31,6 +31,11 @@
 		WHERE community_id = #{community_id}
 		AND user_id = #{user_id}
 	</select>
+	<select id="communityLikeCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM community_like
+		WHERE community_id = #{community_id}
+	</select>
 
 
 </mapper>

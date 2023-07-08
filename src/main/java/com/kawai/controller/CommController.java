@@ -161,69 +161,81 @@ public class CommController {
 		rttr.addFlashAttribute("success",result);
 		return "community/redirect:/community/commView";
 	}
-	@RequestMapping(value="commLike", method=RequestMethod.POST, headers= {"Content-type=application/json"})
+	@RequestMapping(value = "commLike", method = RequestMethod.POST , headers = {"Content-Type=application/json"})
 	@ResponseBody
-	public Map<String, Object> commLike(@RequestBody CommDtoCommunityLike like) {
-		Map<String, Object> result = new HashMap<>();
-		System.out.println(like);
-		int check = 0;
-		if(like.isCheckLike()) {
-			check = commServiceLike.communityLikeDelete(like);
-		}else {
-			check = commServiceLike.communityLikeInsert(like);			
-		}
-		if(check>0) {
-			result.put("commCheckLike",Boolean.TRUE);			
-		}else {
-			result.put("commCheckLike",Boolean.FALSE);			
-		}
-		result.put("result", Boolean.TRUE);
-		return result;
+	public Map<String, Object> commLike(@RequestBody CommDtoCommunityLike dtoLike) {
+	    Map<String, Object> result = new HashMap<>();
+	    System.out.println(dtoLike);
+	    dtoLike.setCheckLike(dtoLike.getIsLike().equals("0")? true:false);
+	    if (dtoLike.isCheckLike()) {
+	        commServiceLike.communityLikeDelete(dtoLike);
+	        result.put("commCheckLike", Boolean.FALSE);
+	    } else {
+	        commServiceLike.communityLikeInsert(dtoLike);
+	        result.put("commCheckLike", Boolean.TRUE);
+	    }
+	    result.put("commLikeCnt", commServiceLike.communityLikeCnt(dtoLike.getCommunity_id()));
+	    result.put("result", Boolean.TRUE);
+	    return result;
 	}
-	@RequestMapping(value="commentLike", method=RequestMethod.GET)
+	@RequestMapping(value="commentLike", method=RequestMethod.POST ,  headers = {"Content-Type=application/json"})
 	@ResponseBody
 	public Map<String, Object> commentLike(@RequestBody CommDtoCommentLike like) {
 		Map<String, Object> result = new HashMap<>();
-		int check = 0;
+		System.out.println(like);
+		like.setCheckLike(like.getIsLike().equals("0")? true:false);
 		if(like.isCheckLike()) {
-			check = commServiceCommentLike.commentLikeInsert(like);
-		}else {
-			check = commServiceCommentLike.commentLikeDelete(like);			
-		}
-		if(check>0) {
-			result.put("commentCheckLike",Boolean.TRUE);			
-		}else {
+			commServiceCommentLike.commentLikeDelete(like);			
 			result.put("commentCheckLike",Boolean.FALSE);			
+		}else {
+			commServiceCommentLike.commentLikeInsert(like);
+			result.put("commentCheckLike",Boolean.TRUE);			
 		}
+	    result.put("commentLikeCnt", commServiceCommentLike.commentLikeCnt(like.getComment_id()));
 		result.put("result", Boolean.TRUE);
 		return result;
 	}
 	
-	@RequestMapping(value="commentInsert", method=RequestMethod.GET)
+	@RequestMapping(value="commentAllRead/{community_id}", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> comment(@RequestBody CommDtoComment comment, HttpServletRequest request) {
+	public Map<String, Object> commentAllRead(@PathVariable int community_id) {
 		Map<String, Object> result = new HashMap<>();
-		List<CommDtoComment> comments = commServiceComment.commentInsert(comment,request);
+		List<CommDtoComment> comments = commServiceComment.commCommentAllRead(community_id);
 		result.put("result", Boolean.TRUE);
 		result.put("comment", comments);
+		return result;
+	}
+	@RequestMapping(value="commentInsert", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> commentInsert(@RequestBody CommDtoComment comment, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		commServiceComment.commentInsert(comment,request);
+		result.put("result", Boolean.TRUE);
+		return result;
+	}
+	@RequestMapping(value="commreply", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> commreply(@RequestBody CommDtoComment comment, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		System.out.println(comment);
+		commServiceComment.commentInsert(comment,request);
+		result.put("result", Boolean.TRUE);
 		return result;
 	}
 	@RequestMapping(value="commentUpdate", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> commentUpdate(@RequestBody CommDtoComment comment) {
 		Map<String, Object> result = new HashMap<>();
-		List<CommDtoComment> comments = commServiceComment.commentUpdate(comment);
+		commServiceComment.commentUpdate(comment);
 		result.put("result", Boolean.TRUE);
-		result.put("comment", comments);
 		return result;
 	}
 	@RequestMapping(value="commentDelete", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> commentDelete(@RequestBody CommDtoComment comment) {
 		Map<String, Object> result = new HashMap<>();
-		List<CommDtoComment> comments = commServiceComment.commentDelete(comment);
+		commServiceComment.commentDelete(comment);
 		result.put("result", Boolean.TRUE);
-		result.put("comment", comments);
 		return result;
 	}
 	

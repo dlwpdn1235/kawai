@@ -5,10 +5,9 @@
 <mapper namespace="com.kawai.dao.CommDaoComment">
 	<insert id="commentInsert"  parameterType="CommComment"  >
 		INSERT INTO comment (comment, comment_date, comment_ip, comment_group, 
-		comment_step, comment_indent, user_id, community_id)
-		SELECT #{comment}, NOW(), #{comment_ip},#{comment_group},#{comment_step},#{comment_indent}, 
-		#{user_id}, #{community_id}
-		FROM comment;
+			comment_step, comment_indent, user_id, community_id)
+		VALUES (#{comment}, NOW(), #{comment_ip}, #{comment_group}, #{comment_step}, #{comment_indent}, 
+			#{user_id}, #{community_id});
 	</insert>
 	<update id="commentUpdate" parameterType="CommComment" >
 		UPDATE comment

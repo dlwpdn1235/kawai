@@ -73,10 +73,9 @@ public class CommTest {
 		info.setBookinfo(info2);
 		info.setComm_category_id(1);
 		info.setCommunity_hide(1);
-		for(int i=0; i<5; i++){
 			
 		dao.commCommunityInsert(info);
-		}
+		
 //		dao.commCommunityUpdate(info);
 	}
 	@Test @Ignore
@@ -174,11 +173,14 @@ public class CommTest {
 	@Test @Ignore
 	public void commCommentInsert() {
 		CommDtoComment comment = new CommDtoComment();
-		comment.setComment("추천요1");
+		comment.setComment("추천요2");
 		comment.setComment_ip("111-111-111");
-		comment.setCommunity_id(3);
-		comment.setComment_id(11);
+		comment.setCommunity_id(38);
+		comment.setComment_id(1);
 		comment.setUser_id("user001");
+		comment.setComment_group(1);
+		comment.setComment_step(999);
+		comment.setComment_indent(1);
 //		System.out.println(commentdao.commentInsert(comment));
 		System.out.println(commentdao.commentInsert(comment));
 //		System.out.println(commentdao.commentUpdate(comment));

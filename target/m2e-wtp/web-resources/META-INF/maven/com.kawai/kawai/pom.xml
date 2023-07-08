@@ -25,22 +25,19 @@
 				<exclusion>
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
-				 </exclusion>
+				</exclusion>
 			</exclusions>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework-version}</version>
-		</dependency> -->
-				
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-webmvc</artifactId> 
+			<version>${org.springframework-version}</version> </dependency> -->
+
 		<!-- AspectJ -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.aspectj</groupId> -->
-<!-- 			<artifactId>aspectjrt</artifactId> -->
-<!-- 			<version>${org.aspectj-version}</version> -->
-<!-- 		</dependency>	 -->
-		
+		<!-- <dependency> -->
+		<!-- <groupId>org.aspectj</groupId> -->
+		<!-- <artifactId>aspectjrt</artifactId> -->
+		<!-- <version>${org.aspectj-version}</version> -->
+		<!-- </dependency> -->
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -81,7 +78,7 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
-			<!-- <scope>runtime</scope>  #1 -->
+			<!-- <scope>runtime</scope> #1 -->
 		</dependency>
 
 		<!-- @Inject -->
@@ -90,7 +87,7 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-				
+
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -104,12 +101,9 @@
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency> -->
-	
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> 
+			<version>1.2</version> </dependency> -->
+
 		<!-- Test -->
 		<!-- Test -->
 		<!-- Test #2 -->
@@ -118,96 +112,96 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>  
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.0</version>
 			<scope>provided</scope>
-		</dependency>	
+		</dependency>
 		<dependency>
-			 <groupId>org.springframework</groupId>
-			 <artifactId>spring-test</artifactId>
-			 <version>${org.springframework-version}</version>
-		</dependency>  
-		
-		<!-- 	 추가추가추가				 -->
-		<!-- 	 추가추가추가				 -->
-		<!-- 	 추가추가추가				 -->
-		
-	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-	<dependency>
-	    <groupId>mysql</groupId>
-	    <artifactId>mysql-connector-java</artifactId>
-	    <version>8.0.28</version>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-jdbc</artifactId>
-	    <version>4.3.20.RELEASE</version>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
-	<dependency>
-	    <groupId>org.aspectj</groupId>
-	    <artifactId>aspectjrt</artifactId>
-	    <version>1.7.3</version>  <!-- ##### -->
-	    <!-- <scope>runtime</scope> -->
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
-	<dependency>
-	    <groupId>org.aspectj</groupId>
-	    <artifactId>aspectjweaver</artifactId>
-	    <version>1.7.3</version>  <!-- ##### -->
-	   <!-- <scope>runtime</scope> -->
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-aop</artifactId>
-	    <version>4.3.28.RELEASE</version>  <!-- ##### -->
-	</dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 
-	  <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-	  <dependency>
-	    <groupId>org.mybatis</groupId>
-	    <artifactId>mybatis</artifactId>
-	    <version>3.5.6</version>
-	  </dependency>
-	  <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
-	  <dependency>
-	    <groupId>org.mybatis</groupId>
-	    <artifactId>mybatis-spring</artifactId>
-	    <version>2.0.6</version>
-	  </dependency>
-	  
-	  <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
-	  <dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-webmvc</artifactId>
-	    <version>3.2.17.RELEASE</version>  <!-- ##### -->
-	  </dependency>
-	  
-	  	<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+		<!-- 추가추가추가 -->
+		<!-- 추가추가추가 -->
+		<!-- 추가추가추가 -->
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.28</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.3.20.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.7.3</version>  <!-- ##### -->
+			<!-- <scope>runtime</scope> -->
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.7.3</version>  <!-- ##### -->
+			<!-- <scope>runtime</scope> -->
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>4.3.28.RELEASE</version>  <!-- ##### -->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.6</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.2.17.RELEASE</version>  <!-- ##### -->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	  
-	  	<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
 		<dependency>
-		    <groupId>org.codehaus.jackson</groupId>
-		    <artifactId>jackson-mapper-asl</artifactId>
-		    <version>1.9.13</version>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
 		</dependency>
 		
-		<dependency>
+		   <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
-        </dependency>  
-		
+        </dependency>    
+
 		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
@@ -226,82 +220,60 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-		    
-		<!-- 			 -->
-		<!-- 			 -->
-		<!-- 			 -->
+
+		<!-- -->
+		<!-- -->
+		<!-- -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
-		</dependency>    
-		    
-			
-		    
-		<!-- 			 -->
-		<!-- 			 -->
-		<!-- 			 -->
-		<dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-            
-	<!-- security start -->
-	<!-- security start -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
-		    <!-- <version>5.0.7.RELEASE</version> -->
-		    <version>4.2.2.RELEASE</version>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
-		    <!-- <version>5.0.7.RELEASE</version> -->
-		    <version>4.2.2.RELEASE</version>
-		</dependency>
-		
-		<dependency>
 
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-core</artifactId>
-		    <!-- <version>5.0.7.RELEASE</version> -->
-		    <version>4.2.2.RELEASE</version>
+
+
+		<!-- -->
+		<!-- -->
+		<!-- -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.2</version>
 		</dependency>
-		
+
+		<!-- security start -->
+		<!-- security start -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<!-- <version>5.0.7.RELEASE</version> -->
+			<version>4.2.2.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<!-- <version>5.0.7.RELEASE</version> -->
+			<version>4.2.2.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<!-- <version>5.0.7.RELEASE</version> -->
+			<version>4.2.2.RELEASE</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-taglibs</artifactId>
-		    <!-- <version>5.0.7.RELEASE</version> -->
-		    <version>4.2.2.RELEASE</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<!-- <version>5.0.7.RELEASE</version> -->
+			<version>4.2.2.RELEASE</version>
 		</dependency>
-	<!-- security end -->	
-	<!-- security end -->			    
-		    
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-tx</artifactId>
-		    <version>${org.springframework-version}</version>
-		</dependency>	       
-		       
-		    <!-- jackson databind : 사유 page500 -->
-		    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-			<dependency>
-			    <groupId>com.fasterxml.jackson.core</groupId>
-			    <artifactId>jackson-databind</artifactId>
-			    <version>2.9.5</version>
-			</dependency>
-			
-			<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
-		<dependency>
-		    <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		    <version>1.3.1</version>
-		</dependency> 
-		
-		       
+		<!-- security end -->
+		<!-- security end -->
+
 
 	</dependencies>
 	<build>
