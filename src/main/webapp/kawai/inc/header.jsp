@@ -7,12 +7,14 @@
   <title>Bootstrap Theme Company Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
+
   body {
     font: 400 15px Lato, sans-serif;
     line-height: 1.8;
@@ -155,19 +157,46 @@ float:left;
 }
 
 
+/* start account part */
+
+
+
+
+
+#accountSingUpView{
+margin-top: 75px;
+}
+#accountLoginView{
+margin-top: 75px;
+}
+label.a {
+    padding-right: 68px;
+}
+.abcRioButton.abcRioButtonBlue {
+    margin-left: 450px;
+}
+
+#yoil th{
+	text-align: center;
+}
+
+/* end account part */
+
+
 .tmpt{
   margin-top: 50px;
   padding: 20px;2
 }
 
+
  </style>
 
 </head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" >
 
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
-    <div class="navbar-header">
+    <div class="navbar-header ">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -181,6 +210,9 @@ float:left;
 	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
 	      <li><a href="${pageContext.request.contextPath}/market/marketview">마켓</a></li>
 	    </ul>
+	    
+	    
+	    
 	    
 	    <ul class="nav navbar-nav navbar-right">
 	      <li><a href="${pageContext.request.contextPath}/account/singUp"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>

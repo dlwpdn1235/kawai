@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../inc/header.jsp" %>
 <!-- 사용자 회원가입 폼 -->
-	<div class="container body-top">
+	<div class="container body-top" id="accountSingUpView">
 		
-		<form action="${pageContext.request.contextPath}/singUp" method="post" id="form">
+		<form action="${pageContext.request.contextPath}/account/singUp" method="post" id="form" >
 			<fieldset>
-				<legend class="text-center">일반사용자 회원가입</legend>
+				<legend class="text-center">동네글방 회원가입</legend>
 				<p>*표시는 필수 입력사항입니다.</p>
 				<div class="form-group">
 					<label for="id_form_input">아이디 입력(*) </label><span id="id_is_dupl"></span>
@@ -58,7 +58,7 @@
 		</form>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
-		$("#document").ready(function(){
+		$(function(){
 			//우편번호 입력
 			$("#postnum_form_input").on("click",function(){
 				new daum.Postcode({
@@ -74,14 +74,20 @@
 			});
 			//// 아이디 입력 중복 확인
 			$("#id_form_input").on("keyup",function(){
-				if ($("#id_form_input").val().trim()!=""){
+				if ($(this).val().trim()!=""){
 					$.ajax({
-						url:"${pageContext.request.contextPath}/AccountController",
+						url:"${pageContext.request.contextPath}/account/accountIdCheck",
 						type:"get",
-						dataType:"text",
-						data:{"id":$('#id_form_input').val()},
+						dataType:"json",
+						data: {"id":$(this).val().trim()} ,
 						success:function(data){
-							$("#id_is_dupl").html(data);
+							 if (data.check == "true") {
+							        // 사용 가능한 ID인 경우
+							        $('#id_is_dupl').text(data.msg).css('color', data.color);
+							      } else {
+							        // 중복된 ID인 경우
+							        $('#id_is_dupl').text(data.msg).css('color', data.color);
+							      }
 						},
 						error:function(xhr,textStatus,errorThrown){
 							$("#id_is_dupl").html(xhr.status + "-"+textStatus+":"+errorThrown);
@@ -110,10 +116,6 @@
 			$("#form").on("submit",function(){
 				if ($("#id_form_input").val().trim()==""){ //아이디 빈칸 체크
 					alert('아이디를 입력해주세요.');
-					$("#id_form_input").focus();
-					return false;
-				}else if ($("#id_check").data("check") != 'checked'){ //아이디 중복체크
-					alert ('아이디가 중복되어있습니다.');
 					$("#id_form_input").focus();
 					return false;
 				} else if ($("#pass_form_input").val().trim()==""){ //비밀번호 빈칸 체크

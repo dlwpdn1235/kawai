@@ -57,9 +57,7 @@
         <!-- Grid column -->
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <!-- Content -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Team.Kawai
-          </h6>
+          <h6 class="text-uppercase fw-bold mb-4"><i class="fas fa-gem me-3"></i>Team.Kawai</h6>
 <%--           <p>
 			<img src="${pageContext.request.contextPath}/img/gyung.jpg" alt="경영이형" id="gogogo" />
           </p> --%>

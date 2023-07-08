@@ -32,7 +32,6 @@
 		<typeAlias alias="AccountUserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>
 		<typeAlias alias="AccountEventVO" type="com.kawai.dto.AccountEventVO"/>
 		<typeAlias alias="AccountCouponVO" type="com.kawai.dto.AccountCouponVO"/>
-    
 
 	</typeAliases>
 	      
