@@ -15,8 +15,10 @@ public class CommDto {
 	private String user_id;
 	private String user_name;
 	private CommDtoBookinfo bookinfo;
-	private CommDtoCategory commcategory;
+	private int comm_category_id;
+	private String category_name;
 	private int communityLikeCnt;
+	private CommDtoCommunityLike like;
 	private List<CommDtoComment> comment;
 	private int community_hide;
 }
