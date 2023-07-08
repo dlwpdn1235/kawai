@@ -5,10 +5,9 @@
 <mapper namespace="com.kawai.dao.CommDaoComment">
 	<insert id="commentInsert"  parameterType="CommComment"  >
 		INSERT INTO comment (comment, comment_date, comment_ip, comment_group, 
-		comment_step, comment_indent, user_id, community_id)
-		SELECT #{comment}, NOW(), #{comment_ip},#{comment_group},#{comment_step},#{comment_indent}, 
-		#{user_id}, #{community_id}
-		FROM comment;
+			comment_step, comment_indent, user_id, community_id)
+		VALUES (#{comment}, NOW(), #{comment_ip}, #{comment_group}, #{comment_step}, #{comment_indent}, 
+			#{user_id}, #{community_id});
 	</insert>
 	<update id="commentUpdate" parameterType="CommComment" >
 		UPDATE comment
@@ -28,7 +27,7 @@
 		LEFT JOIN comment_like ON comment.comment_id = comment_like.comment_id
 		WHERE comment.community_id = #{community_id}
 		GROUP BY comment.comment_id
-		ORDER BY order by comment_step DSEC, comment_indent ASC
+		ORDER BY comment_step DESC, comment_indent ASC
 	</select>
 	<update id="commCommentStepUpdate" parameterType="java.util.HashMap">
 		UPDATE comment

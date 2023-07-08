@@ -13,5 +13,21 @@
 		where comment_id=#{comment_id}
 		AND user_id=#{user_id}
 	</delete>
+	<resultMap id="commCommentLike" type="CommCommentLike">
+		<result property="comment_id" column="comment_id" /> <!-- column : db컬럼명 -->
+		<result property="user_id"  column="user_id" />
+		<result property="checkLike"  column="checkLike" />
+ 	</resultMap>
+	<select id="commentIsLike" parameterType="CommCommentLike" resultMap="commCommentLike">
+		SELECT comment_id, user_id, CASE WHEN COUNT(*) = 0 THEN false ELSE true END AS checkLike
+		FROM comment_like
+		WHERE comment_id = #{comment_id}
+		AND user_id = #{user_id}
+	</select>
+	<select id="commentLikeCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM comment_like
+		WHERE comment_id = #{comment_id}
+	</select>
 
 </mapper>

@@ -21,5 +21,9 @@ public class CommServiceCommentLikeImpl implements CommServiceCommentLike{
 	public int commentLikeDelete(CommDtoCommentLike commentLike) {
 		return commentlike.commentLikeDelete(commentLike);
 	}
+	@Override
+	public int commentLikeCnt(int comment_id) {
+		return commentlike.commentLikeCnt(comment_id);
+	}
 
 }
