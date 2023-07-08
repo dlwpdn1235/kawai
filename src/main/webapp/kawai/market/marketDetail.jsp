@@ -12,7 +12,7 @@ float-left:80px;
 
    <div class="container panel tmpt">
       <h3 class="panel-heading">
-      			${marketDetail.bookInfo.Book_title }
+      			
       </h3>   
    </div>                     
    <div class="text-center">   

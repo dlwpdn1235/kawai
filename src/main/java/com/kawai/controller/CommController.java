@@ -65,7 +65,7 @@ public class CommController {
 	public String commInsertAction(CommDto commdto, CommDtoBookinfo bookinfo, RedirectAttributes rttr) {	
 		String result = "fail";
 		commdto.setBookinfo(bookinfo);
-		if(commService.commCommunityInsert(commdto)>0) {result="글쓰기 완료";}
+		if(commService.commCommunityInsert(commdto)>0) {result="湲��벐湲� �셿猷�";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/community/commView";
 	}
@@ -77,14 +77,14 @@ public class CommController {
 	@RequestMapping(value="commUpdate", method=RequestMethod.POST)
 	public String commUpdate(CommDto commdto, Model model, RedirectAttributes rttr) {
 		String result = "fail";
-		if(commService.commCommunityUpdate(commdto)>0) {result = "글 수정 완료";}
+		if(commService.commCommunityUpdate(commdto)>0) {result = "湲� �닔�젙 �셿猷�";}
 		rttr.addFlashAttribute("success", result);
 		return "redirect:/community/commDetail?community_id=" + commdto.getCommunity_id();
 	}
 	@RequestMapping(value="commDelete", method=RequestMethod.GET)
 	public String commDelete(int community_id, RedirectAttributes rttr) {
 		String result = "fail";
-		if(commService.commCommunityDelete(community_id)>0) {result="글삭제 완료";}
+		if(commService.commCommunityDelete(community_id)>0) {result="湲��궘�젣 �셿猷�";}
 		rttr.addFlashAttribute("success",result);
 		return "community/redirect:/community/commView";
 	}
