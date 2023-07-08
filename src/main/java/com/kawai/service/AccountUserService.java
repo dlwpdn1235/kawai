@@ -1,7 +1,6 @@
 package com.kawai.service;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,10 +9,6 @@ import com.kawai.dto.AccountUserVO;
 public interface AccountUserService {
 	// 회원가입 accountUserInsert
 	public int accountUserInsert(HttpServletRequest request , AccountUserVO user);
-	
-	// 아이디 중복체크 accountIdCheck
-	public Map<String,String> accountIdCheck(String id);
-	
 	
 	// 로그인 accointLogin
 	public AccountUserVO accountLogin(HttpServletRequest request , AccountUserVO user);
@@ -29,5 +24,4 @@ public interface AccountUserService {
 	
 	// 회원탈퇴 accountUserDelete
 	public int accountUserDelete(AccountUserVO user);
-	
 }

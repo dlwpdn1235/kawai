@@ -1,7 +1,5 @@
 package com.kawai.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kawai.dto.AccountUserVO;
@@ -29,23 +26,13 @@ public class AccountController {
 	@RequestMapping(value = "/singUp", method = RequestMethod.POST)
 	public String accountUserInsert(HttpServletRequest request, AccountUserVO userVO , RedirectAttributes rttr) {
 	//회원가입액션
-		String result="fail";
+		String result="회원가입에 실패하였습니다. 관리자에게 문의 바랍니다.";
 		if(userService.accountUserInsert(request , userVO) > 0) {
 			result="회원가입이 완료되었습니다.";
 		}
 		rttr.addFlashAttribute("success" , result);
-		return "redirect:/main/view";
+		return "redirect:/account/userEvent";
 	}
-	
-	
-	//아이디 중복체크
-		@RequestMapping(value="/accountIdCheck" ,method=RequestMethod.GET )
-		@ResponseBody
-		public Map<String, String> ajaxIdCheck(Model model, @RequestParam String id) {
-			return userService.accountIdCheck(id);
-		}
-	
-	
 	
 	@RequestMapping(value = "login" , method = RequestMethod.GET)
 	public String accountLogin_view() { return "account/login"; }
@@ -55,13 +42,12 @@ public class AccountController {
 	public String accountLogin(HttpServletRequest request , AccountUserVO userVO , RedirectAttributes rttr) {
 		//사용자 로그인액션
 		//세션 저장 + 현재날자구해서 
-		String result="fail";
+		String result="로그인 실패! 아이디 또는 비밀번호를 확인해주세요.";
 		if((userVO = userService.accountLogin(request , userVO)) != null) {		
 			result="환영합니다."+userVO.getName() + "님!";			
 		}
 		rttr.addFlashAttribute("success" , result); 
-		/* return "redirect:/account/userEvent?id="+userVO.getId(); */
-		return "redirect:/myCalendar_go";
+		return "redirect:/account/userEvent?id="+userVO.getId();
 	}
 
 	@RequestMapping(value= "userDetail" , method = RequestMethod.GET)
@@ -80,7 +66,7 @@ public class AccountController {
 	@RequestMapping(value="userEdit" , method = RequestMethod.POST)
 	public String userEdit(AccountUserVO userVO , HttpServletRequest request,RedirectAttributes rttr) {
 		//유저정보 수정액션
-		String result = "fail";
+		String result = "정보수정에 실패하였습니다. 관리자에게 문의 바랍니다.";
 		if(userService.accountUserUpdate(request, userVO) > 0 ) { result = "회원정보가 변경되었습니다."; }
 		rttr.addFlashAttribute("success" , result);
 		return "redirect:/account/userEdit?id=" + userVO.getId();
@@ -94,7 +80,7 @@ public class AccountController {
 	@RequestMapping(value="userDelete" , method = RequestMethod.POST)
 		//유저 탈퇴 폼
 	public String userDelete(AccountUserVO userVO , RedirectAttributes rttr) {
-		String result = "fail";
+		String result = "회원탈퇴 실패. 관리자에게 문의 바랍니다.";
 		if(userService.accountUserDelete(userVO) > 0 ) { result = "회원탈퇴가 정상 처리되었습니다."; }
 		rttr.addFlashAttribute("success" , result);
 		return "redirect:/main";
