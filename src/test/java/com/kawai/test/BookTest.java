@@ -92,7 +92,7 @@ public class BookTest {
 		vo.setBs_postnum("03703");
 		vo.setBs_address("서울특별시 서대문구 연희동 132-32");
 		vo.setBs_address_detail("2층");
-		//vo.setBs_opendate(LocalDateTime.parse("2010-01-01T00:00:00"));
+		vo.setBs_opendate(LocalDateTime.parse("2010-01-01T00:00:00"));
 		vo.setBs_content("국 내 최초의 독립출판물 전문 서점이다. 출판사를 겸하고 있다. 2009년부터 매년 서울아트부게어 '언리미티드 에디션(UE, Unlimited Edition)'을 열어오고 있다.");
 		vo.setBs_reg_date("23-06-01");
 		
