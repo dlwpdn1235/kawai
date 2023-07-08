@@ -29,4 +29,9 @@ public class CommServiceLikeImpl implements CommServiceLike{
 		return like.communityLikeAllRead(user_id);
 	}
 
+	@Override
+	public int communityLikeCnt(int community_id) {
+		return like.communityLikeCnt(community_id);
+	}
+
 }

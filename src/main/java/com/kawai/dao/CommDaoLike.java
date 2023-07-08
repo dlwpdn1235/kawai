@@ -10,4 +10,5 @@ public interface CommDaoLike {
 	public int communityLikeDelete(CommDtoCommunityLike communityLike);
 	public List<CommDtoCommunityLike> communityLikeAllRead(String user_id);
 	public CommDtoCommunityLike communityIsLike(CommDtoCommunityLike communityLike);
+	public int communityLikeCnt(int community_id);
 }

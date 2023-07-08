@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kawai.dao.CommDaoComment;
+import com.kawai.dao.CommDaoCommentLike;
 import com.kawai.dto.CommDtoComment;
+import com.kawai.dto.CommDtoCommentLike;
 
 import lombok.extern.log4j.Log4j;
 
@@ -22,17 +24,27 @@ import lombok.extern.log4j.Log4j;
 public class CommServiceCommentImpl implements CommServiceComment{
 
 	@Autowired
-	CommDaoComment commentdao;	
+	CommDaoComment commentdao;
+	@Autowired
+	CommDaoCommentLike like;
 	
 	@Transactional
 	@Override
 	public List<CommDtoComment> commCommentAllRead(int community_id) {
-		return commentdao.commCommentAllRead(community_id);
+		List<CommDtoComment> comments = commentdao.commCommentAllRead(community_id);
+		CommDtoCommentLike likedto = new CommDtoCommentLike();
+		System.out.println(community_id);
+		likedto.setUser_id("user001");		
+		for(CommDtoComment c : comments) {
+			likedto.setComment_id(c.getComment_id());
+			c.setLike(like.commentIsLike(likedto));
+		}
+		return comments;
 	}
 
 	@Transactional
 	@Override
-	public List<CommDtoComment> commentInsert(CommDtoComment commDtoComment, HttpServletRequest request) {
+	public int commentInsert(CommDtoComment commDtoComment, HttpServletRequest request) {
 		try {  commDtoComment.setComment_ip(InetAddress.getLocalHost().getHostAddress()); }
 		catch (UnknownHostException e) { e.printStackTrace(); }
 		
@@ -60,22 +72,18 @@ public class CommServiceCommentImpl implements CommServiceComment{
 		commDtoComment.setComment_group(comment_group);
 		commDtoComment.setComment_step(comment_step);
 		commDtoComment.setComment_indent(comment_indent);
-		commentdao.commentInsert(commDtoComment); 
-		return commentdao.commCommentAllRead(commDtoComment.getCommunity_id());
+		commDtoComment.setUser_id("user001");
+		return commentdao.commentInsert(commDtoComment);
 	}
 
-	@Transactional
 	@Override
-	public List<CommDtoComment> commentUpdate(CommDtoComment commDtoComment) {
-		commentdao.commentUpdate(commDtoComment);
-		return commentdao.commCommentAllRead(commDtoComment.getCommunity_id());
+	public int commentUpdate(CommDtoComment commDtoComment) {
+		return commentdao.commentUpdate(commDtoComment);
 	}
 
-	@Transactional
 	@Override
-	public List<CommDtoComment> commentDelete(CommDtoComment commDtoComment) {
-		commentdao.commentDelete(commDtoComment.getComment_id());
-		return commentdao.commCommentAllRead(commDtoComment.getCommunity_id());
+	public int commentDelete(CommDtoComment commDtoComment) {
+		return commentdao.commentDelete(commDtoComment.getComment_id());
 	}
 
 	@Override
