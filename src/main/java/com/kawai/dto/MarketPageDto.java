@@ -9,5 +9,5 @@ public class MarketPageDto {
 	private int marketListCount;
 	private int marketPageCount;
 	private String marketSerchKeyWord;
-	
+	private CommDtoBookinfo bookInfo;
 }

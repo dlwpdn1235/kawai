@@ -14,6 +14,7 @@ import com.kawai.dao.MarketCartDao;
 import com.kawai.dao.MarketDao;
 import com.kawai.dao.MarketOrderDao;
 import com.kawai.dao.MarketPayDao;
+import com.kawai.dao.MarketSearchDao;
 import com.kawai.dto.CommDtoBookinfo;
 import com.kawai.dto.MarketCart;
 import com.kawai.dto.MarketDto;
@@ -36,6 +37,10 @@ public class MarketTest {
 	
 	@Autowired
 	MarketCartDao mCartDao;
+	
+	@Autowired
+	MarketSearchDao mSearchDao;
+	
 	
 	// Update
 	@Test @Ignore
@@ -78,8 +83,15 @@ public class MarketTest {
 	    List<MarketDto> marketList = dao.marketList(dto);
 	    System.out.println(marketList);
 	}
-	
-	
+
+	@Test @Ignore
+	public void marketSearch() {
+		CommDtoBookinfo dto = new CommDtoBookinfo();
+		dto.setBook_title("제목");
+		List<CommDtoBookinfo> list = mSearchDao.marketSearch(dto.getBook_title());
+		System.out.println(list);
+	}
+
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,7 +215,7 @@ public class MarketTest {
 	@Test @Ignore
 	public void marketCartList() {
 		MarketCart dto = new MarketCart();
-		List<CommDtoBookinfo> booknum = dto.getBookinfo();
+		CommDtoBookinfo booknum = dto.getBookinfo();
 		CommDtoBookinfo book = new CommDtoBookinfo();
 		
 		

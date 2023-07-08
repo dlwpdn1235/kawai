@@ -11,7 +11,8 @@ public interface MarketDao {
 	public int marketUpdate(MarketDto dto); 
 	public int marketYear();
 	public int marketMonth();
-	public MarketDto marketRead(int no);
 	public MarketDto marketList();
 	public List<MarketDto> marketList(MarketPageDto dto);
+	public MarketDto marketRead(int no);
+	public int commBookinfoInsert(MarketDto dto);
 }

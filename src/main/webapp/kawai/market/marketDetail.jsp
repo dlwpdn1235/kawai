@@ -1,28 +1,20 @@
+<%@page import="org.w3c.dom.Document"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang = "ko">
-<head>
-<meta charset="UTF-8">
-<title>Basic</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<%@include file="../inc/header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- mail -->
-<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+<style>
+#market_search{
+float-left:80px;
+}
+</style>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-   <div class="container panel">
-      <h3 class="panel-heading"></h3>   
-   </div>                                                        
-</body>
-</html>
-<!-- 
-   
- -->
+   <div class="container panel tmpt">
+      <h3 class="panel-heading">
+      			${marketDetail.bookInfo.Book_title }
+      </h3>   
+   </div>                     
+   <div class="text-center">   
+</div>
+<%@include file="../inc/footer.jsp" %>
