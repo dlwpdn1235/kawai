@@ -1,6 +1,8 @@
 package com.kawai.controller;
 
+import java.net.InetAddress;
 import java.net.URI;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,7 +161,7 @@ public class CommController {
 		String result = "fail";
 		if(commService.commCommunityDelete(community_id)>0) {result="글삭제 완료";}
 		rttr.addFlashAttribute("success",result);
-		return "community/redirect:/community/commView";
+		return "redirect:/community/commView";
 	}
 	@RequestMapping(value = "commLike", method = RequestMethod.POST , headers = {"Content-Type=application/json"})
 	@ResponseBody
@@ -222,11 +224,12 @@ public class CommController {
 		result.put("result", Boolean.TRUE);
 		return result;
 	}
-	@RequestMapping(value="commentUpdate", method=RequestMethod.GET)
+	@RequestMapping(value="commentUpdate", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> commentUpdate(@RequestBody CommDtoComment comment) {
 		Map<String, Object> result = new HashMap<>();
 		commServiceComment.commentUpdate(comment);
+		
 		result.put("result", Boolean.TRUE);
 		return result;
 	}

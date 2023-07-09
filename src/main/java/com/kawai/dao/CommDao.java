@@ -15,4 +15,5 @@ public interface CommDao {
 	public List<CommDto> commCommunityAllRead(CommDtoSearch search);
 	public int commCommunityHit(int community_id);
 	public int commHideUpdate(Map<String, Object> para);
+	public List<CommDto> commUserAllRead(String user_id);
 }

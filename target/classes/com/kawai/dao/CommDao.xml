@@ -124,4 +124,11 @@
 			</foreach>
 		</where>
 	</update>
+	
+	<select id="commUserAllRead" parameterType="String" resultType="CommDto">
+		SELECT * 
+		FROM community
+		WHERE user_id = #{user_id}
+		ORDER BY community_date DESC
+	</select>
 </mapper>
