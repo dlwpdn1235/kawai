@@ -32,7 +32,7 @@
    </div>
    <div class="text-right">
       <a href="" title="" class="btn btn-info">수정</a>
-      <a href="" title="" class="btn btn-danger">삭제</a>
+      <a href="${pageContext.request.contextPath}/community/commDelete?community_id=${commRead.community_id}" title="삭제" class="btn btn-danger">삭제</a>
       <a href="" title="" class="btn">뒤로가기</a>
    </div>
    <div class="">
@@ -96,6 +96,78 @@
         	 });
          });
          //대댓글 인서트
+         
+         //수정 폼생성 시작
+		$(document).on("click",".commentUpBtn",function(){
+			var panelHeading = $(this).closest(".panel-body").prev(".panel-heading");
+			var commentUp = panelHeading.text();
+		    console.log(commentUp);
+		    var parentDiv = $(this).siblings(".commComment");
+		
+		    parentDiv.empty();
+		    parentDiv.append("<label for='commCommentWrite'>수정</label>")
+		        .append("<textarea name='commCommentWrite' rows='10' cols='20' class='form-control commCommentWrite'>"+commentUp+"</textarea>")
+		        .append("<div class='text-right'> <input type='button' class='btn btn-info commCommentUpdate' value='서브밋'/> </div>");
+		});
+         //수정 폼생성 끝
+         //수정 
+         $(document).on("click",".commCommentUpdate",function(){
+        	 var comment_btn = $(this);
+        	 var parentDiv = comment_btn.closest(".commComment"); // 클릭된 요소의 상위 요소인 .commComment를 선택
+        	 var comment = parentDiv.find(".commCommentWrite").val(); 
+        	 var comment_id = comment_btn.closest(".panel-body").find(".hidden_no_id").val();
+        	 var commComment = {
+        		community_id: community_id,
+        		comment_id: comment_id,
+        		comment : comment
+        	 };
+        	 $.ajax({
+        	   url: "${pageContext.request.contextPath}/community/commentUpdate",
+  	           type: "POST",
+  	           data: JSON.stringify(commComment),
+  	           dataType: "json",
+  	           contentType: "application/json;charset=UTF-8",
+  	           error: function (xhr, status, msg) {
+  	              alert("관리자에게 문의해주세요.");
+  	           },
+                 success: function (json) {
+              	   if(json.result){
+              		   alert("수정에 완료하였습니다.");
+              	   }
+                     commentList();
+                  }
+        	 });
+         });
+         //수정
+         
+        //삭제
+         $(document).on("click",".commentDeBtn",function(){
+        	 var comment_btn = $(this);
+        	 var comment = "삭제된 댓글입니다.";
+        	 var comment_id = comment_btn.closest(".panel-body").find(".hidden_no_id").val();
+        	 var commComment = {
+        		community_id: community_id,
+        		comment_id: comment_id,
+        		comment : comment
+        	 };
+        	 $.ajax({
+        	   url: "${pageContext.request.contextPath}/community/commentUpdate",
+  	           type: "POST",
+  	           data: JSON.stringify(commComment),
+  	           dataType: "json",
+  	           contentType: "application/json;charset=UTF-8",
+  	           error: function (xhr, status, msg) {
+  	              alert("관리자에게 문의해주세요.");
+  	           },
+                 success: function (json) {
+              	   if(json.result){
+              		   alert("삭제에 완료하였습니다.");
+              	   }
+                     commentList();
+                  }
+        	 });
+         });
+         //삭제
          
          // 커뮤니티 좋아요 ..................................
          $(document).on("click",".likebtn", function(){

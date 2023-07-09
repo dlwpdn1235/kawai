@@ -14,4 +14,5 @@ public interface CommService {
 	public List<CommDto> commCommunityAllRead(CommDtoSearch search);
 	public CommDto commCommunityHitRead(int community_id);
 	public int commHideUpdate(Map<String, Object> para);
+	public List<CommDto> commUserAllRead(String user_id);
 }

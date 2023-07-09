@@ -78,6 +78,8 @@ public class CommServiceCommentImpl implements CommServiceComment{
 
 	@Override
 	public int commentUpdate(CommDtoComment commDtoComment) {
+		try {  commDtoComment.setComment_ip(InetAddress.getLocalHost().getHostAddress()); }
+		catch (UnknownHostException e) { e.printStackTrace(); }
 		return commentdao.commentUpdate(commDtoComment);
 	}
 

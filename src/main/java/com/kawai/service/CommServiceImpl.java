@@ -2,6 +2,8 @@ package com.kawai.service;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +48,12 @@ public class CommServiceImpl implements CommService{
 
 	@Override
 	public int commCommunityDelete(int community_id) {
-		return dao.commCommunityDelete(community_id);
+		Map<String, Object> para = new HashMap<>();
+		para.put("community_hide", 0);
+		List<Integer> list = new ArrayList<>();
+		list.add(community_id);
+		para.put("community_id_list", list);
+		return this.commHideUpdate(para);
 	}
 
 	@Override
@@ -86,5 +93,11 @@ public class CommServiceImpl implements CommService{
 	@Override
 	public int commHideUpdate(Map<String, Object> para) {
 		return dao.commHideUpdate(para);
+	}
+
+	@Override
+	public List<CommDto> commUserAllRead(String user_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
