@@ -26,61 +26,63 @@ else if(result.length != 0){ alert(result); }
 	</div> <!-- myCalendar -->
 	
 <script>
-    $(function(){
-        //7/9까지 prev , next 버튼 구현
-        calendarNow();
-        //calendarPrev();
-        //calendarNext();
-    });
-    function calendarNow() {
-        $.ajax({
-            url: "myCalendar",
-            type: "GET",
-            dataType: "json",
-            contentType: "application/json;charset=UTF-8",
-            error: function(xhr, status, msg) {
-                alert(status + "/" + msg);
-            },
-            success: function(json) {
-                console.log(json);
-                $("#mytable tbody").empty();
-                $(".year").html(json.mycalc.year);
-                $(".month").html(json.mycalc.month);
-                console.log(json.mycalc);
-                for (var i = 0; i < json.mycalc.calc_days.length; i++) {
-                    if (i % 7 === 0) {
-                        tr = $("<tr>");
-                    }
-                    var td = $("<td>");
-                    td.append(json.mycalc.calc_days[i]);
-                    if (td.text() != "") {
-                        var image = $("<img>").attr("src", "https://img.danawa.com/img/m/dpg/attendance/stamp_check3.png");
-                        image.addClass("imgbutton"); 
-                        td.append(image);
-                    }
-                    tr.append(td);
-                    $("#mytable tbody").append(tr);
-                }
+$(function(){
+    // 7/9까지 prev , next 버튼 구현
+    calendarNow();
+});
 
-                // 이미지 클릭 이벤트 처리
-                $(".imgbutton").on("click", function() {
-                    $(this).addClass("red"); 
-                });
+function calendarNow() {
+    $.ajax({
+        url: "myCalendar",
+        type: "GET",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        error: function(xhr, status, msg) {
+            alert(status + "/" + msg);
+        },
+        success: function(json) {
+            console.log(json);
+            $("#mytable tbody").empty();
+            $(".year").html(json.mycalc.year);
+            $(".month").html(json.mycalc.month);
+            console.log(json.mycalc);
+            
+            var eventDates = [];
+            if (json.accountEventList.length > 0) {
+                eventDates = [json.accountEventList[0].eventdate];
             }
-        });
-    }
+            
+            for (var i = 0; i < json.mycalc.calc_days.length; i++) {
+                if (i % 7 === 0) {
+                    tr = $("<tr>");
+                }
+                var td = $("<td>");
+                td.append(json.mycalc.calc_days[i]);
+
+                // 출석체크한 날짜인 경우 이미지 변경
+                if (eventDates.includes(json.mycalc.calc_days[i]) && td.text() !== "") {
+                    var image = $("<img>").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGob2rT16jqTmdN2x1sgp4mi-SiInGVZOaMg&usqp=CAU"); 
+                    td.append(image);
+                } else if (td.text() !== "") {
+                    var image = $("<img>").attr("src", "https://img.danawa.com/img/m/dpg/attendance/stamp_check3.png");
+                    td.append(image);
+                }
+                tr.append(td);
+                $("#mytable tbody").append(tr);
+            }
+
+            // 이미지 클릭 이벤트 처리
+            $(".imgbutton").on("click", function() {
+                $(this).addClass("red"); 
+            });
+        }
+    });
+}
 </script>
 	
-<!-- 		  // 나는 지금 달력까지 완성했고 이미지까지 달력에 들어간다
-		      // 이제 해야할것은 eventdao에있는 출석체크 한적이 있니? 라는 구문을 돌려 값이 0이면 출석체크를 넣어주는 것
-		      
-		      
-		      /// 여기까지는 로그인서비스의 영역
-		      
-		      
-		      // 하지만 여기서해야할것은 내가 출석한 기록을 담은 테이블에 있는 값의 날만 도장의 색이 빨간색으로 변하는것
-		      // 그러려면 eventdao에있는 accountEventList를 불러와서 거기있는 날짜만 색 변경
-		      // 그리고 버튼을 누르면 흑백에서 빨간으로 변경
- -->
 	
 <%@ include file="../inc/footer.jsp" %>
+<!-- 
+
+		      //내가 출석한 기록을 담은 테이블에 있는 값의 <td> 는 다른 img 로
+ -->
