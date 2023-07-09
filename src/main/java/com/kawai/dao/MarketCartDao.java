@@ -9,4 +9,5 @@ public interface MarketCartDao {
 	public int marketCartUpdate(MarketCart dto);
 	public int marketCartDelete(int no);
 	public List<MarketCart>marketCartList();
+	public int marketCartCountUpdate(MarketCart dto);
 }

@@ -150,17 +150,146 @@ margin-left:700px;
   background-size: cover;
 }
 
-#marketProductCheck{
+#market-paying{
+font-size:14px;
+font-weight:bold;
+text-align:center;
+margin-right:20px;
+}
+
+#marketPayNameUpdate{
+float:right;
+}
+
+#marketThOption{
+font-wieght:bold;
+padding:15px;
+border:solid 0.5px;
+}
+
+#marketTdOption{
+border-bottom-style: solid;
+border-top-style:solid;
+width:1000px;
+}
+
+.marketUserUpdateSubmit{
+float:right;
+}
+
+.marketUserUpdateCon{
+margin-bottom:30px;
+}
+
+.marketUserUpdate-group{
+padding:25px;
+
+}
+
+.marketUpdateSubmit{
+float:right;
+}
+
+.marketUpdateCon{
+margin-bottom:30px;
+}
+
+.marketUpdate-group{
+padding:25px;
+
+}
+
+.marketWriteSubmit{
+float:right;
+}
+
+.marketWriteCon{
+margin-bottom:30px;
+}
+
+.marketWrite-group{
+padding:25px;
+
+}
+
+.marketProductWrite{
+margin-left:200px;
+}
+
+.marketProductTable{
+border-style:none;
+}
+
+.marketOrderCommit{
+margin-top:30px;
+text-align:center;
+}
+
+.marketOderOkLine{
+margin-top:50px;
+margin-bottom:50px;
+}
+
+.marketProductPaying{
+text-align:center;
+margin-top:50px;
+}
+
+.marketProductSumPrice{
+font-weight: bold;
+margin-top:30px;
+text-align:center;
+margin-right:30px;
+}
+
+.marketProduct-group{
+border:solid 1px;
+border-radius: 1px;
+
+}
+
+.marketProductReceive{
+font-weight:bold;
+font-size:22px;
+text-align:center;
+}
+
+.borderLine{
+border:solid 4px;
+margin-bottom:15px;
+}
+
+.marketProductCheck{
 float:left;
 }
 
 
-.tmpt{
-  margin-top: 50px;
-  padding: 20px;2
+.marketCheck{
+float:right;
+margin-right:360px;
 }
 
+.marketBuy{
+text-align:center;
+}
+
+.market-search-group{
+text-align:center;
+}
+
+.marketDelete{
+float:right;
+margin-right:300px;
+}
+
+.tmpt{
+  margin-top: 50px;
+  padding: 20px;
+}
+
+
  </style>
+
 
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">

@@ -16,6 +16,38 @@
 		market_id=#{market_id}
 	</update>
 
+
+
+		<resultMap id="market" type="Market">
+		<id property="market_id"         column="market_id" /> <!-- property : MemberVO -->
+		<result property="market_id"     column="market_id" /> <!-- column : db컬럼명 -->
+		<result property="mTitle"  column="mTitle" />
+		<result property="mContent"  column="mContent" />
+		<result property="mIp"    column="mIp" />
+		<result property="mPrice"   column="mPrice" />
+		<result property="mDate"          column="mDate" />
+		<result property="user_id" column="user_id" />
+ 		<association property="bookInfo"     resultMap="commDtoBookinfo" />
+ 	</resultMap>
+
+	<resultMap id="commDtoBookinfo" type="CommDtoBookinfo">
+		<id property="bookinfo_id" column="bookinfo_id" /> <!-- property : MemberVO -->
+		<result property="book_title" column="book_title" />
+		<result property="book_description" column="book_description" />
+		<result property="book_author" column="book_author" />
+		<result property="book_publisher" column="book_publisher" />
+		<result property="book_image" column="book_image" />
+		<result property="book_pubdate" column="book_pubdate" />
+	</resultMap>
+	
+	<select id="marketRead" parameterType="Market" resultMap="market">
+
+		SELECT a.market_id, a.user_id, a.mPrice, a.bookinfo_id, b.book_title, b.book_author, b.book_publisher, b.book_image, b.book_pubdate
+		FROM market a
+		LEFT JOIN bookinfo b ON a.bookinfo_id = b.bookinfo_id
+		WHERE market_id = #{market_id}
+	</select>
+
 	<select id="marketList" parameterType="MarketPage"
 		resultType="Market">
 		select * from market m

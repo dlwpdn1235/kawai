@@ -8,9 +8,9 @@
 MarketDto dto = new MarketDto();
 %>
 
-<body>
    <div class="container panel">
       <h3 class="panel-heading"></h3>   
+      <form method="${pageContext.request.contextPath}/marketSearch.kawai" method="get">
    	<div class="row well">
    		<div class="col-sm-4">
 	   		<div class="row">
@@ -33,7 +33,7 @@ MarketDto dto = new MarketDto();
    		</div>
    		
    		<div class="col-sm-4">
-	   			<input type="search" value="asd"/>
+	   			   <input type="search" id="market_search" placeholder="책 정보입력" autocomplete="off"/>  
    		</div>
    		
    		<div class="col-sm-4">
@@ -56,11 +56,11 @@ MarketDto dto = new MarketDto();
    			</div>
    		</div>
    	</div>
-   	
-   	<c:forEach var="market" items="${marketlist}">
-   	${market.MPrice}
-   	</c:forEach>
+  	</form>
 
+
+
+	<!-- Form 체크하는 곳 select 박스 이용해서 장바구니 -->
 		<div id="marketCheck">
 			<label for="marketAllcheck">전체선택</label>
 			<input type="checkbox" id="marketAllCheck"/>
@@ -85,21 +85,27 @@ MarketDto dto = new MarketDto();
 <!--       </div> -->
 <%--     </c:forEach> --%>
 
+
+
     <c:forEach var="market" items="${marketlist}">
     <div class="col-sm-3">
     
         <label for="marketProductCheck${i}"></label>
         <input type="checkbox" value="1" id="marketProductCheck${i}" />
-        <a href="marketDetail.jsp?market_id=${market.market_id }">
+      
+        <a href="${pageContext.request.contextPath }/market/marketDetail?market_id=${market.market_id }">
         <img src="${pageContext.request.contextPath }../img/marketLikeUnCheck.jpg" alt="책이미지" />
         </a>
+        
         <p>출판사 : </p>
-        <span id="marketPrice">가격</span>
+        <span id="marketPrice">${market.MPrice}</span>
+        
       </div>
     </c:forEach>
   </div>
   
  <script>
+ 
   $(function() {
     $("#marketAllCheck").on("click", function() {
       var isChecked = $(this).is(":checked");
@@ -111,6 +117,21 @@ MarketDto dto = new MarketDto();
       $(this).siblings("img").attr("src", isChecked ? "../img/marketLikeCheck.jpg" : "../img/marketLikeUnCheck.jpg");
     });
   });
+
+  $(function(){
+  	$("#market_search").keydown(function(event){
+  		event.preventDefault();
+  		var marketSearch ="";
+  		if (event.keyCode === 13) {
+  			marketSearch=$("#market_search").val();
+  			location.href='${pageContext.request.contextPath}/market/marketSearch?book_title='+marketSearch;
+  		}
+  		
+  		marketSearch = "";
+  	});
+  });
+
+  
 </script>
                             
 <%@include file="../inc/footer.jsp" %>
