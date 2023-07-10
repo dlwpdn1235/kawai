@@ -9,6 +9,12 @@
 	 (#{id},#{pass},#{name},#{birth},#{email},#{phonenum},#{postnum},#{address},#{create_ip})
 	</insert>
 	
+	<!-- ID 중복체크 -->
+	<select id="accountIdCheck" parameterType="String" resultType="int">
+		select count(*) from user where id=#{id}
+	</select>
+	
+	
 	<!-- 로그인 회원정보를 받아 session에 올려놓는 역할 -->
 	<select id="accountLogin" parameterType="AccountUserVO" resultType="AccountUserVO">
 	select * from user where id=#{id} and pass=#{pass}
@@ -16,6 +22,10 @@
 	
 	<!-- 회원정보 디테일  -->
 	<select id="accountUserRead" parameterType="AccountUserVO" resultType="AccountUserVO">
+	select * from user where id=#{id}
+	</select>
+	<!-- 회원정보 디테일  -->
+	<select id="accountUserRead2" parameterType="string" resultType="AccountUserVO">
 	select * from user where id=#{id}
 	</select>
 	
