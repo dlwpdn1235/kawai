@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,9 +57,9 @@ public class CommServiceImpl implements CommService{
 	}
 
 	@Override
-	public int commCommunityDelete(int community_id) {
+	public int commCommunityDelete(int community_id, int community_hide) {
 		Map<String, Object> para = new HashMap<>();
-		para.put("community_hide", 0);
+		para.put("community_hide", community_hide);
 		List<Integer> list = new ArrayList<>();
 		list.add(community_id);
 		para.put("community_id_list", list);
@@ -65,11 +67,11 @@ public class CommServiceImpl implements CommService{
 	}
 
 	@Override
-	public CommDto commCommunityRead(int community_id) {
+	public CommDto commCommunityRead(int community_id, String user_id) {
 		CommDto dto =dao.commCommunityRead(community_id);
 		CommDtoCommunityLike likedto = new CommDtoCommunityLike();
 		likedto.setCommunity_id(community_id);
-		likedto.setUser_id("user001");
+		likedto.setUser_id(user_id);
 		dto.setLike(like.communityIsLike(likedto));
 		switch(dto.getComm_category_id()) {
 		case 1: dto.setCategory_name("공지사항"); break;
@@ -86,12 +88,12 @@ public class CommServiceImpl implements CommService{
 	}
 	
 	@Transactional @Override
-	public CommDto commCommunityHitRead(int community_id) {
+	public CommDto commCommunityHitRead(int community_id, String user_id) {
 		dao.commCommunityHit(community_id);
 		CommDto dto =dao.commCommunityRead(community_id);
 		CommDtoCommunityLike likedto = new CommDtoCommunityLike();
 		likedto.setCommunity_id(community_id);
-		likedto.setUser_id("user001");
+		likedto.setUser_id(user_id);
 		dto.setLike(like.communityIsLike(likedto));
 		switch(dto.getComm_category_id()) {
 		case 1: dto.setCategory_name("공지사항"); break;
