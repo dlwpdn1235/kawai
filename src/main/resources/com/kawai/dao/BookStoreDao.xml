@@ -10,13 +10,15 @@
   
    <mapper namespace="com.kawai.dao.BookStoreDao">
      <insert id="bookstoreinsert" parameterType="BookStoreVO">
-    INSERT INTO bookstore ( 
-    tag_id, bs_name , bs_phonenum , bs_address , bs_address_detail , bs_postnum , bs_closeday ,
-    bs_content, bs_opendate , bs_start_date , bs_end_date)
-    VALUES ( 
-            #{tag_id} , #{bs_name} , #{bs_phonenum} , #{bs_address} , #{bs_address_detail}, #{bs_postnum}
-             , #{bs_closeday} , #{bs_content} , #{bs_opendate} , #{bs_start_date} , #{bs_end_date})
-     </insert> 
+	    INSERT INTO bookstore (
+	        bs_name, bs_phonenum, bs_address, bs_address_detail, bs_postnum,
+	        bs_closeday, bs_content, bs_opendate, bs_start_time, bs_end_time
+	    )
+	    VALUES (
+	        #{bs_name}, #{bs_phonenum}, #{bs_address}, #{bs_address_detail}, #{bs_postnum},
+	        #{bs_closeday}, #{bs_content}, #{bs_opendate}, #{bs_start_time}, #{bs_end_time}
+	    )
+	</insert>
      
   	<update id="bookstoreupdate" parameterType="BookStoreVO">
   	UPDATE bookstore
@@ -43,6 +45,39 @@
   	<select id="bookstorereadAll" resultType="BookStoreVO">
   		select * from bookstore order by bs_no desc
   	</select> 
+  	<select id="findMaxBsNo"  resultType="int">
+  	 SELECT MAX(bs_no) FROM bookstore
+  	</select>
   	
-  
+  	<insert id="addBookTagBox" parameterType="BookTagBoxVO">
+    INSERT INTO tag_box (bs_no, tag_id)
+    VALUES (#{bs_no}, #{tag_id})
+	</insert>
+	
+	<select id="getBookStoreTagNames" resultType="java.lang.String">
+        SELECT tag_name
+        FROM tag_box tb
+        JOIN hashtag h ON tb.tag_id = h.tag_id
+    	WHERE tb.bs_no = #{bsNo}
+    </select>
+     <select id="getBsName" resultType="BookStoreVO">
+        SELECT * FROM bookstore WHERE bs_name = #{bs_name}
+    </select>
+
+    <insert id="registerBookStore" parameterType="BookStoreVO">
+        <selectKey keyProperty="bs_no" resultType="int" order="BEFORE">
+            SELECT MAX(bs_no) + 1 FROM bookstore
+        </selectKey>
+        INSERT INTO bookstore (
+            bs_name, bs_phonenum, bs_address, bs_address_detail, bs_postnum,
+            bs_closeday, bs_content, bs_opendate, bs_start_time, bs_end_time
+        )
+        VALUES (
+            #{bs_name}, #{bs_phonenum}, #{bs_address}, #{bs_address_detail}, #{bs_postnum},
+            #{bs_closeday}, #{bs_content}, #{bs_opendate}, #{bs_start_time}, #{bs_end_time}
+        )
+    </insert>
+    
+    
+  	
   </mapper>

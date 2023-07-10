@@ -24,12 +24,12 @@
 		<typeAlias type="com.kawai.dto.BookImgVO" alias="BookImgVO"/>
 		<typeAlias type="com.kawai.dto.BookLikesVO" alias="BookLikesVO"/>
 		<typeAlias type="com.kawai.dto.BookStoreVO" alias="BookStoreVO"/>
+		<typeAlias type="com.kawai.dto.BookTagBoxVO" alias="BookTagBoxVO"/>
 		
 		<typeAlias alias="AccountUserVO" type="com.kawai.dto.AccountUserVO"/>
 		<typeAlias alias="AccountUserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>
 		<typeAlias alias="AccountEventVO" type="com.kawai.dto.AccountEventVO"/>
 		<typeAlias alias="AccountCouponVO" type="com.kawai.dto.AccountCouponVO"/>
-    
 
 	</typeAliases>
 	      

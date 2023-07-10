@@ -170,7 +170,7 @@ float:left;
     </div>
     
 	    <ul class="nav navbar-nav">
-	      <li><a href="#">지도</a></li>
+	      <li><a href="${pageContext.request.contextPath}/book/main2">지도</a></li>
 	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
 	      <li><a href="${pageContext.request.contextPath}/market/marketview">마켓</a></li>
 	    </ul>

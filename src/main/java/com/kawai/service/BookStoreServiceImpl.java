@@ -21,6 +21,7 @@ import com.kawai.dao.BookImgDao;
 import com.kawai.dao.BookStoreDao;
 import com.kawai.dto.BookImgVO;
 import com.kawai.dto.BookStoreVO;
+import com.kawai.dto.BookTagBoxVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -43,5 +44,34 @@ public class BookStoreServiceImpl implements BookStoreService{
 	public BookStoreVO bookstoreread(int no) { return dao.bookstoreread(no); }
 	@Override
 	public List<BookStoreVO> bookstorereadAll() { return dao.bookstorereadAll(); }
+	@Override
+	public Integer findMaxBsNo() {
+		Integer maxBsNo = dao.findMaxBsNo();
+		return maxBsNo != null ? maxBsNo : 0;
+	}
+	@Override
+	public void addBookTagBox(BookTagBoxVO tagBox) {
+		 dao.addBookTagBox(tagBox);
+	}
+	@Override
+	public List<String> getBookStoreTagNames(int no) {
+		 return dao.getBookStoreTagNames(no);
+	}
+	@Override
+	public List<BookStoreVO> getBsName(String name) {
+		return dao.getBsName(name);
+	}
+	
+	@Override
+	public void registerBookStore(BookStoreVO vo) {
+		// 최대 bs_no 값을 조회하여 새로운 번호 설정
+        int maxBsNo = findMaxBsNo();
+        int newBsNo = maxBsNo + 1;
+        vo.setBs_no(newBsNo);
+
+        // 서점 등록 메서드 호출
+        dao.registerBookStore(vo);
+	}
+	
 	
 }

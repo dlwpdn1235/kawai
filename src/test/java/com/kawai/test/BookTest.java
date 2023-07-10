@@ -1,18 +1,12 @@
 package com.kawai.test;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Arrays;
-
-import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -21,10 +15,12 @@ import com.kawai.dao.BookHashTagDao;
 import com.kawai.dao.BookImgDao;
 import com.kawai.dao.BookLikesDao;
 import com.kawai.dao.BookStoreDao;
+import com.kawai.dao.BookTagBoxDao;
 import com.kawai.dto.BookHashTagVO;
 import com.kawai.dto.BookImgVO;
 import com.kawai.dto.BookLikesVO;
 import com.kawai.dto.BookStoreVO;
+import com.kawai.dto.BookTagBoxVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -39,6 +35,7 @@ public class BookTest {
 	@Autowired BookImgDao imgdao;
 	@Autowired BookStoreDao bookdao;
 	@Autowired BookLikesDao likesdao;
+	@Autowired BookTagBoxDao boxdao;
 	
 	@Test  @Ignore
 	public void testtag() {
@@ -79,23 +76,24 @@ public class BookTest {
 		for( BookImgVO u  : imgdao.imgreadAll()) { System.out.println(u); }
 	}
 	
-	@Test //@Ignore
+	@Test @Ignore
 	public void testbookstore() {
 		BookStoreVO vo = new BookStoreVO(); 
-		vo.setUser_id("김도연");
-		vo.setTag_id(1);
-		vo.setBs_name("유어마인드");
-		vo.setBs_start_date(Time.valueOf("13:00:00"));
-		vo.setBs_end_date(Time.valueOf("20:00:00"));
-		vo.setBs_closeday("매달 첫째,셋째 화요일 휴무");
+		vo.setBs_no(4);
+		vo.setUser_id("admin1");
+		vo.setBs_name("유어마인드1313");
+		vo.setBs_closeday("매달 첫째,둘째 화요일 휴무");
 		vo.setBs_phonenum("070-8821-8990");
 		vo.setBs_postnum("03703");
 		vo.setBs_address("서울특별시 서대문구 연희동 132-32");
 		vo.setBs_address_detail("2층");
-		vo.setBs_opendate(LocalDateTime.parse("2010-01-01T00:00:00"));
-		vo.setBs_content("국 내 최초의 독립출판물 전문 서점이다. 출판사를 겸하고 있다. 2009년부터 매년 서울아트부게어 '언리미티드 에디션(UE, Unlimited Edition)'을 열어오고 있다.");
-		vo.setBs_reg_date("23-06-01");
+		vo.setBs_start_time("17:00");
+		vo.setBs_end_time("22:00");
 		
+		java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+		vo.setBs_opendate(currentDate);
+		vo.setBs_content("국 내 최초의 독립출판물 전문 서점이다. 출판사를 겸하고 있다. 2009년부터 매년 서울아트부게어 '언리미티드 에디션(UE, Unlimited Edition)'을 열어오고 있다.");
+		vo.setBs_reg_date(currentDate);
 
 	    System.out.println(bookdao.bookstoreinsert(vo)); // insert	
 		
@@ -141,4 +139,42 @@ public class BookTest {
 		//(1)  readAll
 		for( BookLikesVO u  : likesdao.likesreadAll()) { System.out.println(u); }
 	}
+	
+	@Test  //@Ignore
+	public void testbox() {
+		BookTagBoxVO vo = new BookTagBoxVO();
+		// 테스트할 BookTagBoxVO 객체 생성 및 설정
+		vo.setBox_no(3);
+		vo.setBs_no(3);
+		vo.setTag_id(3);
+		boxdao.boxinsert(vo);
+		
+	//    List<BookTagBoxVO> list = new ArrayList<>();
+	//    log.info("boxdao의 readAll 값 : " + boxdao.boxreadAll() );
+	    
+//	    list = boxdao.boxreadAll();
+//	    // insert 테스트
+//	    boxdao.boxtaginsert(list);
+//	    
+//	    log.info("결과는 ?" + list);
+
+	    // readAll 테스트
+	    List<BookTagBoxVO> tagBoxes = boxdao.boxreadAll();
+	    for (BookTagBoxVO u : tagBoxes) {
+	        log.info("결과는 ? : " + u);
+	    }
+		
+//		vo.setTag_id(3); 
+//		System.out.println(boxdao.boxupdate(vo)); // update
+		
+//		System.out.println( boxdao.boxread(1) );  //read
+		
+		List<BookTagBoxVO> find = boxdao.findTagByName();
+		for (BookTagBoxVO f : find) {
+		    System.out.println(f + "나니");
+		}
+		
+		
+	}
+	
 }
