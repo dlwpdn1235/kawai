@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kawai.common.UserCalendar;
@@ -34,12 +35,11 @@ public class UserCalendarController {
 	}
 
 	
-	
 	@RequestMapping(value="/myCalendar", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> myCalendar(HttpServletRequest request) {
 	    Map<String, Object> result = new HashMap<>();
-	    log.info("......... myCalendar");
+	    //log.info("......... myCalendar");
 	    mycalc = new UserCalendar();
 	    mycalc.calc_settings();
 	    
@@ -50,20 +50,23 @@ public class UserCalendarController {
 	    for (String event : accountEventList) {
 	        eventDates.add(event); // 출석체크한 날짜 리스트에 추가
 	    }
-	    
+		 int next = mycalc.getMonth();
+		 int prev = mycalc.getMonth();
+		 
+		 
+		result.put("next", next++);
+		result.put("prev", prev--);
 	    result.put("mycalc", mycalc);
 	    result.put("accountEventList", accountEventList);
 	    result.put("eventDates", eventDates); // eventDates 배열을 추가
 	    
-	    log.info(Arrays.toString(mycalc.getCalc_days()));
+	    //log.info(Arrays.toString(mycalc.getCalc_days()));
 	    
 	    
-	    log.info(""+eventDates);
-	    log.info("accountEventList.........."+accountEventList);
+	    //log.info(""+eventDates);
+	    //log.info("accountEventList.........."+accountEventList);
 	    return result;
 	}
-	
-	
 	/*
 	 * @RequestMapping(value="/myCalendar" , method=RequestMethod.GET)
 	 * 
