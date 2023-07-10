@@ -42,35 +42,23 @@ public class MarketTest {
 	MarketSearchDao mSearchDao;
 	
 	
-	// Update
-	@Test @Ignore
-	public void marketUpdate() {
-		MarketDto dto = new MarketDto();
-		dto.setMTitle("3");
-		dto.setMContent("내용");
-		dto.setMarket_id(1);
-		CommDtoBookinfo book = new CommDtoBookinfo(); 
-		book.setBookinfo_id(1);
-		dto.setBookInfo(book);
-		System.out.println(dao.marketUpdate(dto));
-	}
-	
-	// Insert
-	@Test @Ignore
-	public void marketInsert() {
-	MarketDto dto = new MarketDto();
-	dto.setMarket_id(2);
-	dto.setMTitle("제목");
-	dto.setMContent("내용");
-	dto.setMIp("111,111,111"); 
-	dto.setMPrice(3000);
-	CommDtoBookinfo info = new CommDtoBookinfo();
-	info.setBookinfo_id(1);
-	dto.setBookInfo(info);
-	dto.setUser_id("admin");
-	System.out.println(dao.marketInsert(dto));
-	}
-
+	/*
+	 * // Update
+	 * 
+	 * @Test @Ignore public void marketUpdate() { MarketDto dto = new MarketDto();
+	 * dto.setMTitle("3"); dto.setMContent("내용"); dto.setMarket_id(1);
+	 * CommDtoBookinfo book = new CommDtoBookinfo(); book.setBookinfo_id(1);
+	 * dto.setBookInfo(book); System.out.println(dao.marketUpdate(dto)); }
+	 */
+	/*
+	 * // Insert
+	 * 
+	 * @Test @Ignore public void marketInsert() { MarketDto dto = new MarketDto();
+	 * dto.setMarket_id(2); dto.setMTitle("제목"); dto.setMContent("내용");
+	 * dto.setMIp("111,111,111"); dto.setMPrice(3000); CommDtoBookinfo info = new
+	 * CommDtoBookinfo(); info.setBookinfo_id(1); dto.setBookInfo(info);
+	 * dto.setUser_id("admin"); System.out.println(dao.marketInsert(dto)); }
+	 */
 	// List
 	@Test @Ignore
 	public void marketList() {

@@ -1,5 +1,7 @@
 package com.kawai.service;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class MarketServiceImpl implements MarketService{
 		CommDtoBookinfo info = new CommDtoBookinfo();
 		info.setBookinfo_id(1);
 		
-		dto.setMarketSerchKeyWord("테스트");
+		dto.setMarketSerchKeyWord("���ㅽ��");
 		return dao.marketList(dto);
 	}
 
@@ -51,14 +53,17 @@ public class MarketServiceImpl implements MarketService{
 
 	@Override
 	public int marketInsert(MarketDto dto) {
-		dto.getBookInfo().setBookinfo_id(info.commBookinfoInsert(dto.getBookInfo()));
+		int bookinfo_id = (int)info.commBookinfoInsert(dto.getBookinfo());
+		dto.getBookinfo().setBookinfo_id(bookinfo_id);
+		try {
+			dto.setMIp(InetAddress.getLocalHost().getHostAddress());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dao.marketInsert(dto);
 	}
 
-	@Override
-	public int commBookinfoInsert(MarketDto dto) {
-		dto.getBookInfo().setBookinfo_id(info.commBookinfoInsert(dto.getBookInfo()));
-		return dao.marketInsert(dto);
-	}
+
 
 }

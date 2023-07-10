@@ -91,6 +91,52 @@
 	width:250px;
 }  
 
+/*
+06-30 도연 주소검색부분
+	map 수정
+*/
+.map_container {
+    padding-top: 75px;
+}
+dt.dt_find_search {
+    display: flex;
+    flex-direction: row-reverse;
+}
+.address_search {
+  display: inline-block;
+  color: gray;
+}
+#search_button {
+  float: right;
+}
+#sample6_postcode { 
+  width: 150px;
+  margin-bottom: 12px;
+  padding: 0.5em;
+  background-color: transparent;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
+#sample6_address {
+  width: 450px;
+  margin-bottom: 12px;
+  padding: 0.5em;
+  background-color: transparent;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
+#sample6_detailAddress {
+  width: 300px;
+  margin-bottom: 12px;
+  padding: 0.5em;
+  background-color: transparent;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
+/*
+수정완
+*/
+
 #marketCheck{
 margin-left:700px;
 }
@@ -125,6 +171,16 @@ border:solid 0.5px;
 border-bottom-style: solid;
 border-top-style:solid;
 width:1000px;
+}
+
+#marketShop{
+	float:right;
+	margin-right:60px;
+}
+
+.marketWriting{
+float:right;
+margin-right:30px;
 }
 
 .marketUserUpdateSubmit{
@@ -217,6 +273,7 @@ margin-bottom:15px;
 float:left;
 }
 
+
 .marketCheck{
 float:right;
 margin-right:360px;
@@ -239,7 +296,11 @@ margin-right:300px;
   margin-top: 50px;
   padding: 20px;
 }
-  </style>
+
+
+ </style>
+
+
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
@@ -251,7 +312,7 @@ margin-right:300px;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#myPage">동네글방</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/main/view">동네글방</a>
     </div>
     
 	    <ul class="nav navbar-nav">
@@ -261,8 +322,8 @@ margin-right:300px;
 	    </ul>
 	    
 	    <ul class="nav navbar-nav navbar-right">
-	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
-	      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
+	      <li><a href="${pageContext.request.contextPath}/account/singUp"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
+	      <li><a href="${pageContext.request.contextPath}/account/login"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
 	    </ul>
   </div>
 </nav>

@@ -11,5 +11,5 @@ public class MarketDto {
 	private int mPrice;
 	private String mDate;
 	private String user_id;
-	private CommDtoBookinfo bookInfo;
+	private CommDtoBookinfo bookinfo;
 }
