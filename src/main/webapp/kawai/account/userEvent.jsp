@@ -24,7 +24,6 @@ else if(result.length != 0){ alert(result); }
          		 </tbody>
      		</table>
 	</div> <!-- myCalendar -->
-	
 <script>
 $(function(){
     // 7/9까지 prev , next 버튼 구현
@@ -44,11 +43,9 @@ function calendarNow() {
         	console.log(json);
             $("#mytable tbody").empty();
             $(".year").html(json.mycalc.year);
-            $(".month").html(json.mycalc.month);
-           
+            $(".month").html(json.mycalc.month);          
             var calcDays = json.mycalc.calc_days; 
-            var eventDays = json.eventDates;
-            
+            var eventDays = json.eventDates;      
             /*
             if (json.eventDates.length > 0) {
             	eventDates_result = [json.accountEventList[0].eventdate];
@@ -61,22 +58,18 @@ function calendarNow() {
                 console.log(  typeof(eventDays[i]));
             	var data =   parseInt(  json.mycalc.startyoil ) + parseInt( eventDays[i] )-2   ;
 				checkDays[   parseInt( data  ) ] = 1;   
-            }
-            
+            }         
             console.log("유저의 출석날짜 " + eventDays);   //9 , 10
             console.log("42을도는 체크날짜"+ checkDays);
-            
             for (var i = 0; i < calcDays.length; i++) {
                 if (i % 7 === 0) {
                     tr = $("<tr>");
                 }
                 var td = $("<td>");
                 td.append(calcDays[i]);
-                
                 // 출석체크한 날짜인 경우 이미지 변경
                 // 1. eventDays(유저가 접속한 날짜가 담긴 값) 이 calcDays달력의 해당 날짜가 일치해야하고 
-                // 2. td.text 는 빈칸이 아니여야 한다.
-                
+                // 2. td.text 는 빈칸이 아니여야 한다.    
                 // 반복을 돌고 있는 i찾기
                 // (빈칸 +9)라면
                  console.log(i +"/"+ checkDays[i] +"/"+ (i == checkDays[i]));                
@@ -88,21 +81,13 @@ function calendarNow() {
                     var image = $("<img>").attr("src", "https://img.danawa.com/img/m/dpg/attendance/stamp_check3.png");
                     td.append(image);
                 } 
-				/*                 
-  				if (eventDates.includes(json.mycalc.calc_days[i].toString()) && td.text() !== "") {
-                    var image = $("<img>").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGob2rT16jqTmdN2x1sgp4mi-SiInGVZOaMg&usqp=CAU"); 
-                    td.append(image);
-                } else if (td.text() !== "") {
-                    var image = $("<img>").attr("src", "https://img.danawa.com/img/m/dpg/attendance/stamp_check3.png");
-                    td.append(image);
-                } */
                 tr.append(td);
                 $("#mytable tbody").append(tr);
+                
             }
         }
     });
 }
 </script>
-	
 	
 <%@ include file="../inc/footer.jsp" %>
