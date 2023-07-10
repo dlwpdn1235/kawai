@@ -98,6 +98,14 @@ public class CommController {
 		result.put("comm_category",comm_category);
 		return result;
 	}
+	@RequestMapping(value = "commAjaxAdminHide/{community_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> commAjaxAdminHide(@PathVariable int community_id) {	
+		Map<String, Object> result = new HashMap<>();
+		commService.commCommunityDelete(community_id);
+		result.put("result", Boolean.TRUE);
+		return result;
+	}
 	@RequestMapping(value="commBookinfo/{bookinfo_title}/{start_page}", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> commBookinfo(@PathVariable String bookinfo_title, @PathVariable int start_page) {

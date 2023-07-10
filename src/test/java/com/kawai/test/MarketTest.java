@@ -51,7 +51,7 @@ public class MarketTest {
 		dto.setMarket_id(1);
 		CommDtoBookinfo book = new CommDtoBookinfo(); 
 		book.setBookinfo_id(1);
-		dto.setBookInfo(book);
+		dto.setBookinfo(book);
 		System.out.println(dao.marketUpdate(dto));
 	}
 	
@@ -66,7 +66,7 @@ public class MarketTest {
 	dto.setMPrice(3000);
 	CommDtoBookinfo info = new CommDtoBookinfo();
 	info.setBookinfo_id(1);
-	dto.setBookInfo(info);
+	dto.setBookinfo(info);
 	dto.setUser_id("admin");
 	System.out.println(dao.marketInsert(dto));
 	}
