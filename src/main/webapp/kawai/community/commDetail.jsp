@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/header.jsp" %>
+<script>
+var result = '${success}';   console.log( result  );
+if(result =="fail"){ alert("관리자에게 문의하세요.");  history.go(-1); }
+else if( result.length !=0 ){  alert(result);  }
+</script>
 <div class="container panel panel-default tmpt">
    <h3 class="panel-heading text-center">제목 : ${commRead.community_title}</h3>
    <div class="row">
@@ -11,6 +16,7 @@
       <div class="col-sm-3 text-center likeCnt">추천 : ${commRead.communityLikeCnt}</div>
    </div>
    <br/><br/>
+   <c:if test="${commRead.comm_category_id == 2 || commRead.comm_category_id == 3}">
    <div class="row well" style="padding-left:150px">
       <div class="col-sm-2"><img src="${commRead.bookinfo.book_image}" title="${commRead.bookinfo.book_title}사진" style="width: 400px; height: 400px;"/></div>
       <div class="col-sm-4"></div>
@@ -20,6 +26,7 @@
          <p>${commRead.bookinfo.book_description}</p>
       </div>
    </div>
+   </c:if>
    <div>
       <textarea cols="60" rows="10" class="form-control" readonly>${commRead.community_content}</textarea>
    </div>
@@ -31,7 +38,7 @@
       </div>
    </div>
    <div class="text-right">
-      <a href="" title="" class="btn btn-info">수정</a>
+      <a href="${pageContext.request.contextPath}/community/commUpdate?community_id=${commRead.community_id}" title="수정" class="btn btn-info">수정</a>
       <a href="${pageContext.request.contextPath}/community/commDelete?community_id=${commRead.community_id}" title="삭제" class="btn btn-danger">삭제</a>
       <a href="" title="" class="btn">뒤로가기</a>
    </div>

@@ -118,7 +118,7 @@ public class CommTest {
 	}
 	@Test @Ignore
 	public void commlikeAllRead() {
-		like.communityLikeAllRead("user001");
+//		like.communityLikeAllRead("user001");
 	}
 	@Test @Ignore
 	public void commInquiryInsert() {

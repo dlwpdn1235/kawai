@@ -2,35 +2,44 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/header.jsp" %>
 	<div class="container tmpt">
-			<h3>글쓰기</h3>
-			<form action="${pageContext.request.contextPath}/community/commInsert" method="POST">
+			<h3>글 수정</h3>
+			<form action="${pageContext.request.contextPath}/community/commUpdate" method="POST">
 			    <div class="form-group">
-			        <select class="categorys" name="comm_category_id">
-			            <option value="2">책 리뷰</option>
-			            <option value="3">책 추천</option>
-			            <option value="4">자유게시판</option>
-			        </select>
+			    	<input type="hidden" value="${commRead.comm_category_id}"/>
+					<input type="text" name="category_name" value="${commRead.category_name}" readonly/>
 			    </div>	
 				<div class="form-group">
+				  <input type="hidden" name="community_id" value="${commRead.community_id}">
 				  <label for="community_title"  >제목</label>
-				  <input type="text"   name="community_title"   id="community_title"   class="form-control" > 
+				  <input type="text"   name="community_title"   id="community_title"   class="form-control"
+				  value="${commRead.community_title}" > 
 				</div>																			
 				<div class="form-group bookapi">
     				<label for="search"  >책 검색</label>
-					<input type="search" name="search" id="search" class="form-control"/>
+					<input type="search" name="search" id="search" class="form-control" value="${commRead.bookinfo.book_title}"/>
 					<button type="button" id="searchbtn" class="btn btn-info btn-lg">검색</button>
 				</div>
 				<div class="form-group bookinfo">
-					
+					<label for="book_title">책 제목</label>
+					<input type="text" name="book_title" class="form-control" value="${commRead.bookinfo.book_title}" readonly>
+					<label for="book_image">이미지</label>
+					<input type="text" name="book_image" class="form-control" value="${commRead.bookinfo.book_image}" readonly>
+					<label for="book_author">저자</label>
+					<input type="text" name="book_author" class="form-control" value="${commRead.bookinfo.book_author}" readonly>
+					<label for="book_publisher">퍼블리셔</label>
+					<input type="text" name="book_publisher" class="form-control" value="${commRead.bookinfo.book_publisher}" readonly>
+					<label for="book_pubdate">출간일</label>
+					<input type="text" name="book_pubdate" class="form-control" value="${commRead.bookinfo.book_pubdate}" readonly>
+					<label for="book_description">책 설명</label>
+					<input type="text" name="book_description" class="form-control" value="${commRead.bookinfo.book_description}" readonly>
 				</div>					
 				<div class="form-group">
 				  <label for="community_content"  >내용</label>
-				  <textarea name="community_content"  cols="60"  rows="10"   class="form-control" ></textarea>
+				  <textarea name="community_content"  cols="60"  rows="10"   class="form-control" >${commRead.community_content}</textarea>
 				</div>			
 				<div class="form-group  text-right">
-					<input type="submit"   value="글쓰기"  class="btn" id="commSubmit">  
-				    <input type="reset"   onclick="history.go(-1);"    value="취소"  class="btn"    >  
-					<a href="${pageContext.request.contextPath}/board/list"   class="btn"   >목록보기</a>
+					<input type="submit"   value="수정"  class="btn" id="commSubmit">  
+				    <input type="reset"   onclick="history.go(-1);"    value="뒤로가기"  class="btn"    >  
 				</div>	
 			</form>
 			  <!-- Modal -->
@@ -72,7 +81,7 @@
 			  </div>
 			<script>
 			$(document).ready(function(){
-			var isSelect = false;
+			var isSelect = true;
 	        var bookinfo_title = "";
 			var start_page = 1;
 			var isFirst= true;
@@ -149,6 +158,7 @@
 			                	$("#myModal").modal("show");
 			                	isFirst=false;
 			                }
+			                isSelect = false;
 			            }
 			        });
 			    }
@@ -167,7 +177,7 @@
 			            $(".bookinfo").empty();
 			            $(".bookinfo")
 			            	.append($("<label for='book_title'>책 제목</lable>"))
-			                .append($("<input type='text' name='book_title' class='bookinfo_title form-control' readonly>").val(title))
+			                .append($("<input type='text' name='book_title' class='form-control' readonly>").val(title))
 			            	.append($("<label for='book_image' >이미지</lable>"))
 			                .append($("<input type='text' name='book_image' class='form-control' readonly>").val(image))
 			            	.append($("<label for='book_author'>저자</lable>"))
