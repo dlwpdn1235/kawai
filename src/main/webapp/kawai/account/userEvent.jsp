@@ -41,40 +41,64 @@ function calendarNow() {
             alert(status + "/" + msg);
         },
         success: function(json) {
-            console.log(json);
+        	console.log(json);
             $("#mytable tbody").empty();
             $(".year").html(json.mycalc.year);
             $(".month").html(json.mycalc.month);
-            console.log(json.mycalc);
+           
+            var calcDays = json.mycalc.calc_days; 
+            var eventDays = json.eventDates;
             
-            var eventDates = [];
-            if (json.accountEventList.length > 0) {
-                eventDates = [json.accountEventList[0].eventdate];
+            /*
+            if (json.eventDates.length > 0) {
+            	eventDates_result = [json.accountEventList[0].eventdate];
+            }*/
+            var checkDays  =  new Array(42);  //42
+            for(var i = 0 ; i < 42; i++){ checkDays[i] = 0; } 
+            
+            // i가 유저의 출석날자(eventDays)와 같다면 
+            for(var i = 0 ; i < checkDays.length; i++){  //42
+                console.log(  typeof(eventDays[i]));
+            	var data =   parseInt(  json.mycalc.startyoil ) + parseInt( eventDays[i] )-2   ;
+				checkDays[   parseInt( data  ) ] = 1;   
             }
             
-            for (var i = 0; i < json.mycalc.calc_days.length; i++) {
+            console.log("유저의 출석날짜 " + eventDays);   //9 , 10
+            console.log("42을도는 체크날짜"+ checkDays);
+            
+            for (var i = 0; i < calcDays.length; i++) {
                 if (i % 7 === 0) {
                     tr = $("<tr>");
                 }
                 var td = $("<td>");
-                td.append(json.mycalc.calc_days[i]);
-
+                td.append(calcDays[i]);
+                
                 // 출석체크한 날짜인 경우 이미지 변경
-                if (eventDates.includes(json.mycalc.calc_days[i]) && td.text() !== "") {
+                // 1. eventDays(유저가 접속한 날짜가 담긴 값) 이 calcDays달력의 해당 날짜가 일치해야하고 
+                // 2. td.text 는 빈칸이 아니여야 한다.
+                
+                // 반복을 돌고 있는 i찾기
+                // (빈칸 +9)라면
+                 console.log(i +"/"+ checkDays[i] +"/"+ (i == checkDays[i]));                
+                 if (checkDays[i]==1) {
+                	console.log(i +"/"+ checkDays[i]);
+                    var image = $("<img>").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGob2rT16jqTmdN2x1sgp4mi-SiInGVZOaMg&usqp=CAU"); 
+                    td.append(image);
+                } else if (td.text() != "") {
+                    var image = $("<img>").attr("src", "https://img.danawa.com/img/m/dpg/attendance/stamp_check3.png");
+                    td.append(image);
+                } 
+				/*                 
+  				if (eventDates.includes(json.mycalc.calc_days[i].toString()) && td.text() !== "") {
                     var image = $("<img>").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGob2rT16jqTmdN2x1sgp4mi-SiInGVZOaMg&usqp=CAU"); 
                     td.append(image);
                 } else if (td.text() !== "") {
                     var image = $("<img>").attr("src", "https://img.danawa.com/img/m/dpg/attendance/stamp_check3.png");
                     td.append(image);
-                }
+                } */
                 tr.append(td);
                 $("#mytable tbody").append(tr);
             }
-
-            // 이미지 클릭 이벤트 처리
-            $(".imgbutton").on("click", function() {
-                $(this).addClass("red"); 
-            });
         }
     });
 }
@@ -82,7 +106,3 @@ function calendarNow() {
 	
 	
 <%@ include file="../inc/footer.jsp" %>
-<!-- 
-
-		      //내가 출석한 기록을 담은 테이블에 있는 값의 <td> 는 다른 img 로
- -->

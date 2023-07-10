@@ -1,6 +1,7 @@
 package com.kawai.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kawai.common.UserCalendar;
-import com.kawai.dto.AccountEventVO;
 import com.kawai.service.AccountEventService;
 
 import lombok.extern.log4j.Log4j;
@@ -34,6 +34,7 @@ public class UserCalendarController {
 	}
 
 	
+	
 	@RequestMapping(value="/myCalendar", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> myCalendar(HttpServletRequest request) {
@@ -43,17 +44,22 @@ public class UserCalendarController {
 	    mycalc.calc_settings();
 	    
 	    // 이벤트 리스트를 가져와서 result 맵에 추가
-	    List<AccountEventVO> accountEventList = event.accountEventList((String)request.getSession().getAttribute("account"));
+	    List<String> accountEventList = event.accountEventList((String)request.getSession().getAttribute("account"));
 	    
 	    List<String> eventDates = new ArrayList<>();
-	    for (AccountEventVO event : accountEventList) {
-	        eventDates.add(event.getEventdate()); // 출석체크한 날짜 리스트에 추가
+	    for (String event : accountEventList) {
+	        eventDates.add(event); // 출석체크한 날짜 리스트에 추가
 	    }
 	    
 	    result.put("mycalc", mycalc);
 	    result.put("accountEventList", accountEventList);
 	    result.put("eventDates", eventDates); // eventDates 배열을 추가
 	    
+	    log.info(Arrays.toString(mycalc.getCalc_days()));
+	    
+	    
+	    log.info(""+eventDates);
+	    log.info("accountEventList.........."+accountEventList);
 	    return result;
 	}
 	
