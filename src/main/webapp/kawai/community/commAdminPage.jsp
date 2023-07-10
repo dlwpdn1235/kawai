@@ -89,6 +89,9 @@ else if( result.length !=0 ){  alert(result);  }
 	  var community_hide = 1;
 	  var isFirst = true;
 	  var isLoading = false; // 데이터 로딩 여부
+	    $(document).on("click",".hideBtn",function(){
+	    	
+	    });
 	  
 	  	$("#resetbtn").on("click",function(){
 	  		searchKeyword = '';
@@ -178,7 +181,8 @@ else if( result.length !=0 ){  alert(result);  }
 	  			}
 	  			
 	  			$("<tr>")
-	  			.append($("<input type='hidden' class='hidden_no'>").val(commList.community_id)) // 수정ok	  			
+	  			.append($("<input type='hidden' class='hidden_no'>").val(commList.community_id)) // 수정ok
+	  			.append()
 	  			.append($("<td>").html(hide))
 	  			.append($("<td>").html(commList.category_name))
 				.append($("<td>").append($("<a>").attr("href", "${pageContext.request.contextPath}/community/commDetail?community_id=" + commList.community_id).text(commList.community_title)))	  			.append($("<td>").html(commList.user_id))

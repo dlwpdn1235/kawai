@@ -3,11 +3,12 @@ package com.kawai.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kawai.dao.MarketCartDao;
 import com.kawai.dto.MarketCart;
-
+@Service
 public class MarketCartServiceImpl implements MarketCartService{
 
 	@Autowired
@@ -36,7 +37,9 @@ public class MarketCartServiceImpl implements MarketCartService{
 
 	@Override
 	public List<MarketCart> marketCartList() {
+		
 		return dao.marketCartList();
 	}
+	
 
 }

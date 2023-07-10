@@ -58,8 +58,9 @@
     font-family: Montserrat, sans-serif;
   }
   .navbar li a, .navbar .navbar-brand {
-    color: #fff !important;
+    color: #000000 !important;
   }
+
   .navbar-brand{
   	font-size: 25px;
   }
@@ -176,13 +177,162 @@ label.a {
 	text-align: center;
 }
 
-ul .dropdown-menu li a {
-    color: #000000; 
+.tmpt{
+	margin-top: 75px;
+}
+
+/* end account part */
+/* 승재리*/
+#marketCheck{
+margin-left:700px;
 }
 
 
-/* end account part */
+#marketLikeCheck + label {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-image: url('../img/marketLikeCheck.png');
+  background-size: cover;
+}
 
+#market-paying{
+font-size:14px;
+font-weight:bold;
+text-align:center;
+margin-right:20px;
+}
+
+#marketPayNameUpdate{
+float:right;
+}
+
+#marketThOption{
+font-wieght:bold;
+padding:15px;
+border:solid 0.5px;
+}
+
+#marketTdOption{
+border-bottom-style: solid;
+border-top-style:solid;
+width:1000px;
+}
+
+#marketShop{
+   float:right;
+   margin-right:60px;
+}
+
+.marketWriting{
+float:right;
+margin-right:30px;
+}
+
+.marketUserUpdateSubmit{
+float:right;
+}
+
+.marketUserUpdateCon{
+margin-bottom:30px;
+}
+
+.marketUserUpdate-group{
+padding:25px;
+
+}
+
+.marketUpdateSubmit{
+float:right;
+}
+
+.marketUpdateCon{
+margin-bottom:30px;
+}
+
+.marketUpdate-group{
+padding:25px;
+
+}
+
+.marketWriteSubmit{
+float:right;
+}
+
+.marketWriteCon{
+margin-bottom:30px;
+}
+
+.marketWrite-group{
+padding:25px;
+
+}
+
+.marketProductWrite{
+margin-left:200px;
+}
+
+.marketProductTable{
+border-style:none;
+}
+
+.marketOrderCommit{
+margin-top:30px;
+text-align:center;
+}
+
+.marketOderOkLine{
+margin-top:50px;
+margin-bottom:50px;
+}
+
+.marketProductPaying{
+text-align:center;
+margin-top:50px;
+}
+
+.marketProductSumPrice{
+font-weight: bold;
+margin-top:30px;
+text-align:center;
+margin-right:30px;
+}
+
+.marketProduct-group{
+border:solid 1px;
+border-radius: 1px;
+
+}
+
+.marketProductReceive{
+font-weight:bold;
+font-size:22px;
+text-align:center;
+}
+
+.marketProductCheck{
+float:left;
+}
+
+
+.marketCheck{
+float:right;
+margin-right:360px;
+}
+
+.marketBuy{
+text-align:center;
+}
+
+.market-search-group{
+text-align:center;
+}
+
+.marketDelete{
+float:right;
+margin-right:300px;
+}
+/* 승재리*/
  </style>
 </head>
 
@@ -226,11 +376,11 @@ if (role_id == -1) { // 값이 없을 경우
       </a>
       <ul class="dropdown-menu">
       <!-- 각자 경로 입력 -->
-        <li><a href="${pageContext.request.contextPath}/account/userList">회원관리</a></li>
-        <li><a href="#">서점관리</a></li>
-        <li><a href="#">마켓관리</a></li>
-        <li><a href="#">커뮤니티관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/account/logout">로그아웃</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
+        <li><a href="#" class="userMenu">서점관리</a></li>
+        <li><a href="#" class="userMenu">마켓관리</a></li>
+        <li><a href="#" class="userMenu">커뮤니티관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
   </ul>
@@ -243,13 +393,13 @@ if (role_id == -1) { // 값이 없을 경우
         <span class="glyphicon glyphicon-user"></span> 사용자
         <span class="caret"></span>
       </a>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu userMenu">
       <!-- 각자 경로 입력 -->
-        <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}">내정보</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
         <li><a href="#">내가찜한서점</a></li>
         <li><a href="#">장바구니</a></li>
         <li><a href="#">내가쓴글</a></li>
-        <li><a href="${pageContext.request.contextPath}/account/logout">로그아웃</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
   </ul>
