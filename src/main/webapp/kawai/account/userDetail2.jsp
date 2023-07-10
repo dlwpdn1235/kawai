@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/header.jsp" %>
+<script>
+var result = '${success}';
+if(result=="fail"){ alert("회원가입 실패!"); history.go(-1); }
+else if(result.length != 0){ alert(result); }
+</script>
 	<div class="container panel panel-warning" id="accountSingUpView">
 			<h3>나의 정보</h3>
 			<div class="form-group"  >
@@ -42,9 +47,8 @@
 			</div>
 				</c:forEach>
 			<div class="row  text-right"    >
-				 <a href="${pageContext.request.contextPath}/account/userEdit?id=${userInfo.id}"  class="btn" >수정</a> 
+				 <a href="${pageContext.request.contextPath}/account/userEdit2?id=${userInfo.id}"  class="btn" >수정</a> 
 				 <a href="${pageContext.request.contextPath}/account/userDelete?id=${userInfo.id}"  class="btn" >삭제</a> 
-				 <a href="${pageContext.request.contextPath}/account/userList"   class="btn">유저목록</a>  
 			</div>	
 	</div>
 <%@ include file="../inc/footer.jsp" %>

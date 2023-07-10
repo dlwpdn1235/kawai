@@ -8,11 +8,15 @@ public interface AccountUserDao {
 	// 회원가입 accountUserInsert
 	public int accountUserInsert(AccountUserVO user);
 	
+	// 아이디 중복 체크
+	public int accountIdCheck(String id);
+	
 	// 로그인 accointLogin
 	public AccountUserVO accountLogin(AccountUserVO user);
 	
 	// 회원정보 상세보기 accountUserRead
 	public AccountUserVO accountUserRead(AccountUserVO user);
+	public AccountUserVO accountUserRead2(String userId);
 	
 	// 회원목록 리스트 accountUserList
 	public List<AccountUserVO> accountUserList();

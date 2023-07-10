@@ -11,7 +11,7 @@ public interface AccountEventDao {
 	// 금일날짜 출석체크 해당날짜에 출석체크를 한 적 없다면 값 입력
 	public int accountEventDo(String id);
 	// 한 유저의 출석체크한 날짜조회(리스트) VIEW에 달력식으로 값 넣기
-	public List<AccountEventVO> accountEventList(String id);
+	public List<String> accountEventList(String id);
 	// 한 유저의 출석체크한 날짜일수 조회 20이 되면 쿠폰을 발급하기 위함
 	public int accountEventDays(String id);
 	// 쿠폰지급 

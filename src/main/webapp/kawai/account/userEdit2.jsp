@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/header.jsp" %>
-<div class="container panel panel-warning" id="accountEditView">
 <script>
 var result = '${success}';
 if(result=="fail"){ alert("회원가입 실패!"); history.go(-1); }
 else if(result.length != 0){ alert(result); }
 </script>
+<div class="container panel panel-warning" id="accountEditView">
 	<h3>회원 정보 수정</h3>
-	<form action="${pageContext.request.contextPath}/account/userEdit" method="POST">
+	<form action="${pageContext.request.contextPath}/account/userEdit2" method="POST">
 		<div class="form-group">
 			<span class="glyphicon glyphicon-plus"><label for="id">아이디</label></span>
 			<input type="text" id="id" name="id" value="${userInfo.id}" readonly="readonly" class="form-control" /> 
@@ -40,7 +40,7 @@ else if(result.length != 0){ alert(result); }
 		
 		<div class="row text-right">
 			<button type="submit" class="btn btn-primary">수정</button>
-			<a href="${pageContext.request.contextPath}/account/userDetail?id=${userInfo.id}" class="btn btn-default">취소</a>
+			<a href="${pageContext.request.contextPath}/account/userDetail2?id=${userInfo.id}" class="btn btn-default">취소</a>
 		</div>
 	</form>
 </div>
