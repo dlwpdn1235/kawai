@@ -6,7 +6,7 @@
 <mapper namespace="com.kawai.dao.MarketDao">
 
 	<insert parameterType="MarketPay" id="marketInsert">insert into
-		market(mTitle,mContent,mIp,mPrice,user_id,bookinfo_id)values(#{mTitle},#{mContent},#{mIp},#{mPrice},#{user_id},#{bookinfo.bookinfo_id})
+		market(mTitle,mContent,mIp,mPrice,user_id,bookinfo_id,mCart)values(#{mTitle},#{mContent},#{mIp},#{mPrice},#{user_id},#{bookinfo.bookinfo_id})
 	</insert>
 
 	<update parameterType="MarketPay" id="marketUpdate">update market set
@@ -42,7 +42,7 @@
 
 	<select parameterType="Market" id="marketRead"
 		resultMap="market">
-		SELECT a.market_id, a.user_id, a.mPrice, a.bookinfo_id,
+		SELECT a.market_id, a.mTitle , a.mDate , a.mContent , a.user_id, a.mPrice, a.bookinfo_id,
 		b.book_title, b.book_author, b.book_publisher, b.book_image,
 		b.book_pubdate FROM market a LEFT JOIN bookinfo b ON a.bookinfo_id =
 		b.bookinfo_id WHERE market_id = #{market_id} </select>
