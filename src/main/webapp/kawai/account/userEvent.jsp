@@ -12,7 +12,7 @@ else if(result.length != 0){ alert(result); }
 		         <thead>
 		            <tr>   
 		                <th  colspan="7">
-		                   <h4 class="text-center"><span class="myc year"></span>년  <span class="myc month"></span>월 의 이벤트!!</h4>
+		                   <h4 class="text-center"><span class="myc year"></span><button id="prevButton">이전</button>년<span class="myc month"></span>월의 이벤트!!<button id="nextButton">다음</button></h4>  
 		                </th>
 		            </tr>
 		            <tr id="yoil" ><th scope="col">SUN</th><th scope="col">MON</th><th scope="col">TUE</th>
@@ -20,16 +20,13 @@ else if(result.length != 0){ alert(result); }
 		               	<th scope="col">SAT</th></tr>
 		         </thead>
         		 <tbody>
-   
          		 </tbody>
      		</table>
 	</div> <!-- myCalendar -->
 <script>
 $(function(){
-    // 7/9까지 prev , next 버튼 구현
     calendarNow();
 });
-
 function calendarNow() {
     $.ajax({
         url: "myCalendar",
@@ -40,10 +37,25 @@ function calendarNow() {
             alert(status + "/" + msg);
         },
         success: function(json) {
-        	console.log(json);
+        	//console.log(json);
             $("#mytable tbody").empty();
             $(".year").html(json.mycalc.year);
-            $(".month").html(json.mycalc.month);          
+            $(".month").html(json.mycalc.month);    
+            
+            var nextMonth = json.next;
+            var prevMonth = json.prev;
+            $("#nextButton").on("click", function() {
+                var year = $(".year").text();
+                $(".year").text(year);
+                $(".month").text(nextMonth);
+            });
+            $("#prevButton").on("click", function() {
+                var year = $(".year").text();
+                $(".year").text(year);
+                $(".month").text(prevMonth);
+            });
+            
+
             var calcDays = json.mycalc.calc_days; 
             var eventDays = json.eventDates;      
             /*
@@ -52,15 +64,14 @@ function calendarNow() {
             }*/
             var checkDays  =  new Array(42);  //42
             for(var i = 0 ; i < 42; i++){ checkDays[i] = 0; } 
-            
             // i가 유저의 출석날자(eventDays)와 같다면 
             for(var i = 0 ; i < checkDays.length; i++){  //42
-                console.log(  typeof(eventDays[i]));
+                //console.log(  typeof(eventDays[i]));
             	var data =   parseInt(  json.mycalc.startyoil ) + parseInt( eventDays[i] )-2   ;
 				checkDays[   parseInt( data  ) ] = 1;   
             }         
-            console.log("유저의 출석날짜 " + eventDays);   //9 , 10
-            console.log("42을도는 체크날짜"+ checkDays);
+			//console.log("유저의 출석날짜 " + eventDays);   //9 , 10
+            //console.log("42을도는 체크날짜"+ checkDays);
             for (var i = 0; i < calcDays.length; i++) {
                 if (i % 7 === 0) {
                     tr = $("<tr>");
@@ -72,9 +83,9 @@ function calendarNow() {
                 // 2. td.text 는 빈칸이 아니여야 한다.    
                 // 반복을 돌고 있는 i찾기
                 // (빈칸 +9)라면
-                 console.log(i +"/"+ checkDays[i] +"/"+ (i == checkDays[i]));                
+                // console.log(i +"/"+ checkDays[i] +"/"+ (i == checkDays[i]));                
                  if (checkDays[i]==1) {
-                	console.log(i +"/"+ checkDays[i]);
+                	//console.log(i +"/"+ checkDays[i]);
                     var image = $("<img>").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGob2rT16jqTmdN2x1sgp4mi-SiInGVZOaMg&usqp=CAU"); 
                     td.append(image);
                 } else if (td.text() != "") {
@@ -83,11 +94,9 @@ function calendarNow() {
                 } 
                 tr.append(td);
                 $("#mytable tbody").append(tr);
-                
             }
         }
     });
 }
-</script>
-	
+</script>	
 <%@ include file="../inc/footer.jsp" %>
