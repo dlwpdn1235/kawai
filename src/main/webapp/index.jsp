@@ -4,5 +4,5 @@
 
 <!-- //<script>location.href='kawai/main2.kawai';</script> -->
 
-<script>location.href='main/view';</script>
+<script>location.href='community/communityMyPage';</script>
 

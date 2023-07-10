@@ -43,6 +43,14 @@ public class CommServiceImpl implements CommService{
 
 	@Override
 	public int commCommunityUpdate(CommDto commDto) {
+		int bookinfo_id = (int)bookinfoservice.commBookinfoInsert(commDto.getBookinfo());
+		commDto.getBookinfo().setBookinfo_id(bookinfo_id);
+		try {
+			commDto.setCommunity_ip(InetAddress.getLocalHost().getHostAddress());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return dao.commCommunityUpdate(commDto);
 	}
 
@@ -59,6 +67,10 @@ public class CommServiceImpl implements CommService{
 	@Override
 	public CommDto commCommunityRead(int community_id) {
 		CommDto dto =dao.commCommunityRead(community_id);
+		CommDtoCommunityLike likedto = new CommDtoCommunityLike();
+		likedto.setCommunity_id(community_id);
+		likedto.setUser_id("user001");
+		dto.setLike(like.communityIsLike(likedto));
 		switch(dto.getComm_category_id()) {
 		case 1: dto.setCategory_name("공지사항"); break;
 		case 2: dto.setCategory_name("책 리뷰"); break;
@@ -96,8 +108,20 @@ public class CommServiceImpl implements CommService{
 	}
 
 	@Override
-	public List<CommDto> commUserAllRead(String user_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CommDto> commUserAllRead(String user_id, int plusPage) {
+		Map<String, Object> para = new HashMap<>();
+		para.put("user_id", user_id);
+		para.put("plusPage", plusPage);
+		return dao.commUserAllRead(para);
+	}
+
+	@Override
+	public List<CommDto> commAdminCommunityAllRead(CommDtoSearch search) {
+		return dao.commAdminCommunityAllRead(search);
+	}
+
+	@Override
+	public int commCommunityCnt() {
+		return dao.commCommunityCnt();
 	}
 }

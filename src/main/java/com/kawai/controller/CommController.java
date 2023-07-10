@@ -1,8 +1,6 @@
 package com.kawai.controller;
 
-import java.net.InetAddress;
 import java.net.URI;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +31,7 @@ import com.kawai.dto.CommDtoCategory;
 import com.kawai.dto.CommDtoComment;
 import com.kawai.dto.CommDtoCommentLike;
 import com.kawai.dto.CommDtoCommunityLike;
+import com.kawai.dto.CommDtoPage;
 import com.kawai.dto.CommDtoSearch;
 import com.kawai.service.CommService;
 import com.kawai.service.CommServiceCategory;
@@ -79,21 +78,41 @@ public class CommController {
 		result.put("comm_category",comm_category);
 		return result;
 	}
-	@RequestMapping(value="commBookinfo/{bookinfo_title}", method=RequestMethod.GET)
+	@RequestMapping(value = "commAjaxAdminView", method = RequestMethod.POST, headers= {"Content-type=application/json"})
 	@ResponseBody
-	public Map<String, Object> commBookinfo(@PathVariable String bookinfo_title) {
+	public Map<String, Object> commAjaxAdminView(@RequestBody CommDtoSearch search) {	
+		Map<String, Object> result = new HashMap<>();
+		List<CommDto> commList = commService.commAdminCommunityAllRead(search);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			System.out.println(cL.getCommunity_hide());
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		result.put("result", Boolean.TRUE);
+		result.put("commList",commList);
+		result.put("comm_category",comm_category);
+		return result;
+	}
+	@RequestMapping(value="commBookinfo/{bookinfo_title}/{start_page}", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> commBookinfo(@PathVariable String bookinfo_title, @PathVariable int start_page) {
 	    Map<String, Object> result = new HashMap<>();
 	    // 네이버 검색 API 요청
 	    String clientId = "GMWaPzp1mjiUos2cjXwP";
 	    String clientSecret = "q5o1HLTNRU";
-
+	    System.out.println(start_page);
 	    // URI 생성
 	    URI uri = UriComponentsBuilder
 	            .fromUriString("https://openapi.naver.com")
 	            .path("/v1/search/book.json")
 	            .queryParam("query", bookinfo_title)
 	            .queryParam("display", 10)
-	            .queryParam("start", 1)
+	            .queryParam("start", start_page)
 	            .queryParam("sort", "sim")
 	            .build()
 	            .encode()
@@ -114,7 +133,6 @@ public class CommController {
 	        Map<String, Object> responseBody = responseEntity.getBody();
 	        result.put("result", Boolean.TRUE);
 	        result.put("bookinfoList", responseBody);
-	        System.out.println(responseBody);
 	    } else {	
 	        result.put("result", Boolean.FALSE);
 	        result.put("bookinfoList", null);
@@ -125,6 +143,11 @@ public class CommController {
 	@RequestMapping(value = "commDetail", method = RequestMethod.GET)
 	public String commDetail(int community_id, Model model) {	
 		model.addAttribute("commRead",commService.commCommunityHitRead(community_id));
+		return "community/commDetail";
+	}
+	@RequestMapping(value = "commUpdateDetail", method = RequestMethod.GET)
+	public String commUpdateDetail(int community_id, Model model) {	
+		model.addAttribute("commRead",commService.commCommunityRead(community_id));
 		return "community/commDetail";
 	}
 	@RequestMapping(value = "commInsert", method = RequestMethod.GET)
@@ -150,11 +173,12 @@ public class CommController {
 		return "community/commUpdateForm";
 	}
 	@RequestMapping(value="commUpdate", method=RequestMethod.POST)
-	public String commUpdate(CommDto commdto, Model model, RedirectAttributes rttr) {
+	public String commUpdate(CommDto commdto, CommDtoBookinfo bookinfo, RedirectAttributes rttr) {
 		String result = "fail";
+		commdto.setBookinfo(bookinfo);
 		if(commService.commCommunityUpdate(commdto)>0) {result = "글 수정 완료";}
 		rttr.addFlashAttribute("success", result);
-		return "redirect:/community/commDetail?community_id=" + commdto.getCommunity_id();
+		return "redirect:/community/commUpdateDetail?community_id=" + commdto.getCommunity_id();
 	}
 	@RequestMapping(value="commDelete", method=RequestMethod.GET)
 	public String commDelete(int community_id, RedirectAttributes rttr) {
@@ -238,6 +262,58 @@ public class CommController {
 	public Map<String, Object> commentDelete(@RequestBody CommDtoComment comment) {
 		Map<String, Object> result = new HashMap<>();
 		commServiceComment.commentDelete(comment);
+		result.put("result", Boolean.TRUE);
+		return result;
+	}
+	@RequestMapping(value="communityMyPage", method=RequestMethod.GET)
+	public String communityMyPage(Model model) {
+		List<CommDto> commList = commService.commUserAllRead("user001", 0);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		model.addAttribute("commList",commList);
+		return "community/commMyPage";
+	}
+	@RequestMapping(value="communityMyPageAdd/{plusPage}", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> communityMyPageAdd(@PathVariable int plusPage) {
+		Map<String, Object> result = new HashMap<>();
+		System.out.println(plusPage);
+		List<CommDto> commList = commService.commUserAllRead("user001", plusPage);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		result.put("commList",commList);
+		result.put("result", Boolean.TRUE);
+		return result;
+	}
+	@RequestMapping(value="communityLikeMyPageAdd/{plusPage}", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> communityLikeMyPageAdd(@PathVariable int plusPage) {
+		Map<String, Object> result = new HashMap<>();
+		List<CommDto> commList = commServiceLike.communityLikeAllRead("user001", plusPage);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		result.put("commList",commList);
 		result.put("result", Boolean.TRUE);
 		return result;
 	}
