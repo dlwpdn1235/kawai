@@ -29,9 +29,10 @@ public class MarketCartServiceImpl implements MarketCartService{
 
 	@Transactional
 	@Override
-	public int marketCartDelete(MarketCart dto) {
-		int result = dao.marketCartDelete(dto.getMCart_id());
-		result += dao.marketCartCountUpdate(dto);
+	public int marketCartDelete(int no) {
+		MarketCart dto = new MarketCart();
+		int result = dao.marketCartDelete(no);
+		result += dao.marketCartUpdate(dto);
 		return result;
 	}
 
@@ -39,6 +40,14 @@ public class MarketCartServiceImpl implements MarketCartService{
 	public List<MarketCart> marketCartList() {
 		
 		return dao.marketCartList();
+	}
+
+	@Override
+	public MarketCart marketCartRead(int no) {
+		MarketCart dto = new MarketCart();
+		dto.setUser_id("user001");
+		
+		return dao.marketCartRead(no);
 	}
 	
 

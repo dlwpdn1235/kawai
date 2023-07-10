@@ -4,13 +4,18 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kawai.dao.MarketCartDao">
 
+
+
 <insert parameterType="MarketCart" id="marketCartInsert">insert into mcart
 	(market_id,user_id) values(#{market_id},#{user_id}) </insert>
 
 	<select parameterType="MarketCart" id="marketCartList"
-		resultType="MarketCart">SELECT c.*, b.*, u.*FROM mCart cLEFT JOIN market m ON
-		c.mcart_id = m.market_idLEFT JOIN bookinfo b ON b.bookinfo_id =
-		m.market_idLEFT JOIN user u ON u.id = m.market_id; </select>
+		resultType="MarketCart">
+		SELECT c.*, b.*, u.* 
+		FROM mCart c 
+		LEFT JOIN market m ON c.mcart_id = m.market_id 
+		LEFT JOIN bookinfo b ON b.bookinfo_id = m.market_id
+		LEFT JOIN user u ON u.id = m.market_id </select>
 
 	<update parameterType="MarketCart" id="marketCartUpdate">update mcart set
 		user_id=#{user_id} , market_id=#{market_id} , mCartDate = now()where

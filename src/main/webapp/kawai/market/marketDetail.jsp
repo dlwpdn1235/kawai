@@ -43,16 +43,23 @@ float-left:80px;
     			</div>	
     			
     		    <div class="row"></div>
-  	<form action="#" method="post">
-    <div class="marketDetailMenubar" id="marketSum">
-    	<a href="#" class="btn btn-info" id="marketDetailCart">장바구니</a>
-    
+  	<form action="marketCart?market_id=${market.market_id }" method="post">
+    <div class="marketCart" id="marketSum">
+    	<input type="submit" class="btn btn-danger" value="장바구니"/>
+     </div>
+     </form>
+     
+     <form action="marketCareer?market_id=${market.market_id }" method="post">
+     <input type="submit" class="btn btn-info" value="담기"/>
+     </form>
+     
+     <div class="marketQuick">
     	<a href="#" class="btn btn-info" id="marketDetailQuick">바로가기</a>		    
-    </div>
+   	 </div>
     
 
     
-	</form>
+	
     			
 			
 		</div>
@@ -76,6 +83,7 @@ float-left:80px;
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
+
 
 $(function() {
 	  var result = 0;

@@ -19,6 +19,7 @@ import com.kawai.dto.MarketCart;
 import com.kawai.dto.MarketDto;
 import com.kawai.dto.MarketPageDto;
 import com.kawai.service.CommServiceBookinfo;
+import com.kawai.service.MarketCareerService;
 import com.kawai.service.MarketCartService;
 import com.kawai.service.MarketService;
 
@@ -36,6 +37,8 @@ public class MarketController {
 	@Autowired
 	CommServiceBookinfo bookservice;
 	
+	@Autowired
+	MarketCareerService caService;
 
 
 	@RequestMapping(value = "marketview", method = RequestMethod.GET)
@@ -53,7 +56,7 @@ public class MarketController {
 		return "market/marketDetail";
 	}
 	
-	@RequestMapping(value = "marketCart", method = RequestMethod.GET)
+	@RequestMapping(value = "marketCart", method = RequestMethod.POST)
 	public String marketCart(MarketPageDto pDto,  MarketCart mCartDto, Model model, CommDtoBookinfo info, HttpServletRequest request) {
 	    MarketDto dto = new MarketDto();
 	    dto.setBookinfo(info);
@@ -68,15 +71,23 @@ public class MarketController {
 	@RequestMapping(value = "marketProductInsert", method = RequestMethod.POST)
 	public String marketProductInsert(MarketDto dto, CommDtoBookinfo info , Model model , HttpServletRequest request , RedirectAttributes rttr) throws UnknownHostException {
 
-		System.out.println(dto);
 		dto.setBookinfo(info);
 		dto.setMarket_id(1);
 		dto.setUser_id("user001");
 		dto.setMIp(Inet4Address.getLocalHost().getHostAddress());
 		model.addAttribute("marketlist",service.marketInsert(dto));
-		System.out.println(info);
 
 		return "redirect:/market/marketview";
+	}
+	
+	@RequestMapping(value = "marketCareer", method = RequestMethod.POST)
+	public String marketCareer(@RequestParam int market_id , MarketDto dto , Model model) throws UnknownHostException {
+		MarketCart cdto = new MarketCart();
+		cdto.setUser_id("user001");
+		System.out.println(cdto);
+		model.addAttribute("list",caService.marketCareerInsert(cdto));
+		
+		return "redirect:/market/marketCart?user_id=${user_id}";
 	}
 	
 }
