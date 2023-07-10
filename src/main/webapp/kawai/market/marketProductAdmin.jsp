@@ -12,9 +12,6 @@
 	
 		<div class="market-search-group">
     	<input type="search" id="market_search" placeholder="관리자 검색" autocomplete="off"/>
-    	<a href="${pageContext.request.contextPath }/kawai/market/marketProductWrite.jsp">
-		<input type="button" class="btn btn-info marketProductWrite" value="상품등록"/>
-		</a>
       </div>
 	
 <table class="marketProductTable col-sm-12">
@@ -26,12 +23,12 @@
 				<th class="col-sm-3">등록날짜</th>
 			</tr>
 
-		<c:forEach var="list" items="${marketProductlist }"> <!-- col-sm 맞춰서 넣어주기. -->
+		<c:forEach var="list" items="${marketlist }"> <!-- col-sm 맞춰서 넣어주기. -->
 		
 				<td class="col-sm-2">${list.Market_id}</td>
-				<td class="col-sm-2">${list.User_id }</td>
-				<td class="col-sm-2">${test.book_title }</td> 
-				<td class="col-sm-1">${list.MDate }</td> 
+				<td class="col-sm-2">${list.user_id }</td>
+				<td class="col-sm-2">${list.bookinfo.book_title }</td> 
+				<td class="col-sm-1">${list.mDate }</td> 
 
 				<td class="col-sm-1"><input type="button" class="btn btn-info" value="수정"/></td>
 				<td class="col-sm-1"><input type="button" class="btn btn-danger" value="삭제"/></td>
