@@ -20,4 +20,18 @@
   	<select id="tagreadAll" resultType="BookHashTagVO">
   		select * from hashtag order by tag_id desc
   	</select>
+  	
+  	<select id="findTagNamesByIds" resultType="String">
+    SELECT tag_name FROM hashtag WHERE tag_id IN
+    <foreach item="tagId" collection="tagIds" separator="," open="(" close=")">
+        #{tagId}
+    </foreach>
+	</select>
+	
+	<select id="getTagNameByTagId" parameterType="java.lang.Integer" resultType="java.lang.String">
+	    SELECT tag_name
+	    FROM hashtag
+	    WHERE tag_id = #{tagId}
+	</select>
+
   </mapper>
