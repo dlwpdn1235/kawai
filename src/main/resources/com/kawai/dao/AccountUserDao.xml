@@ -43,4 +43,12 @@
 	<delete id="accountUserDelete" parameterType="AccountUserVO">
 	delete from user where id=#{id} and pass=#{pass}
 	</delete>
+	
+	<!-- email찾기 -->
+	<select id="emailfind" parameterType="string" resultType="string" >
+	select id from user where email=#{email}
+	</select>
+	
+	
+	
 </mapper>
