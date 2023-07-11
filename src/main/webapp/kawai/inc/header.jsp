@@ -224,6 +224,60 @@ width:1000px;
    margin-right:60px;
 }
 
+.marketDetailMenubar{
+padding-top:80px;
+}
+
+.marketDetailSumPrice{
+border: 1px solid gray;
+width:120px;
+padding-top:10px;
+margin-top : 30px;
+margin-left:60px;
+}
+
+.marketDetailPlus{
+font-size:40px;
+border-style: none;
+size: 10px;
+line-height:15px;
+}
+
+.marketDetailMinus{
+text-align:right;
+font-size:40px;
+border-style: none;
+line-height:15px;
+}
+
+.marketDetailLine{
+border:1px solid black;
+size: 220px;
+margin-top:20px;
+}
+
+.marketRec{
+margin-top:300px;
+margin-left:40px;
+}
+
+.market-group{
+width:1000px;
+margin:auto;
+}
+
+.marketPrice{
+float:right;
+}
+
+.marketTitle{
+padding:100px;
+}
+
+.marketDetail-group{
+text-align:center;
+}
+
 .marketWriting{
 float:right;
 margin-right:30px;
