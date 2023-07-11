@@ -1,8 +1,6 @@
 package com.kawai.controller;
 
-import java.net.InetAddress;
 import java.net.URI;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +53,10 @@ public class CommController {
 	@Autowired
 	CommServiceCategory commServiceCategory;
 
-
+	@RequestMapping(value = "commAdminPage", method = RequestMethod.GET)
+	public String commAdminPage() {	
+		return "community/commAdminPage";
+	}
 	@RequestMapping(value = "commView", method = RequestMethod.GET)
 	public String commView() {	
 		return "community/commView";
@@ -79,21 +80,49 @@ public class CommController {
 		result.put("comm_category",comm_category);
 		return result;
 	}
-	@RequestMapping(value="commBookinfo/{bookinfo_title}", method=RequestMethod.GET)
+	@RequestMapping(value = "commAjaxAdminView", method = RequestMethod.POST, headers= {"Content-type=application/json"})
 	@ResponseBody
-	public Map<String, Object> commBookinfo(@PathVariable String bookinfo_title) {
+	public Map<String, Object> commAjaxAdminView(@RequestBody CommDtoSearch search) {	
+		Map<String, Object> result = new HashMap<>();
+		List<CommDto> commList = commService.commAdminCommunityAllRead(search);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			System.out.println(cL.getCommunity_hide());
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		result.put("result", Boolean.TRUE);
+		result.put("commList",commList);
+		result.put("comm_category",comm_category);
+		return result;
+	}
+	@RequestMapping(value = "commAjaxAdminHide/{community_id}/{community_hide}", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> commAjaxAdminHide(@PathVariable int community_id, @PathVariable int community_hide) {	
+		Map<String, Object> result = new HashMap<>();
+		commService.commCommunityDelete(community_id, community_hide);
+		result.put("result", Boolean.TRUE);
+		return result;
+	}
+	@RequestMapping(value="commBookinfo/{bookinfo_title}/{start_page}", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> commBookinfo(@PathVariable String bookinfo_title, @PathVariable int start_page) {
 	    Map<String, Object> result = new HashMap<>();
 	    // 네이버 검색 API 요청
 	    String clientId = "GMWaPzp1mjiUos2cjXwP";
 	    String clientSecret = "q5o1HLTNRU";
-
+	    System.out.println(start_page);
 	    // URI 생성
 	    URI uri = UriComponentsBuilder
 	            .fromUriString("https://openapi.naver.com")
 	            .path("/v1/search/book.json")
 	            .queryParam("query", bookinfo_title)
 	            .queryParam("display", 10)
-	            .queryParam("start", 1)
+	            .queryParam("start", start_page)
 	            .queryParam("sort", "sim")
 	            .build()
 	            .encode()
@@ -114,7 +143,6 @@ public class CommController {
 	        Map<String, Object> responseBody = responseEntity.getBody();
 	        result.put("result", Boolean.TRUE);
 	        result.put("bookinfoList", responseBody);
-	        System.out.println(responseBody);
 	    } else {	
 	        result.put("result", Boolean.FALSE);
 	        result.put("bookinfoList", null);
@@ -123,43 +151,79 @@ public class CommController {
 	    return result;
 	}
 	@RequestMapping(value = "commDetail", method = RequestMethod.GET)
-	public String commDetail(int community_id, Model model) {	
-		model.addAttribute("commRead",commService.commCommunityHitRead(community_id));
+	public String commDetail(int community_id, Model model, HttpServletRequest request) {	
+		model.addAttribute("commRead",commService.commCommunityHitRead(community_id,(String)request.getSession().getAttribute("account")));
+		return "community/commDetail";
+	}
+	@RequestMapping(value = "commUpdateDetail", method = RequestMethod.GET)
+	public String commUpdateDetail(int community_id, Model model, HttpServletRequest request) {	
+		model.addAttribute("commRead",commService.commCommunityRead(community_id, (String)request.getSession().getAttribute("account")));
 		return "community/commDetail";
 	}
 	@RequestMapping(value = "commInsert", method = RequestMethod.GET)
 	public String commInsert() {	
 		return "community/commInsert";
 	}
+	@RequestMapping(value = "commAdminInsert", method = RequestMethod.GET)
+	public String commAdminInsert() {	
+		return "community/commAdminInsert";
+	}
 	@RequestMapping(value = "commInsert", method = RequestMethod.POST)
-	public String commInsertAction(CommDto commdto, CommDtoBookinfo bookinfo, RedirectAttributes rttr) {	
+	public String commInsertAction(CommDto commdto, CommDtoBookinfo bookinfo, RedirectAttributes rttr , HttpServletRequest request) {	
 		String result = "fail";
-		System.out.println(commdto);
-		System.out.println(bookinfo);
+		if(bookinfo.getBook_title() == null && bookinfo.getBook_author()==null) {
+			bookinfo = new CommDtoBookinfo();
+			bookinfo.setBook_title("기본");
+			bookinfo.setBook_description("기본");
+			bookinfo.setBook_author("기본");
+			bookinfo.setBook_publisher("없음");
+			bookinfo.setBook_image("없음");
+			bookinfo.setBook_pubdate("2023-07-05 10:38:12");
+		}
 		commdto.setCommunity_hide(1);
-		commdto.setComm_category_id(2);
-		commdto.setUser_id("user001");
+		
+		commdto.setUser_id((String)request.getSession().getAttribute("account"));
 		commdto.setBookinfo(bookinfo);
 		if(commService.commCommunityInsert(commdto)>0) {result="글쓰기 완료";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/community/commView";
 	}
+	@RequestMapping(value = "commAdminInsert", method = RequestMethod.POST)
+	public String commAdminInsert(CommDto commdto, CommDtoBookinfo bookinfo, RedirectAttributes rttr, HttpServletRequest request) {	
+		String result = "fail";
+		if(bookinfo.getBook_title() == null && bookinfo.getBook_author()==null) {
+			bookinfo = new CommDtoBookinfo();
+			bookinfo.setBook_title("기본");
+			bookinfo.setBook_description("기본");
+			bookinfo.setBook_author("없음");
+			bookinfo.setBook_publisher("없음");
+			bookinfo.setBook_image("없음");
+			bookinfo.setBook_pubdate("2023-07-05 10:38:12");
+		}
+		commdto.setCommunity_hide(1);
+		commdto.setUser_id((String)request.getSession().getAttribute("account"));
+		commdto.setBookinfo(bookinfo);
+		if(commService.commCommunityInsert(commdto)>0) {result="글쓰기 완료";}
+		rttr.addFlashAttribute("success",result);
+		return "redirect:/community/commAdminPage";
+	}
 	@RequestMapping(value="commUpdate", method=RequestMethod.GET)
-	public String commUpdate(int community_id, Model model) {
-		model.addAttribute("commRead",commService.commCommunityRead(community_id));
+	public String commUpdate(int community_id, Model model,  HttpServletRequest request) {
+		model.addAttribute("commRead",commService.commCommunityRead(community_id, (String)request.getSession().getAttribute("account")));
 		return "community/commUpdateForm";
 	}
 	@RequestMapping(value="commUpdate", method=RequestMethod.POST)
-	public String commUpdate(CommDto commdto, Model model, RedirectAttributes rttr) {
+	public String commUpdate(CommDto commdto, CommDtoBookinfo bookinfo, RedirectAttributes rttr) {
 		String result = "fail";
+		commdto.setBookinfo(bookinfo);
 		if(commService.commCommunityUpdate(commdto)>0) {result = "글 수정 완료";}
 		rttr.addFlashAttribute("success", result);
-		return "redirect:/community/commDetail?community_id=" + commdto.getCommunity_id();
+		return "redirect:/community/commUpdateDetail?community_id=" + commdto.getCommunity_id();
 	}
 	@RequestMapping(value="commDelete", method=RequestMethod.GET)
 	public String commDelete(int community_id, RedirectAttributes rttr) {
 		String result = "fail";
-		if(commService.commCommunityDelete(community_id)>0) {result="글삭제 완료";}
+		if(commService.commCommunityDelete(community_id,0)>0) {result="글삭제 완료";}
 		rttr.addFlashAttribute("success",result);
 		return "redirect:/community/commView";
 	}
@@ -200,9 +264,9 @@ public class CommController {
 	
 	@RequestMapping(value="commentAllRead/{community_id}", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> commentAllRead(@PathVariable int community_id) {
+	public Map<String, Object> commentAllRead(@PathVariable int community_id, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
-		List<CommDtoComment> comments = commServiceComment.commCommentAllRead(community_id);
+		List<CommDtoComment> comments = commServiceComment.commCommentAllRead(community_id,(String)request.getSession().getAttribute("account"));
 		result.put("result", Boolean.TRUE);
 		result.put("comment", comments);
 		return result;
@@ -238,6 +302,58 @@ public class CommController {
 	public Map<String, Object> commentDelete(@RequestBody CommDtoComment comment) {
 		Map<String, Object> result = new HashMap<>();
 		commServiceComment.commentDelete(comment);
+		result.put("result", Boolean.TRUE);
+		return result;
+	}
+	@RequestMapping(value="communityMyPage", method=RequestMethod.GET)
+	public String communityMyPage(Model model, HttpServletRequest request) {
+		List<CommDto> commList = commService.commUserAllRead((String)request.getSession().getAttribute("account"), 0);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		model.addAttribute("commList",commList);
+		return "community/commMyPage";
+	}
+	@RequestMapping(value="communityMyPageAdd/{plusPage}", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> communityMyPageAdd(@PathVariable int plusPage, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		System.out.println(plusPage);
+		List<CommDto> commList = commService.commUserAllRead((String)request.getSession().getAttribute("account"), plusPage);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		result.put("commList",commList);
+		result.put("result", Boolean.TRUE);
+		return result;
+	}
+	@RequestMapping(value="communityLikeMyPageAdd/{plusPage}", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> communityLikeMyPageAdd(@PathVariable int plusPage, HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		List<CommDto> commList = commServiceLike.communityLikeAllRead((String)request.getSession().getAttribute("account"), plusPage);
+		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
+		for(CommDto cL : commList) {
+			for(CommDtoCategory cC : comm_category) {
+				if(cL.getComm_category_id() == cC.getCategory_id()) {
+					cL.setCategory_name(cC.getCategory_name());
+					break;
+				}
+			}
+		}
+		result.put("commList",commList);
 		result.put("result", Boolean.TRUE);
 		return result;
 	}

@@ -9,5 +9,6 @@ public class MarketCart {
 	private String mCartDate;
 	private int market_id;
 	private String user_id;
-	private CommDtoBookinfo bookinfo;
+	private int total_price;
+	private MarketDto market;
 }

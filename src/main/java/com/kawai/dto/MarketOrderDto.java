@@ -12,5 +12,4 @@ public class MarketOrderDto {
 	private String mRecAddress;
 	private String user_id;
 	private int market_id;
-
 }

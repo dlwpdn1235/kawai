@@ -15,7 +15,10 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/kawai/upload/**" location="/upload/" />
+	<!-- <resources mapping="/upload/**" location="/upload/" /> -->
 	<resources mapping="/kawai/img/**" location="/kawai/img/" />
+	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->	
 	<beans:bean id="communityViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,7 +35,4 @@
 		<!-- 100MB   1024*1024*100 bytes = 104857600 bytes -->
 	</beans:bean>
 
-	
-
-	
 </beans:beans>

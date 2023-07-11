@@ -25,13 +25,18 @@ import com.kawai.dto.AccountUserVO;
 import com.kawai.service.AccountEventService;
 import com.kawai.service.AccountUserService;
 
+
 import lombok.extern.log4j.Log4j;
+
+import com.kawai.service.BookStoreService;
+
 @Controller
 @Log4j
 @RequestMapping("/account/*")
 public class AccountController {
 	@Autowired AccountUserService userService;
 	@Autowired AccountEventService eventService;
+	@Autowired BookStoreService storeservice;
 	
 	@RequestMapping(value = "/singUp", method = RequestMethod.GET)
 	public String singUp_view() { return "account/singUp"; }
@@ -211,6 +216,7 @@ public class AccountController {
 	
 	@Autowired AccountUserDao dao;
 	
+
 	//카카오 로그인기능
 	@RequestMapping(value="/kakaoToken", method=RequestMethod.GET)
 	public String kakaoToken(@RequestParam(value = "code", required = false) String code , HttpServletRequest request , AccountUserVO user) throws Exception {
@@ -244,6 +250,39 @@ public class AccountController {
 
 	@RequestMapping(value="/kakaoSingUp", method=RequestMethod.GET)
 	public String singUp_view2() { return "account/singUp1"; }
+
+	@RequestMapping(value="/book_admin_list", method=RequestMethod.GET)
+	public String book_admin(@RequestParam("bs_no") int bsNo, Model model) {
+	    model.addAttribute("list", storeservice.bookstorereadAll());
+
+	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
+	    List<String> tagNames = storeservice.getBookStoreTagNames(bsNo);
+
+	    // 모델에 해시태그 목록 저장
+	    model.addAttribute("tagNames", tagNames);
+
+	    return "book/book_admin_list";
+	}
+	
+	@RequestMapping(value="/book_user", method=RequestMethod.GET)
+	public String book_user(@RequestParam("bs_no") int bs_no, Model model) {
+	    model.addAttribute("list", storeservice.bookstorereadAll());
+
+	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
+	    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
+
+	    // 모델에 해시태그 목록 저장
+	    model.addAttribute("tagNames", tagNames);
+
+	    return "book/book_user";
+	}
+	
+	
+	
+	
+	
+	
+
 	
 	
 	

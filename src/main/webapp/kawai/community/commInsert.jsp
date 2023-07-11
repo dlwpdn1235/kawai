@@ -56,18 +56,26 @@
 					<tbody class="text-center">
 						
 					</tbody>			
-				</table>
+					</table>
+					<div class="text-center">
+			          <button type="button" class="btn btn-info" id="backBtn">이전</button>
+			          <button type="button" class="btn btn-info" id="nextBtn">다음</button>
+					</div>
 			        </div>
 			        <div class="modal-footer">
 			          <button type="button" class="btn btn-info bookinfoSubmit" data-dismiss="modal">선택</button>
 			          <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        
 			        </div>
 			      </div>
 			    </div>
 			  </div>
 			<script>
+			$(document).ready(function(){
 			var isSelect = false;
-			$(function(){
+	        var bookinfo_title = "";
+			var start_page = 1;
+			var isFirst= true;
 				$("#commSubmit").on("click",function(){
 				    if ($("#community_title").val() == "") {
 					      alert("제목을 입력해야합니다.");
@@ -90,15 +98,37 @@
 			        var selectedCategoryId = $(this).find(":selected").val();
 			        if (selectedCategoryId == 4) {
 			            $(".bookapi").hide();
+			            isSelect = true;
 			        } else {
 			            $(".bookapi").show();
+			            isSelect = false;
 			        }
 			    });
 			
 			    $("#searchbtn").on("click", function(){
-			        var bookinfo_title = $("#search").val();
+			    	start_page = 1;
+			        bookinfo_title = $("#search").val();
+			        isFirst = true;
+			        bookinfoList();
+			    });
+			    
+			    $("#nextBtn").on("click", function(){
+			        start_page = start_page + 10; // start_page 값을 10 증가
+			    	bookinfoList();
+			    });
+			    
+			    $("#backBtn").on("click", function(){
+			    	if(start_page != 1){
+			    		start_page = start_page-10;			    		
+			    	}else{
+			    		alert("제일 첫 페이지입니다.");
+			    	}
+			    	bookinfoList();
+			    });
+			    
+			    function bookinfoList(){
 			        $.ajax({
-			            url: "${pageContext.request.contextPath}/community/commBookinfo/" + bookinfo_title,
+			            url: "${pageContext.request.contextPath}/community/commBookinfo/" + bookinfo_title + "/" + start_page,
 			            type: "GET",
 			            dataType: "json",
 			            contentType: "application/json;charset=UTF-8",
@@ -118,16 +148,19 @@
 			                        .append($("<input type='hidden' class='hidden'>").val(bookinfo.description))
 			                        .appendTo(".bookTableList tbody");
 			                });
-			                $("#myModal").modal("show");
+			                if(isFirst){
+			                	$("#myModal").modal("show");
+			                	isFirst=false;
+			                }
 			            }
 			        });
-			    });
+			    }
 			
 			    $(".bookinfoSubmit").on("click", function() {
 			        var selectedRadio = $(".bookTableList tbody input[type='radio']:checked");
 			        if (selectedRadio.length > 0) {
 			            var selectedRow = selectedRadio.closest("tr");
-			            var title = selectedRow.find("td:nth-child(2) a").text();
+			            var title = selectedRow.find("td:nth-child(2)").text();
 			            var image = selectedRow.find("td:nth-child(3) img").attr("src");
 			            var author = selectedRow.find("td:nth-child(4)").html();
 			            var publisher = selectedRow.find("td:nth-child(5)").html();
@@ -136,12 +169,18 @@
 			
 			            $(".bookinfo").empty();
 			            $(".bookinfo")
-			                .append($("<input type='hidden' name='book_title' class='bookinfo_title'>").val(title))
-			                .append($("<input type='hidden' name='book_image'>").val(image))
-			                .append($("<input type='hidden' name='book_author'>").val(author))
-			                .append($("<input type='hidden' name='book_publisher'>").val(publisher))
-			                .append($("<input type='hidden' name='book_pubdate'>").val(pubdate))
-			                .append($("<input type='hidden' name='book_description'>").val(description));
+			            	.append($("<label for='book_title'>책 제목</lable>"))
+			                .append($("<input type='text' name='book_title' class='bookinfo_title form-control' readonly>").val(title))
+			            	.append($("<label for='book_image' >이미지</lable>"))
+			                .append($("<input type='text' name='book_image' class='form-control' readonly>").val(image))
+			            	.append($("<label for='book_author'>저자</lable>"))
+			                .append($("<input type='text' name='book_author' class='form-control' readonly>").val(author))
+			            	.append($("<label for='book_publisher'>퍼블리셔</lable>"))
+			                .append($("<input type='text' name='book_publisher' class='form-control' readonly>").val(publisher))
+			            	.append($("<label for='book_pubdate'>출간일</lable>"))
+			                .append($("<input type='text' name='book_pubdate' class='form-control' readonly>").val(pubdate))
+			            	.append($("<label for='book_description'>책 설명</lable>"))
+			                .append($("<input type='text' name='book_description' class='form-control' readonly>").val(description));
 			            // 다른 필요한 데이터도 필요한대로 추가할 수 있습니다.
 			            isSelect = true;
 			        } else {

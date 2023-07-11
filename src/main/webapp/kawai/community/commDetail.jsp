@@ -1,6 +1,12 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../inc/header.jsp" %>
+<script>
+var result = '${success}';   console.log( result  );
+if(result =="fail"){ alert("관리자에게 문의하세요.");  history.go(-1); }
+else if( result.length !=0 ){  alert(result);  }
+</script>
 <div class="container panel panel-default tmpt">
    <h3 class="panel-heading text-center">제목 : ${commRead.community_title}</h3>
    <div class="row">
@@ -11,6 +17,7 @@
       <div class="col-sm-3 text-center likeCnt">추천 : ${commRead.communityLikeCnt}</div>
    </div>
    <br/><br/>
+   <c:if test="${commRead.comm_category_id == 2 || commRead.comm_category_id == 3}">
    <div class="row well" style="padding-left:150px">
       <div class="col-sm-2"><img src="${commRead.bookinfo.book_image}" title="${commRead.bookinfo.book_title}사진" style="width: 400px; height: 400px;"/></div>
       <div class="col-sm-4"></div>
@@ -20,33 +27,40 @@
          <p>${commRead.bookinfo.book_description}</p>
       </div>
    </div>
+   </c:if>
    <div>
       <textarea cols="60" rows="10" class="form-control" readonly>${commRead.community_content}</textarea>
    </div>
    <div class="text-center">
       <label for="likebtn" class="likeCnt">추천 : ${commRead.communityLikeCnt}</label>
+      <c:if test="${sessionScope.role_id == 0}">
       <div class="likeBtnGroup">
          <input type="button" class="likebtn" name="likebtn" data-islike="${commRead.like.checkLike ? '0' : '1'}"
             value="${commRead.like.checkLike ? '좋아요 취소' : '좋아요'}" />
       </div>
+      </c:if>
    </div>
    <div class="text-right">
-      <a href="" title="" class="btn btn-info">수정</a>
+   <c:if test="${sessionScope.account == commRead.user_id}">
+      <a href="${pageContext.request.contextPath}/community/commUpdate?community_id=${commRead.community_id}" title="수정" class="btn btn-info">수정</a>
       <a href="${pageContext.request.contextPath}/community/commDelete?community_id=${commRead.community_id}" title="삭제" class="btn btn-danger">삭제</a>
-      <a href="" title="" class="btn">뒤로가기</a>
+   </c:if>
+      <input type="reset"   onclick="history.go(-1);"    value="뒤로가기"  class="btn"    > 
    </div>
    <div class="">
    	<label for="commentWrite">댓글</label>
    	<textarea id="commentWrite" rows="10" cols="20" class="form-control "></textarea>
    	<div class="text-right">
+   	      <c:if test="${sessionScope.role_id == 0}">
    		<input type="button" class="btn btn-info" id="commentInsert" value="서브밋"/>
+   	      </c:if>
    	</div>
    </div>
    <div class="comments panel panel-default">
    </div>
    <script>
       $(function(){
-         var user_id = "user001";
+         var user_id = '<%=user_id%>';
          var community_id = ${commRead.community_id};
          commentList();
          
@@ -190,7 +204,9 @@
                   var buttonValue = commCheckLike ? "좋아요 취소" : "좋아요";
                   var buttonDataIsLike = commCheckLike ? "0" : "1";
                   $(".likeBtnGroup").empty();
-                  $(".likeBtnGroup").append("<input type='button' class='likebtn' name='likebtn' data-islike='" + buttonDataIsLike + "' value='" + buttonValue + "' />");
+                  <% if(role_id == 0){ %>
+                  	$(".likeBtnGroup").append("<input type='button' class='likebtn' name='likebtn' data-islike='" + buttonDataIsLike + "' value='" + buttonValue + "' />");
+                  <%}%>
                   $(".likeCnt").empty();
                   $(".likeCnt").html("추천 : " + json.commLikeCnt);
                   if(commCheckLike){
@@ -297,11 +313,11 @@
         	         .append($("<input type='hidden' class='hidden_no_indent' value='" + comment.comment_indent + "'>"))
         	         .append("작성날짜 : " + comment.comment_date + " ")
         	         .append("작성자 : " + comment.user_id + " ");
-
+				 <%if(role_id == 0){%>
         	      $panelBody.append(
         	         $("<input type='button' class='btn btn-info commCommentInBtn' value='답글'>")
         	      );
-
+				<%} %>
         	      if (user_id == comment.user_id) {
         	         $panelBody
         	            .append(
@@ -313,12 +329,13 @@
         	      }
         	      var likeBtns = $("<div class='likeBtns'>")
         	         .append("좋아요 : " + comment.commentLikeCnt);
-
+        	      <%if(role_id == 0){%>
         	      if (comment.like.checkLike) {
         	         likeBtns.append($("<input type='button' class='btn btn-default commentLikeBtn' value='좋아요 취소' data-islike='0'>"));
         	      } else {
         	         likeBtns.append($("<input type='button' class='btn btn-default commentLikeBtn' value='좋아요' data-islike='1'>"));
         	      }
+        	      <%} %>
         	      $panelBody.append(likeBtns);
         	      $panelBody.append("<div class='commComment'></div>");
 
