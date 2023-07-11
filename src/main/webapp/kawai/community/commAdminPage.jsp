@@ -11,9 +11,9 @@ if(result =="fail"){ alert("관리자에게 문의하세요.");  history.go(-1);
 else if( result.length !=0 ){  alert(result);  }
 </script>
 	<div class="container tmpt">
-		<h3>커뮤니티</h3>
+		<h3>커뮤니티 관리자페이지</h3>
 		<div class="text-right">
-			<a href="${pageContext.request.contextPath}/community/commInsert" title="글쓰기폼으로" class="btn btn-info">글쓰기</a>
+			<a href="${pageContext.request.contextPath}/community/commAdminInsert" title="글쓰기폼으로" class="btn btn-info">글쓰기</a>
 		</div>
 		<br/>
 	</div>
@@ -89,8 +89,34 @@ else if( result.length !=0 ){  alert(result);  }
 	  var community_hide = 1;
 	  var isFirst = true;
 	  var isLoading = false; // 데이터 로딩 여부
+	  var hide_num = 0;
+	  var community_id = 0; 
+	  var isCategoryFirst=true;
+			  
 	    $(document).on("click",".hideBtn",function(){
-	    	
+	        var $row = $(this).closest("tr");
+	        var community_hide = $row.find(".hidden_hide").val();
+	        var community_id = $row.find(".hidden_no").val();
+			if(community_hide == 1){
+				community_hide=0;
+			}else{
+				community_hide=1;
+			}
+	  		$.ajax({
+	  			url : "${pageContext.request.contextPath}/community/commAjaxAdminHide/"+community_id+"/"+community_hide,
+	  			type : "GET",
+	  			dataType : "json", 
+	  			contentType : "application/json;charset=UTF-8",
+	  			error : function(xhr, status, msg) {alert(status + "/" + msg); isLoading = false;},
+	  			success : function(json){
+	  				if(json.result){
+	  					alert("성공했습니다.");
+	  					isFirst = true;
+	  					count=0;
+	  					commList();
+	  				}
+	  			}
+	  		});
 	    });
 	  
 	  	$("#resetbtn").on("click",function(){
@@ -182,7 +208,7 @@ else if( result.length !=0 ){  alert(result);  }
 	  			
 	  			$("<tr>")
 	  			.append($("<input type='hidden' class='hidden_no'>").val(commList.community_id)) // 수정ok
-	  			.append()
+	  			.append($("<input type='hidden' class='hidden_hide'>").val(commList.community_hide))
 	  			.append($("<td>").html(hide))
 	  			.append($("<td>").html(commList.category_name))
 				.append($("<td>").append($("<a>").attr("href", "${pageContext.request.contextPath}/community/commDetail?community_id=" + commList.community_id).text(commList.community_title)))	  			.append($("<td>").html(commList.user_id))
@@ -193,8 +219,11 @@ else if( result.length !=0 ){  alert(result);  }
 	  		});
 			if(isFirst){
 		  		$.each(json.comm_category, function(idx, comm_category) {
-		  		  $(".btn-group-vertical").append($("<input type='button' class='btn btn-default categorybtn' value='" + comm_category.category_name + "' data-categoryid='" + comm_category.category_id + "'>"));
+		  		  	if(isCategoryFirst){		  		  		
+		  				$(".btn-group-vertical").append($("<input type='button' class='btn btn-default categorybtn' value='" + comm_category.category_name + "' data-categoryid='" + comm_category.category_id + "'>"));
+		  		  	}
 		  		});
+		  		isCategoryFirst=false;
 		  		isFirst=false;
 			}
 			isLoading = false;

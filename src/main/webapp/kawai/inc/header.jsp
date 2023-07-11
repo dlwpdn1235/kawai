@@ -415,6 +415,7 @@ margin-right:300px;
 	    
 <!-- 로그인되지 않은 경우 -->
 <%
+String user_id = (String) session.getAttribute("account");
 int role_id = (int) (request.getSession().getAttribute("role_id") != null ? request.getSession().getAttribute("role_id") : -1);
 
 if (role_id == -1) { // 값이 없을 경우
@@ -437,7 +438,7 @@ if (role_id == -1) { // 값이 없을 경우
         <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
         <li><a href="#" class="userMenu">서점관리</a></li>
         <li><a href="#" class="userMenu">마켓관리</a></li>
-        <li><a href="#" class="userMenu">커뮤니티관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/commAdminPage" class="userMenu">커뮤니티관리</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
@@ -456,7 +457,7 @@ if (role_id == -1) { // 값이 없을 경우
         <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
         <li><a href="#">내가찜한서점</a></li>
         <li><a href="#">장바구니</a></li>
-        <li><a href="#">내가쓴글</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/communityMyPage">내가쓴글</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
@@ -464,7 +465,6 @@ if (role_id == -1) { // 값이 없을 경우
 <%
 }
 %>   
-	    
 	    
   </div>
 </nav>

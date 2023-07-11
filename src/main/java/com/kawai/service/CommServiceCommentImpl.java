@@ -30,11 +30,11 @@ public class CommServiceCommentImpl implements CommServiceComment{
 	
 	@Transactional
 	@Override
-	public List<CommDtoComment> commCommentAllRead(int community_id) {
+	public List<CommDtoComment> commCommentAllRead(int community_id, String user_id) {
 		List<CommDtoComment> comments = commentdao.commCommentAllRead(community_id);
 		CommDtoCommentLike likedto = new CommDtoCommentLike();
 		System.out.println(community_id);
-		likedto.setUser_id("user001");		
+		likedto.setUser_id(user_id);		
 		for(CommDtoComment c : comments) {
 			likedto.setComment_id(c.getComment_id());
 			c.setLike(like.commentIsLike(likedto));
@@ -72,7 +72,7 @@ public class CommServiceCommentImpl implements CommServiceComment{
 		commDtoComment.setComment_group(comment_group);
 		commDtoComment.setComment_step(comment_step);
 		commDtoComment.setComment_indent(comment_indent);
-		commDtoComment.setUser_id("user001");
+		commDtoComment.setUser_id((String)request.getSession().getAttribute("account"));
 		return commentdao.commentInsert(commDtoComment);
 	}
 

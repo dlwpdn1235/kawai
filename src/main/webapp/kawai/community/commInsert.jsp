@@ -98,14 +98,17 @@
 			        var selectedCategoryId = $(this).find(":selected").val();
 			        if (selectedCategoryId == 4) {
 			            $(".bookapi").hide();
+			            isSelect = true;
 			        } else {
 			            $(".bookapi").show();
+			            isSelect = false;
 			        }
 			    });
 			
 			    $("#searchbtn").on("click", function(){
 			    	start_page = 1;
 			        bookinfo_title = $("#search").val();
+			        isFirst = true;
 			        bookinfoList();
 			    });
 			    
