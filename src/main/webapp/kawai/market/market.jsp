@@ -61,8 +61,10 @@ MarketDto dto = new MarketDto();
 	<a class="marketWriting btn btn-info" href="${pageContext.request.contextPath }/kawai/market/marketProductWrite.jsp">
 			상품 등록
 	</a>
-
-	 <form action="${pageContext.request.contextPath}/market/marketProductInsert" method="GET">
+	<div class="marketList">
+		<a href="${pageContext.request.contextPath }/market/marketList" class="btn btn-info">리스트</a>
+	</div>
+	<form action="${pageContext.request.contextPath}/market/marketProductInsert" method="GET">
 	 
 		<div class="marketShop">
 			<input type="submit" class="btn btn-info"  id="marketCartRec" value="장바구니 담기"/>

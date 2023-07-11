@@ -224,6 +224,10 @@ width:1000px;
    margin-right:60px;
 }
 
+.marketCartImg{
+margin-bottom:20px;
+}
+
 .marketDetailMenubar{
 padding-top:80px;
 }

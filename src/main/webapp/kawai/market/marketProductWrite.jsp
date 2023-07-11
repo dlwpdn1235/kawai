@@ -6,9 +6,7 @@
       <div class="marketWrite-group">     
 
       <form action="${pageContext.request.contextPath}/market/marketProductInsert" method="post">   
-		   <div class="marketWriteName marketWriteCon">
-		   		<input type="text" class="form-control" placeholder="작성자" readOnly/>
-		   </div>
+
 
 		    <div class="marketWriteTitle marketWriteCon">
 		   		제목:<input type="text" name="mTitle" class="form-control" placeholder="제목"/>
