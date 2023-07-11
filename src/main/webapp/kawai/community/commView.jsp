@@ -13,7 +13,9 @@ else if( result.length !=0 ){  alert(result);  }
 	<div class="container tmpt">
 		<h3>커뮤니티</h3>
 		<div class="text-right">
+		<c:if test="${sessionScope.role_id == 0}">
 			<a href="${pageContext.request.contextPath}/community/commInsert" title="글쓰기폼으로" class="btn btn-info">글쓰기</a>
+		</c:if>
 		</div>
 		<br/>
 	</div>

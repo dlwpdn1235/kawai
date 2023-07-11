@@ -215,11 +215,11 @@ public class MarketTest {
 	@Test @Ignore
 	public void marketCartList() {
 		MarketCart dto = new MarketCart();
-		CommDtoBookinfo booknum = dto.getBookinfo();
-		CommDtoBookinfo book = new CommDtoBookinfo();
+//		CommDtoBookinfo booknum = dto.getBookinfo();
+		CommDtoBookinfo book = new CommDtoBookinfo(); 
 		
 		
-		System.out.println(mCartDao.marketCartList());
+//		System.out.println(mCartDao.marketCartList());
 	}
 	
 	@Test @Ignore

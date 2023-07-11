@@ -219,6 +219,64 @@ width:1000px;
    margin-right:60px;
 }
 
+.marketCartImg{
+margin-bottom:20px;
+}
+
+.marketDetailMenubar{
+padding-top:80px;
+}
+
+.marketDetailSumPrice{
+border: 1px solid gray;
+width:120px;
+padding-top:10px;
+margin-top : 30px;
+margin-left:60px;
+}
+
+.marketDetailPlus{
+font-size:40px;
+border-style: none;
+size: 10px;
+line-height:15px;
+}
+
+.marketDetailMinus{
+text-align:right;
+font-size:40px;
+border-style: none;
+line-height:15px;
+}
+
+.marketDetailLine{
+border:1px solid black;
+size: 220px;
+margin-top:20px;
+}
+
+.marketRec{
+margin-top:300px;
+margin-left:40px;
+}
+
+.market-group{
+width:1000px;
+margin:auto;
+}
+
+.marketPrice{
+float:right;
+}
+
+.marketTitle{
+padding:100px;
+}
+
+.marketDetail-group{
+text-align:center;
+}
+
 .marketWriting{
 float:right;
 margin-right:30px;
@@ -352,6 +410,7 @@ margin-right:300px;
 	    
 <!-- 로그인되지 않은 경우 -->
 <%
+String user_id = (String) session.getAttribute("account");
 int role_id = (int) (request.getSession().getAttribute("role_id") != null ? request.getSession().getAttribute("role_id") : -1);
 
 if (role_id == -1) { // 값이 없을 경우
@@ -374,7 +433,7 @@ if (role_id == -1) { // 값이 없을 경우
         <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
         <li><a href="${pageContext.request.contextPath}/account/book_admin_list?bs_no=${bs_no}" class="userMenu">서점관리</a></li>
         <li><a href="#" class="userMenu">마켓관리</a></li>
-        <li><a href="#" class="userMenu">커뮤니티관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/commAdminPage" class="userMenu">커뮤니티관리</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
@@ -393,7 +452,7 @@ if (role_id == -1) { // 값이 없을 경우
         <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
         <li><a href="${pageContext.request.contextPath}/account/book_user?bs_no=${bs_no}">내가찜한서점</a></li>
         <li><a href="#">장바구니</a></li>
-        <li><a href="#">내가쓴글</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/communityMyPage">내가쓴글</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
@@ -401,7 +460,6 @@ if (role_id == -1) { // 값이 없을 경우
 <%
 }
 %>   
-	    
 	    
   </div>
 </nav>

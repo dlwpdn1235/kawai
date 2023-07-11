@@ -11,7 +11,7 @@ public interface CommServiceComment {
 	public int commentInsert(CommDtoComment commDtoComment, HttpServletRequest request);
 	public int commentUpdate(CommDtoComment commDtoComment);
 	public int commentDelete(CommDtoComment commDtoComment);
-	public List<CommDtoComment> commCommentAllRead(int comment_id);
+	public List<CommDtoComment> commCommentAllRead(int comment_id, String user_id);
 	public int commCommentStepUpdate(CommDtoComment commDtoComment);
 	
 }

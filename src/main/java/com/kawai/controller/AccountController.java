@@ -68,6 +68,13 @@ public class AccountController {
 	    	eventService.accountEventDo(userVO.getId());
 	    }
 		rttr.addFlashAttribute("success" , result); 
+		
+		//System.out.println(userVO.getRole_id());
+		
+		if(userVO.getRole_id() == 1) {
+			return "redirect:/main/view";
+		}
+		
 		/* return "redirect:/account/userEvent?id="+userVO.getId(); */
 		return "redirect:/myCalendar_go";
 	}

@@ -7,39 +7,36 @@
 
    <div class="container panel tmpt">
       <h3 class="panel-heading">관리자 내역</h3>   
-
 	
-	
-		<div class="market-search-group">
-    	<input type="search" id="market_search" placeholder="관리자 검색" autocomplete="off"/>
-    	<a href="${pageContext.request.contextPath }/kawai/market/marketProductWrite.jsp">
-		<input type="button" class="btn btn-info marketProductWrite" value="상품등록"/>
-		</a>
-      </div>
-	
-<table class="marketProductTable col-sm-12">
+<table class="marketProductTable">
 	<thead>
 			<tr>
-				<th class="col-sm-3">글 번호</th>
-				<th class="col-sm-3">작성자</th>
-				<th class="col-sm-3">책제목</th>
-				<th class="col-sm-3">등록날짜</th>
+				<th scope="col">글 번호</th>
+				<th scope="col">작성자</th>
+				<th scope="col">책제목</th>
+				<th scope="col">등록날짜</th>
+				<th scope="col">수정</th>
+				<th scope="col">삭제</th>				
 			</tr>
-
-		<c:forEach var="list" items="${marketProductlist }"> <!-- col-sm 맞춰서 넣어주기. -->
+	<tbody>
 		
-				<td class="col-sm-2">${list.Market_id}</td>
-				<td class="col-sm-2">${list.User_id }</td>
-				<td class="col-sm-2">${test.book_title }</td> 
-				<td class="col-sm-1">${list.MDate }</td> 
+		<tbody>
+			<c:forEach var = "market" items="${list}">
+			<tr class="trMargin">
+				<td class="col-sm-2">${market.market_id }</td>
+				<td class="col-sm-2">${market.user_id }</td>
+				<td class="col-sm-2">${market.bookinfo.book_title }</td>
+				<td class="col-sm-2">${market.MDate }</td>
+				<td class="col-sm-2"><a href="${pageContext.request.contextPath}/market/marketProductWriteUpdate?market_id=${market.market_id}" class="btn btn-info">수정</a></td>
+				<td class="col-sm-2"><a href="${pageContext.request.contextPath}/market/marketProductDelete?market_id=${market.market_id}" class="btn btn-danger">삭제</a></td>
 
-				<td class="col-sm-1"><input type="button" class="btn btn-info" value="수정"/></td>
-				<td class="col-sm-1"><input type="button" class="btn btn-danger" value="삭제"/></td>
-		</c:forEach>
-		
+			</tr>
+			</c:forEach>
+		</tbody>
 
-	</thead>
+
 </table>
+</form>
    </div>
 <div class="marketOderOkLine"></div>
 <!--    		 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
