@@ -175,7 +175,7 @@ public class CommController {
 			bookinfo = new CommDtoBookinfo();
 			bookinfo.setBook_title("기본");
 			bookinfo.setBook_description("기본");
-			bookinfo.setBook_author("없음");
+			bookinfo.setBook_author("기본");
 			bookinfo.setBook_publisher("없음");
 			bookinfo.setBook_image("없음");
 			bookinfo.setBook_pubdate("2023-07-05 10:38:12");
