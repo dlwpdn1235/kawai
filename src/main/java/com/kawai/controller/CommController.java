@@ -341,9 +341,9 @@ public class CommController {
 	}
 	@RequestMapping(value="communityLikeMyPageAdd/{plusPage}", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> communityLikeMyPageAdd(@PathVariable int plusPage) {
+	public Map<String, Object> communityLikeMyPageAdd(@PathVariable int plusPage, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<>();
-		List<CommDto> commList = commServiceLike.communityLikeAllRead("user001", plusPage);
+		List<CommDto> commList = commServiceLike.communityLikeAllRead((String)request.getSession().getAttribute("account"), plusPage);
 		List<CommDtoCategory> comm_category = commServiceCategory.commCategoryList();
 		for(CommDto cL : commList) {
 			for(CommDtoCategory cC : comm_category) {
