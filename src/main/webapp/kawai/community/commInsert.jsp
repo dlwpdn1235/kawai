@@ -101,6 +101,7 @@
 			            isSelect = true;
 			        } else {
 			            $(".bookapi").show();
+			            isSelect = false;
 			        }
 			    });
 			

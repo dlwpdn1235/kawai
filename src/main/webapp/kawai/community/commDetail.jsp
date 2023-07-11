@@ -45,7 +45,7 @@ else if( result.length !=0 ){  alert(result);  }
       <a href="${pageContext.request.contextPath}/community/commUpdate?community_id=${commRead.community_id}" title="수정" class="btn btn-info">수정</a>
       <a href="${pageContext.request.contextPath}/community/commDelete?community_id=${commRead.community_id}" title="삭제" class="btn btn-danger">삭제</a>
    </c:if>
-      <a href="" title="" class="btn">뒤로가기</a>
+      <input type="reset"   onclick="history.go(-1);"    value="뒤로가기"  class="btn"    > 
    </div>
    <div class="">
    	<label for="commentWrite">댓글</label>
