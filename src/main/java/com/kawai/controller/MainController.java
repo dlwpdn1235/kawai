@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kawai.dto.CommDto;
 import com.kawai.dto.CommDtoSearch;
+import com.kawai.service.BookStoreService;
 import com.kawai.service.CommService;
 
 @RequestMapping("/main/*")
@@ -18,6 +19,7 @@ public class MainController {
 	
 	@Autowired
 	CommService commService;
+	@Autowired BookStoreService storeservice;
 	
 	@RequestMapping(value = "view", method = RequestMethod.GET)
 	public String home1(Model model) {
@@ -31,6 +33,7 @@ public class MainController {
 		search.setCommunity_hide(1);
 		List<CommDto> commList = commService.commCommunityAllRead(search);
 		model.addAttribute("commList",commList);
+		model.addAttribute("list" , storeservice.bookstorereadAll());
 		return "main";
 	}
 

@@ -126,7 +126,7 @@ public class BookTest {
 
 		vo.setFk_id("김도연");  // 사용자 ID 설정
 		vo.setFk_bs_no(3);  // 서점 번호 설정
-		likesdao.likesinsert(vo);  // 좋아요 정보 추가
+//		likesdao.likesinsert(vo);  // 좋아요 정보 추가
 		System.out.println("좋아요 정보가 추가되었습니다.");
 		
 		
@@ -136,10 +136,10 @@ public class BookTest {
 		
 //		likesdao.likesdelete(3); //delete
 		
-		System.out.println( likesdao.likesread(2) );  //read
+//		System.out.println( likesdao.likesread(2) );  //read
 		
 		//(1)  readAll
-		for( BookLikesVO u  : likesdao.likesreadAll()) { System.out.println(u); }
+//		for( BookLikesVO u  : likesdao.likesreadAll()) { System.out.println(u); }
 	}
 	
 	@Test  @Ignore
