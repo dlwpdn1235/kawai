@@ -6,12 +6,13 @@
 <mapper namespace="com.kawai.dao.MarketDao">
 
 	<insert parameterType="MarketPay" id="marketInsert">insert into
-		market(mTitle,mContent,mIp,mPrice,user_id,bookinfo_id,mCart)values(#{mTitle},#{mContent},#{mIp},#{mPrice},#{user_id},#{bookinfo.bookinfo_id})
+		market(mTitle,mContent,mIp,mPrice,user_id,bookinfo_id)values(#{mTitle},#{mContent},#{mIp},#{mPrice},#{user_id},#{bookinfo.bookinfo_id})
 	</insert>
 
-	<update parameterType="MarketPay" id="marketUpdate">update market set
-		mTitle=#{mTitle} , mContent=#{mContent} ,
-		bookInfo_id=#{bookInfo.bookinfo_id} wheremarket_id=#{market_id}
+	<update parameterType="Market" id="marketUpdate">
+	update market set
+	mTitle=#{mTitle} , mContent=#{mContent}, mPrice=#{mPrice},
+		bookinfo_id=#{bookinfo.bookinfo_id} where market_id=#{market_id}
 	</update>
 
 	<resultMap id="market" type="Market">
@@ -42,15 +43,19 @@
 
 	<select parameterType="Market" id="marketRead"
 		resultMap="market">
-		SELECT a.market_id, a.mTitle , a.mDate , a.mContent , a.user_id, a.mPrice, a.bookinfo_id,
-		b.book_title, b.book_author, b.book_publisher, b.book_image,
-		b.book_pubdate FROM market a LEFT JOIN bookinfo b ON a.bookinfo_id =
-		b.bookinfo_id WHERE market_id = #{market_id} </select>
+		SELECT a.*,
+		b.*,
+		c.*
+		FROM market a 
+		LEFT JOIN bookinfo b ON a.bookinfo_id = b.bookinfo_id 
+		LEFT JOIN mCart c ON a.market_id = c.market_id
+		WHERE a.market_id = #{market_id} </select>
 	<select parameterType="MarketPage" id="marketList"
 		resultMap="market">
-		select m.market_id, m.user_id, m.mPrice, m.bookinfo_id, bi.book_title,
+		select m.market_id, m.user_id, m.mPrice, m.bookinfo_id, m.mDate , bi.book_title,
 		bi.book_author, bi.book_publisher, bi.book_image, bi.book_pubdate from
 		market m left join bookinfo bi on m.bookinfo_id = bi.bookinfo_id
+		
 		<if test="marketSearch != 0 and marketSearchKeyWord != ''">
 			<where>
 				<choose>
@@ -82,8 +87,10 @@
 		market_id ) AS t ON m.market_id = t.market_id SET m.mPayCount=
 		t.total_price; </update>
 
-	<delete parameterType="Market" id="marketDelete">delete from market
-		wheremarket_id =#{market_id} </delete>
+	<delete parameterType="int" id="marketDelete">
+	    delete from market
+		where market_id =#{market_id} 
+	</delete>
 
 
 </mapper>

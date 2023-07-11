@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../inc/header.jsp" %>
@@ -20,10 +19,13 @@ float-left:80px;
 	<div class="marketTitle">
 		${market.bookinfo.book_title}
 	</div>
-	
+
 	<div class="market-group">
 		<div class="marketImage-group">
 			<img src="${market.bookinfo.book_image }" alt="${market.bookinfo.book_title }" style="width:500px;"/>
+			
+
+			
 			<div class="marketPrice">
 			<!-- mCart에 있는 장바구니 List를 뽑아서 값 합산하기. 단일값일 경우 market.MPrice. -->
 				<h3 class="marketsumPrice">총 상품 금액 : ${market.MPrice }</h3>
@@ -43,16 +45,21 @@ float-left:80px;
     			</div>	
     			
     		    <div class="row"></div>
-  	<form action="#" method="post">
-    <div class="marketDetailMenubar" id="marketSum">
-    	<a href="#" class="btn btn-info" id="marketDetailCart">장바구니</a>
-    
-    	<a href="#" class="btn btn-info" id="marketDetailQuick">바로가기</a>		    
-    </div>
+  	<form action="${pageContext.request.contextPath}/market/marketCartInsert" method="post">
+  	<div class="form-group">
+  		<input type="hidden" name="market_id" value="${market.market_id}"/>
+  		<input type="hidden" name="user_id" value="${market.user_id}"/>  		
+  	</div>
+    <div class="marketCartPage">
+   		 <input type="submit" class="btn btn-info" id="marketDetailCart" value="장바구니"/>
+  	</div>
+  	
+	</form>
+  	
+    <input type="button" class="btn btn-info" id="marketDetailQuick" value="바로가기"/>
+       
     
 
-    
-	</form>
     			
 			
 		</div>

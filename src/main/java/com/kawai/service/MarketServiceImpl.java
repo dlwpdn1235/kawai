@@ -45,9 +45,15 @@ public class MarketServiceImpl implements MarketService{
 
 	@Override
 	public int marketUpdate(MarketDto dto) {
-		int result = dao.marketUpdate(dto);
-
-			return result;
+		int bookinfo_id = (int)info.commBookinfoInsert(dto.getBookinfo());
+		dto.getBookinfo().setBookinfo_id(bookinfo_id);
+		try {
+			dto.setMIp(InetAddress.getLocalHost().getHostAddress());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return dao.marketUpdate(dto);
 	}
 
 
@@ -62,6 +68,12 @@ public class MarketServiceImpl implements MarketService{
 			e.printStackTrace();
 		}
 		return dao.marketInsert(dto);
+	}
+
+	@Override
+	public int marketDelete(int market_id) {
+		
+		return dao.marketDelete(market_id);
 	}
 
 

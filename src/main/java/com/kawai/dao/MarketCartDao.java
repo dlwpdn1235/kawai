@@ -5,9 +5,9 @@ import java.util.List;
 import com.kawai.dto.MarketCart;
 
 public interface MarketCartDao {
-	public int marketCartInsert(MarketCart dto);
-	public int marketCartUpdate(MarketCart dto);
+	public int marketCartInsert(MarketCart cdto);
+	public int marketCartUpdate(MarketCart cdto);
 	public int marketCartDelete(int no);
-	public List<MarketCart>marketCartList();
-	public int marketCartCountUpdate(MarketCart dto);
+	public List<MarketCart>marketCartList(String user_id);
+	public int marketCartCountUpdate(MarketCart cdto);
 }

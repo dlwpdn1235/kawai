@@ -8,5 +8,5 @@ public interface MarketCartService {
 	public int marketCartInsert(MarketCart dto);
 	public int marketCartUpdate(MarketCart dto);
 	public int marketCartDelete(MarketCart dto);
-	public List<MarketCart>marketCartList();
+	public List<MarketCart>marketCartList(String user_id);
 }

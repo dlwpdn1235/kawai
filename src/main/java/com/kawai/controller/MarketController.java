@@ -49,34 +49,85 @@ public class MarketController {
 	public String marketDetail(@RequestParam int market_id , Model model , HttpServletRequest request) {
 		MarketDto marketDto = service.marketRead(market_id);
 		model.addAttribute("market", marketDto);
-		System.out.println(marketDto);
 		return "market/marketDetail";
 	}
 	
-	@RequestMapping(value = "marketCart", method = RequestMethod.GET)
-	public String marketCart(MarketPageDto pDto,  MarketCart mCartDto, Model model, CommDtoBookinfo info, HttpServletRequest request) {
-	    MarketDto dto = new MarketDto();
-	    dto.setBookinfo(info);
-	    int result = 0 ;
-	    model.addAttribute("MarketCount",result);
-	    List<MarketCart> marketDto = cartService.marketCartList();
-	    model.addAttribute("marketDto", marketDto);
-	    model.addAttribute("marketCart", cartService.marketCartList());
-	    return "market/marketCart";
+	@RequestMapping(value = "marketCartInsert", method = RequestMethod.POST)
+	public String marketCartInsert(@RequestParam int market_id , @RequestParam String user_id , Model model) {
+		MarketCart mCart = new MarketCart();
+		mCart.setMarket_id(market_id);
+		mCart.setUser_id(user_id);
+		cartService.marketCartInsert(mCart);
+	    return "redirect:/market/marketCartList?user_id="+user_id;
 	}
+	
+	@RequestMapping(value = "marketCartList", method = RequestMethod.GET)
+	public String marketCartList(@RequestParam String user_id , Model model) {
+		List<MarketCart> mCart = cartService.marketCartList(user_id);
+		int total = 0;
+
+		for(MarketCart c : mCart) {
+			total += c.getMarket().getMPrice();
+		}
+		
+		model.addAttribute("cartlist",mCart);
+		model.addAttribute("totalPrice",total);		
+		return "/market/marketCart";
+	}
+	
+	
+
 
 	@RequestMapping(value = "marketProductInsert", method = RequestMethod.POST)
 	public String marketProductInsert(MarketDto dto, CommDtoBookinfo info , Model model , HttpServletRequest request , RedirectAttributes rttr) throws UnknownHostException {
 
-		System.out.println(dto);
+
 		dto.setBookinfo(info);
 		dto.setMarket_id(1);
 		dto.setUser_id("user001");
 		dto.setMIp(Inet4Address.getLocalHost().getHostAddress());
 		model.addAttribute("marketlist",service.marketInsert(dto));
-		System.out.println(info);
+
 
 		return "redirect:/market/marketview";
 	}
+	
+	@RequestMapping(value = "mOrder", method = RequestMethod.POST)
+	public String mOrder(@RequestParam int market_id , MarketDto dto) throws UnknownHostException {
+		
+		
+
+		return "redirect:/market/marketview";
+	}
+	
+	@RequestMapping(value = "marketList", method = RequestMethod.GET)
+	public String marketList(Model model) throws UnknownHostException {
+		MarketPageDto pdto = new MarketPageDto();
+		model.addAttribute("list",service.marketList(pdto));
+
+
+
+		return "/market/marketProductAdmin";
+	}
+	
+	@RequestMapping(value = "marketProductWriteUpdate", method = RequestMethod.GET)
+	public String marketProductWriteUpdate(@RequestParam int market_id , Model model) throws UnknownHostException {
+		MarketDto dto =service.marketRead(market_id);
+		model.addAttribute("market",dto);
+		return "/market/marketProductWriteUpdate";
+	}
+	@RequestMapping(value = "marketProductWriteUpdate", method = RequestMethod.POST)
+	public String marketProductWriteUpdateAction(MarketDto dto ,CommDtoBookinfo info) throws UnknownHostException {
+		dto.setBookinfo(info);
+		service.marketUpdate(dto);
+		return "redirect:/market/marketDetail?market_id=" + dto.getMarket_id();
+	}
+	@RequestMapping(value = "marketProductDelete", method = RequestMethod.GET)
+	public String marketProductWriteDelete(@RequestParam int market_id) throws UnknownHostException {
+		service.marketDelete(market_id);
+		
+		return "redirect:/market/marketList";
+	}
+	
 	
 }
