@@ -14,4 +14,5 @@ public class CommDtoComment {
 	private String comment_ip;
 	private int community_id;
 	private int commentLikeCnt;
+	private CommDtoCommentLike like;
 }

@@ -8,9 +8,9 @@
 <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="container map_container" id="bs_write_div">
-<div class="col-sm-12">
+<div class="row">
 	<div class="col-sm-4">
-		<p class="likes_hearts"><a href="javascript:history.go(-1)"> 뒤로</a>
+		<p class="likes_hearts"><a class="btn btn-info"  href="javascript:history.go(-1)"> 뒤로</a>
 		<span class="check_like">
 		<img class="heart_check" src="${pageContext.request.contextPath}/kawai/img/marketLikeUnCheck.jpg" alt="하트">
 			좋아요
@@ -19,48 +19,76 @@
 		<div>
 		<h4>${name.bs_name}</h4> 
 		</div>
-		<img class="img_class" src="${pageContext.request.contextPath}/kawai/img/iron.jpg" alt="test">
-		
-		
+		<!-- src="https://image.bookshopmap.com/1600,fit,q60/venue/yourmind-cover.jpg"; -->
+		<img src="${pageContext.request.contextPath}/resources/upload/${name.bfile}" 
+		 class="img_size" alt="${name.bfile}">
 		<div>
-	    <table class="table_width">
-	        <tbody>
-	            <tr>
-	                <th>소개</th>
-	                <td class="td_width">
-	                ${name.bs_content}
-	                </td>
-	            </tr>
-	            <tr>
-				    <th>활동</th>
-				    <td>
-				        <c:forEach items="${name.tagNames}" var="tagName">
-				            ${tagName}
+			<div class="row">
+				<div class="col-sm-3">
+					<p class="td_width">소개</p>
+				</div>
+				<div class="col-sm-9">
+				<p> ${name.bs_content} </p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-3">
+					<p class="tag_unerline">활동</p>
+				</div>
+				<div class="col-sm-9">
+				<c:forEach items="${name.tagNames}" var="tagName">
+					     ${tagName}&ensp;
 				        </c:forEach>
-				    </td>
-				</tr>
-	            <tr>
-	                <th>개점일</th>
-	                <td>${name.bs_opendate}</td>
-	            </tr>
-	            <tr>
-	                <th>주소</th>
-	                <td>${name.bs_address}</td>
-	            </tr>
-	            <tr>
-	                <th>운영시간</th>
-	                <td>${name.bs_start_time} ~ ${name.bs_end_time}</td>
-	            </tr>
-	            <tr>
-	                <th>휴무일</th>
-	                <td>${name.bs_closeday}</td>
-	            </tr>
-	            <tr>
-	                <th>전화</th>
-	                <td>${name.bs_phonenum}</td>
-	            </tr>
-	        </tbody>
-	    </table>
+				</div>
+			</div>
+			
+			
+			<div class="row">
+				<div class="col-sm-3">
+					<p class="3spel">개점일</p>
+				</div>
+				<div class="col-sm-9">
+					 <p>${name.bs_opendate}</p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-3">
+					<p class="td_width">주소</p>
+				</div>
+				<div class="col-sm-9">
+				<p> ${name.bs_address_detail} </p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-3">
+					<p class="3spel">운영시간</p>
+				</div>
+				<div class="col-sm-9">
+				<p> ${name.bs_start_time} ~ ${name.bs_end_time} </p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-3">
+					<p >휴무일</p>
+				</div>
+				<div class="col-sm-9">
+				<p> ${name.bs_closeday} </p>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-sm-3">
+					<p >전화</p>
+				</div>
+				<div class="col-sm-9">
+				<p> ${name.bs_phonenum} </p>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	<div class="col-sm-8">
@@ -87,10 +115,28 @@ img.img_class {
 table.table_width{
 	width: 360px;
     height: 440px;
+    
 }
-table.table_width th, table.table_width td {
+table.table_width th {
     padding: 6px;
-    font-size: 10px;
+    font-size: 13px;
+    text-align: right;
+}
+table.table_width td{
+	 padding: 6px;
+    font-size: 13px;
+}
+img.img_size {
+    width: 368px;
+    height: 430px;
+}
+@media (min-width: 768px)
+.col-sm-12 {
+    width: 115%;
+    padding: 0px;
+}
+td.tag_unerline {
+    text-decoration: underline;
 }
 </style>
 
@@ -141,21 +187,62 @@ table.table_width th, table.table_width td {
         alert('주소 또는 서점 검색에 실패하였습니다.');
       }
     });
+
+    var bs_no = '${name.bs_no}';
+
+    $('.heart_check').click(function() {
+      var image = $(this);
+      var span = image.parent();
+      var button = span.find('.heart_check');
+
+      if (image.attr('src').includes('marketLikeUnCheck.jpg')) {
+        $.ajax({
+          url: '${pageContext.request.contextPath}/kawai/add',
+          method: 'POST',
+          data: {
+            fk_id: 'user001',
+            fk_bs_no: bs_no
+          },
+          success: function(response) {
+            console.log('Success:', response);
+            image.attr('src', '${pageContext.request.contextPath}/kawai/img/marketLikeCheck.jpg');
+            button.text('좋아요 취소');
+          },
+          error: function(error) {
+            console.log('Error:', error);
+          }
+        });
+      } else if (image.attr('src').includes('marketLikeCheck.jpg')) {
+        $.ajax({
+          url: '${pageContext.request.contextPath}/kawai/remove',
+          method: 'POST',
+          data: {
+            fk_id: 'user001',
+            fk_bs_no: bs_no
+          },
+          success: function(response) {
+            console.log('Success:', response);
+            image.attr('src', '${pageContext.request.contextPath}/kawai/img/marketLikeUnCheck.jpg');
+            button.text('좋아요');
+          },
+          error: function(error) {
+            console.log('Error:', error);
+          }
+        });
+      }
+    });
+
+    $('.map-container').css({
+      'display': 'flex',
+      'justify-content': 'flex-end',
+      'height': '0'
+    });
+    $('.evt-search-input').css({
+      'width': '250px'
+    });
+    $('.evt-map').css({
+      'width': '862px',
+      'height': '577px'
+    });
   });
-	
-$(document).ready(function() {
-	  $('.map-container').css({
-	    'display': 'flex',
-	    'justify-content': 'flex-end' ,
-	    'height':'0'
-	  }); 
-	  $('.evt-search-input').css({
-		    'width': '250px'
-	  });
-	  $('.evt-map').css({
-	    'width': '862px',
-	    'height': '577px'
-	  });
-	});
-	
 </script>

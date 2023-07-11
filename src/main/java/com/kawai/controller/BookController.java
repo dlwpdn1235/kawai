@@ -1,42 +1,41 @@
 package com.kawai.controller;
 
-import java.io.File;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.tomcat.util.http.ConcurrentDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kawai.dto.BookHashTagVO;
+import com.kawai.dto.BookLikesVO;
 import com.kawai.dto.BookStoreVO;
 import com.kawai.dto.BookTagBoxVO;
 import com.kawai.service.BookHashTagService;
-import com.kawai.service.BookHashTagServiceImpl;
 import com.kawai.service.BookImgService;
+import com.kawai.service.BookLikesService;
 import com.kawai.service.BookStoreService;
 import com.kawai.service.BookTagBoxService;
 
 import lombok.extern.log4j.Log4j;
+
 
 @Controller
 @RequestMapping(value="/kawai/*")
@@ -46,6 +45,7 @@ public class BookController {
 	@Autowired BookStoreService storeservice;
 	@Autowired BookImgService imgservice;
 	@Autowired BookTagBoxService boxservice;
+	@Autowired BookLikesService likeservice;
 	
 	//index 에서 main2 페이지로 a태그 받아왔을때 처리
 	@RequestMapping(value = "main2", method = RequestMethod.GET)
@@ -63,9 +63,10 @@ public class BookController {
 		return "book/write";
 	}
 	
-	@PostMapping(value="/write")
+	@RequestMapping(value="/write" , method=RequestMethod.POST)
 	public String write(
 	        BookStoreVO vo,  
+	        MultipartFile file, HttpServletRequest request,
 	        Model model,
 	        @RequestParam("selectedTags") String selectedTagIds
 	        /* @RequestParam(value="taglist", required = false) int[] taglist, */
@@ -74,14 +75,10 @@ public class BookController {
 	        @RequestParam("bs_start_time") String start_time,
 	        @RequestParam("bs_end_time") String end_time  */
 	      ) throws ParseException {
-	    
 	
 	    vo.setUser_id("admin1"); //user_id(user 테이블의 id) 설정 
 	    log.info("............." + vo);
 	    log.info("............." + selectedTagIds);
-//	    log.info("............." + bs_opendate);
-//	    log.info("............." + start_time);
-//	    log.info("............." + end_time);
 	
 	    Timestamp now = new Timestamp(System.currentTimeMillis());
 	    vo.setBs_reg_date(now);  // 등록날짜 (커렌트)
@@ -99,9 +96,16 @@ public class BookController {
 	    vo.setBs_end_time(formattedTime2);   // 마감시간
 
 	    
+	    //이미지 업로드
+//	    log.info( imgservice.imginsert(file, request, ivo) );
+	   //model.addAttribute("img",imgservice.imginsert(file, request, ivo));
+	    //왜 안되니...이친구야...
+	    
+//	    log.info(model.addAttribute("img" , imgservice.imgread(ivo)));
+	    
 	    ///// 1.   insert  -   bsNo
 	    log.info("............." + vo); 
-	    log.info("잘들어가는지 확인: " + storeservice.bookstoreinsert(vo));
+	    log.info("잘들어가는지 확인: " + storeservice.bookstoreinsert(file, request, vo));
 	    
 	    ///// 2.  제일 높은bs_no 찾아서 bsNo에 넣고
 	    Integer bsNo = storeservice.findMaxBsNo(); 
@@ -114,6 +118,7 @@ public class BookController {
 	            .collect(Collectors.toList());
 	    log.info(selectedTagId);
 	  
+
 	    List<BookTagBoxVO> tagBoxes = new ArrayList<>();
 
         ///// 4. 리스트로 만들기 -  BookTagBoxVO
@@ -130,10 +135,7 @@ public class BookController {
 	        boxservice.boxinsert(tagBox);  //##
 	    }
 	    log.info(selectedTagId);
-	    
-
         ///// 5. 
-
 	    List<BookStoreVO> storeList = storeservice.bookstorereadAll();
 	   // log.info(storeList);   // 값은 제데로 가져오긴하는대... tagnames=null 인상황
 
@@ -145,23 +147,9 @@ public class BookController {
 	        String tagName = tagBox.getTag_name();
 	        log.info("Tag Name: " + tagName);
 	    }
-	   /* List<BookTagBoxVO> name = new ArrayList<BookTagBoxVO>();
-	    for(BookTagBoxVO tb : name) {
-	    	boxservice.findTagByName2(tb);
-	    	log.info("이게 잘들어가니??" + name);
-	    }*/
 	    
-	    /*
-	    for (BookStoreVO store : storeList) {
-	        int storeNo = store.getBs_no();
-	    //    log.info("storeNo 확인용" + storeNo); // bs_no 제데로 가져오는지 확인 ( = 잘가져옴)
-	        List<String> tagNames = storeservice.getBookStoreTagNames(storeNo);
-	        
-	        log.info("tagNames 가져오는지 확인" + tagNames);
-	        store.setTagNames(tagNames);
-	    }*/
-	 
 	    log.info("vo 출력 :"+vo);
+	    
 	    model.addAttribute("list", storeList);
 
 	    return "book/book_admin_list";
@@ -169,26 +157,24 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public String detail(@RequestParam("bs_name") String bs_name, Model model) {
+	public String detail(@RequestParam("bs_name") String bs_name,
+			Model model) {
 	    // bs_name에 해당하는 정보를 가져와서 모델에 저장
 	    List<BookStoreVO> storeList = storeservice.getBsName(bs_name);
 	    if (!storeList.isEmpty()) {
 	        BookStoreVO store = storeList.get(0); // 첫 번째 객체 가져오기
 	        
-	        // 해시태그(활동) 값 가져오기
 	        int bsNo = store.getBs_no();
 	        
 	        List<String> tagNames = storeservice.getBookStoreTagNames(bsNo);
 	        store.setTagNames(tagNames);
 	        
-	        log.info("머냐" + tagNames);
-	        log.info("머냐" + store);
+	        log.info("tagNames 값: " + tagNames);
+	        log.info("store 값: " + store);
 	        
 	        model.addAttribute("tagNames", tagNames); // 해시태그 값을 모델에 추가
 	        model.addAttribute("name", store);
-	        
 	    }
-//	    model.addAttribute("list", storeservice.bookstorereadAll());
 	    return "book/detail";
 	}
 	
@@ -207,12 +193,27 @@ public class BookController {
 
 	    return "book/book_admin_list";
 	}
+	
+	//임시용 2
+		// main2 에서 book_user.jsp a태그 리스트로 가기 눌렀을때 처리
+		@RequestMapping(value="/book_user", method=RequestMethod.GET)
+		public String book_user(@RequestParam("bs_no") int bs_no, Model model) {
+		    model.addAttribute("list", storeservice.bookstorereadAll());
+
+		    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
+		    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
+
+		    // 모델에 해시태그 목록 저장
+		    model.addAttribute("tagNames", tagNames);
+
+		    return "book/book_user";
+		}
 		
 
 	@RequestMapping(value="/read" , method= RequestMethod.GET)   
 	public void read(Model model , BookStoreVO vo)  {
 		log.info(".............read");
-		model.addAttribute(storeservice.bookstoreread(2));
+		model.addAttribute(storeservice.bookstoreread(vo));
 		}
 	
 	
@@ -235,7 +236,7 @@ public class BookController {
 //////////// Ajax 기능구현 ////////////
 	
 		//모달창에 태그목록(HashTag 값) 보여주기
-			 @GetMapping(value="/getHashtags")
+			 @RequestMapping(value="/getHashtags" , method= RequestMethod.GET)   
 			 @ResponseBody
 			  public List<BookHashTagVO> getHashtags() {
 			    // 서비스 레이어나 데이터베이스로부터 해시태그 데이터를 가져와서 반환
@@ -244,41 +245,84 @@ public class BookController {
 			    return hashtags;
 			  }
 		 
+		//좋아요 이미지 클릭했을때 이미지 변경하기
+			 @RequestMapping(value="/add" , method= RequestMethod.POST )
+			    public String addBookLikes(@ModelAttribute BookLikesVO bookLikes) {
+			        likeservice.insertBookLikes(bookLikes);
+			        return "book/detail";
+			    }
+
+			    @RequestMapping(value="/remove" , method= RequestMethod.POST )
+			    public String removeBookLikes(@ModelAttribute BookLikesVO bookLikes) {
+			    	likeservice.deleteBookLikes(bookLikes);
+			        return "book/detail";
+			    }
+
+			    @RequestMapping(value="/success" , method= RequestMethod.GET )
+			    public String successPage() {
+			        return "book/detail"; // success.jsp 또는 success.html과 같은 뷰 페이지를 반환합니다.
+			    }
+			    
+			    @RequestMapping(value = "/checkLikes", method = RequestMethod.POST)
+			    @ResponseBody
+			    public Map<String, Object> checkLikes(@RequestParam("fk_id") String fk_id, @RequestParam("fk_bs_no") String fk_bs_no) {
+			        // 좋아요 상태를 확인하는 로직을 구현합니다.
+			        boolean isLiked = likeservice.checkLikes(fk_id, fk_bs_no);
+
+			        // 이미지 URL을 설정합니다.
+			        String imageUrl = isLiked ? "${pageContext.request.contextPath}/kawai/img/marketLikeCheck.jpg"
+			                : "${pageContext.request.contextPath}/kawai/img/marketLikeUnCheck.jpg";
+
+			        // 응답 데이터를 생성합니다.
+			        Map<String, Object> response = new HashMap<>();
+			        response.put("imageUrl", imageUrl);
+
+			        return response;
+			    }
+
+
+
+
+
+
+
+			 
+			 
 		 
 		 
 	//이미지 파일 업로드
-		 @PostMapping(value="/uploadImage")
-		 public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile,  HttpServletRequest request) {
-		   // 이미지 파일 업로드 처리
-		   if (!imageFile.isEmpty()) {
-		     try {
-		       // 파일 저장 경로 설정
-		       String uploadPath = "/path/to/upload/directory";
-		       String fileName = imageFile.getOriginalFilename();
-		       String filePath = uploadPath + "/" + fileName;
-
-		       // 파일 저장
-		       File dest = new File(filePath);
-		       imageFile.transferTo(dest);
-
-		       // 파일 업로드 성공
-		       // 추가로 필요한 로직을 작성하거나 필요한 데이터를 처리할 수 있습니다.
-
-		       return "upload_success";
-		     } catch (Exception e) {
-		       e.printStackTrace();
-		       // 파일 업로드 실패
-		       // 실패 처리를 위한 로직을 작성하거나 에러 페이지로 리다이렉트 등을 수행할 수 있습니다.
-
-		       return "upload_failure";
-		     }
-		   }
-
-		   // 업로드할 이미지 파일이 없는 경우
-		   // 예외 처리 등을 수행할 수 있습니다.
-
-		   return "upload_failure";
-		 }
+//		 @RequestMapping(value="/uploadImage" , method=RequestMethod.POST)
+//		 public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile,  HttpServletRequest request) {
+//		   // 이미지 파일 업로드 처리
+//		   if (!imageFile.isEmpty()) {
+//		     try {
+//		       // 파일 저장 경로 설정
+//		       String uploadPath = "/path/to/upload/directory";
+//		       String fileName = imageFile.getOriginalFilename();
+//		       String filePath = uploadPath + "/" + fileName;
+//
+//		       // 파일 저장
+//		       File dest = new File(filePath);
+//		       imageFile.transferTo(dest);
+//
+//		       // 파일 업로드 성공
+//		       // 추가로 필요한 로직을 작성하거나 필요한 데이터를 처리할 수 있습니다.
+//
+//		       return "upload_success";
+//		     } catch (Exception e) {
+//		       e.printStackTrace();
+//		       // 파일 업로드 실패
+//		       // 실패 처리를 위한 로직을 작성하거나 에러 페이지로 리다이렉트 등을 수행할 수 있습니다.
+//
+//		       return "upload_failure";
+//		     }
+//		   }
+//
+//		   // 업로드할 이미지 파일이 없는 경우
+//		   // 예외 처리 등을 수행할 수 있습니다.
+//
+//		   return "upload_failure";
+//		 }
 		 
 		 
 

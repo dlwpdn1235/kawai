@@ -11,5 +11,4 @@ public interface MarketService {
 	public int marketUpdate(MarketDto dto); 
 	public MarketDto marketRead(int no);
 	public List<MarketDto> marketList(MarketPageDto dto);
-	
 }

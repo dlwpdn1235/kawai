@@ -12,11 +12,11 @@
      <insert id="bookstoreinsert" parameterType="BookStoreVO">
 	    INSERT INTO bookstore (
 	        bs_name, bs_phonenum, bs_address, bs_address_detail, bs_postnum,
-	        bs_closeday, bs_content, bs_opendate, bs_start_time, bs_end_time
+	        bs_closeday, bs_content, bs_opendate, bs_start_time, bs_end_time , bfile
 	    )
 	    VALUES (
 	        #{bs_name}, #{bs_phonenum}, #{bs_address}, #{bs_address_detail}, #{bs_postnum},
-	        #{bs_closeday}, #{bs_content}, #{bs_opendate}, #{bs_start_time}, #{bs_end_time}
+	        #{bs_closeday}, #{bs_content}, #{bs_opendate}, #{bs_start_time}, #{bs_end_time} , #{bfile}
 	    )
 	</insert>
      

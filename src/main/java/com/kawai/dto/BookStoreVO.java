@@ -24,6 +24,7 @@ public class BookStoreVO {
 	private String bs_end_time;
 	private int[] taglist;
 	private String selected_tagname;
+	private String bfile;
 	
 	private List<String> tagNames;
 

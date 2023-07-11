@@ -14,7 +14,7 @@ public interface BookStoreDao {
 	public int bookstoreinsert(BookStoreVO vo);
 	public int bookstoreupdate(BookStoreVO vo);
 	public int bookstoredelete(int no); 
-	public  BookStoreVO bookstoreread(int no);
+	public  BookStoreVO bookstoreread(BookStoreVO  vo);
 	public  List<BookStoreVO>  bookstorereadAll();
 	
 	public Integer findMaxBsNo();

@@ -38,7 +38,7 @@ public class AccountEventServiceImpl implements AccountEventService{
 	}
 
 	@Override
-	public List<AccountEventVO> accountEventList(String id) {
+	public List<String> accountEventList(String id) {
 		// 한 유저의 출석체크한 날짜조회(리스트) VIEW에 달력식으로 값 넣기
 		return dao.accountEventList(id);
 	}

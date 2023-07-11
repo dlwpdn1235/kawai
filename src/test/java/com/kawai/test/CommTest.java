@@ -63,19 +63,19 @@ public class CommTest {
 	@Test @Ignore
 	public void communityInsert() {
 		CommDto info = new CommDto();
-		info.setCommunity_title("승재형은 왜그럴까?라는 책의 리뷰입니다.");
-		info.setCommunity_content("이책은 진짜 승재형이 왜그럴까에대해 잘설명되어있습니다.");
+		info.setCommunity_title("공지사항 입니다.");
+		info.setCommunity_content("공지사항 내용입니다.");
 		info.setCommunity_ip("111-222-111");
 		info.setUser_id("user001");
 //		info.setCommunity_id(2);
 		CommDtoBookinfo info2 = new CommDtoBookinfo();
 		info2.setBookinfo_id(1);
 		info.setBookinfo(info2);
-		CommDtoCategory info3 = new CommDtoCategory();
-		info3.setCategory_id(2);
-		info.setCommcategory(info3);
+		info.setComm_category_id(1);
 		info.setCommunity_hide(1);
+			
 		dao.commCommunityInsert(info);
+		
 //		dao.commCommunityUpdate(info);
 	}
 	@Test @Ignore
@@ -92,7 +92,7 @@ public class CommTest {
 		search.setCategory_id(0);
 		search.setCondition(0);
 		search.setDay(0);
-		search.setSearchKeyword("");
+		search.setSearchKeyword("승재형");
 		search.setSearchType(1);
 		search.setCount(0);
 		search.setCommunity_hide(1);
@@ -118,7 +118,7 @@ public class CommTest {
 	}
 	@Test @Ignore
 	public void commlikeAllRead() {
-		like.communityLikeAllRead("user001");
+//		like.communityLikeAllRead("user001");
 	}
 	@Test @Ignore
 	public void commInquiryInsert() {
@@ -173,11 +173,14 @@ public class CommTest {
 	@Test @Ignore
 	public void commCommentInsert() {
 		CommDtoComment comment = new CommDtoComment();
-		comment.setComment("추천요1");
+		comment.setComment("추천요2");
 		comment.setComment_ip("111-111-111");
-		comment.setCommunity_id(3);
-		comment.setComment_id(11);
+		comment.setCommunity_id(38);
+		comment.setComment_id(1);
 		comment.setUser_id("user001");
+		comment.setComment_group(1);
+		comment.setComment_step(999);
+		comment.setComment_indent(1);
 //		System.out.println(commentdao.commentInsert(comment));
 		System.out.println(commentdao.commentInsert(comment));
 //		System.out.println(commentdao.commentUpdate(comment));

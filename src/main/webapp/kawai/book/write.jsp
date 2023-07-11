@@ -8,7 +8,7 @@
 <div class="container map_container" id="bs_write_div">
 		<h1 class="panel-heading">서점등록</h1>
 	  <div class="form-group">
-	  <form action="${pageContext.request.contextPath}/kawai/write"  method="post" class="writeform">
+	  <form action="${pageContext.request.contextPath}/kawai/write"  method="post" class="writeform" enctype="multipart/form-data">
 	   <!-- 	 <input type="hidden" id="selectedTagsInput" name="selectedTagsInput"> -->
       <dl>
 	  <dd>
@@ -85,10 +85,18 @@
                   class="form-control"></textarea>
         </dd>
         </dl>
-       <!--  <dl>
-        <dt>사진</dt>
-        <dd><input type="file" id="img" name="img" > </dd>
+<!--         <dl>
+        <dd>
+          <label for="img_file_name">사진</label>
+        <input type="file" id="img_file_name" name="img_file_name" >
+        </dd>
         </dl> -->
+         <dl>
+        <dd>
+          <label for="file">사진</label>
+        <input type="file" id="bfile" name="file" >
+        </dd>
+        </dl>  
         <dl>
         <dd>
         <label for="bs_opendate">오픈일자</label>

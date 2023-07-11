@@ -6,53 +6,56 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=75bc52b7e552dc0c2e818096144eaeeb&libraries=services,clusterer,drawing"></script>
 <%@ include file="/kawai/inc/header.jsp" %>
 <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="container map_container">
-  <h1>지도</h1>
-  <div class="row">
-    <div class="col-sm-4" style="height: 700px; overflow: auto;">
-      <div class="search-form">
-        <input type="text" class="evt-search-input" name="searchInput" placeholder="주소 또는 서점 이름 입력">
-        <a href="#none" onclick="searchLocation()" class="evt-search">검색</a>
-      </div>
-      <div class="address">
-        <strong>주소:</strong> <span class="evt-view-address"></span>
-      </div>
-      <div>
-        <a href="${pageContext.request.contextPath}/kawai/write.kawai">등록하기</a><br><br>
-      </div>
-      <div>
-  <table>
-    <tr>
-      <td class="col-sm-4">
-        <c:forEach var="dto" items="${list}" varStatus="status">
-          <%-- <c:if test="${status.index < 10}"> --%>
-          <span class="img_radius"><img class="profile" src="${pageContext.request.contextPath}/kawai/img/iron.jpg" alt="이미지"></span>
-          <%-- </c:if> --%>
-        </c:forEach>
-      </td>
-      <td class="col-sm-6 div_list">
-        <c:forEach var="dto" items="${list}" varStatus="status">
-          <%-- <c:if test="${status.index < 5}"> --%>
-          	<p>${dto.bs_no}</p>
-            <a href="${pageContext.request.contextPath}/kawai/detail.kawai?bs_name=${dto.bs_name}">${dto.bs_name}</a>
-            <h5>${dto.bs_address_detail}</h5>
-        <%--   </c:if> --%>
-        </c:forEach>
-      </td>
-    </tr>
-  </table>
+<div class="map_container">
+ 	<h1>지도</h1>
+		  <div class="row">
+				    <div class="col-sm-4">
+				    	
+					      <div class="search-form">
+					        <input type="text" class="evt-search-input" name="searchInput" placeholder="주소 또는 서점 이름 입력">
+					        <a href="#none" onclick="searchLocation()" class="evt-search">검색</a>
+					      </div>
+					      <div class="address">
+					        <strong>주소:</strong> <span class="evt-view-address"></span>
+					      </div>
+					      <div>
+					        <a href="${pageContext.request.contextPath}/kawai/write.kawai">등록하기</a><br><br>
+					      </div>
+					      
+					      <!-- 													이미지 , bs_name ,  address_detail																		 -->
+					      
+					      <div class="row">
+					      <div class="col-sm-6  text-center">
+					      <c:forEach var="dto" items="${list}" varStatus="status">
+								          <img class="profile" alt="이미지"  style="width: 170px; border-radius: 40%;  padding-top:2px; padding-bottom: 0px; " 
+								          			src="${pageContext.request.contextPath}/resources/upload/${dto.bfile}"; >
+								          			<!--  src="https://image.bookshopmap.com/1600,fit,q60/venue/yourmind-cover.jpg";  -->
+						  </c:forEach>
+						  </div>
+						  
+						  <div class="col-sm-6  a_psm6">
+						  <c:forEach var="dto" items="${list}" varStatus="status">
+				           <p class="p_sm6">
+				           <a href="${pageContext.request.contextPath}/kawai/detail.kawai?bs_name=${dto.bs_name}">${dto.bs_name}</a>
+				           </p>
+				            <p>${dto.bs_address_detail}</p>
+				            </c:forEach>
+				           </div>
+				           </div> 
+					   </div>   
+					    <div class="col-sm-8">
+		      			<div class="evt-map" id="map" style="width:100%; height:400px;"></div>
+		    			</div>
+			   </div>   
 </div>
-    </div>
-    <div class="col-sm-8">
-      <div class="evt-map" id="map" style="width:100%; height:400px;"></div>
-    </div>
-  </div>
+<div>
+<p>임시용 사용자리스트 </p>
+<a  href="${pageContext.request.contextPath}/kawai/book_user.kawai?bs_no=${bs_no}">사용자리스트 </a>
 </div>
-
-<%-- <div>
-  	<p>임시용 링크태우기</p>
+ <div>
+  	<p>임시용 관리자리스트</p>
   	<a href="${pageContext.request.contextPath}/kawai/book_admin_list.kawai?bs_no=${bs_no}">관리자리스트</a>
-  </div> --%>
+  </div> 
 
 <script>
 function searchLocation() {
@@ -132,60 +135,39 @@ $(document).ready(function() {
     'height': '0'
   });
   $('.evt-search-input').css({
-    'width': '250px'
+    'width': '465px'
   });
   $('.evt-map').css({
-    'width': '780px',
-    'height': '700px'
+    'width': '1100px',
+    'height': '1100px'
   });
 });
 </script>
 
 <style>
-.container_div1 {
-  display: flex;
-  flex-direction: column;
-} -> 지금 고칠것
-
+img.profile {
+    width: 200px;
+    border-radius: 50%;
+}
 .map-container {
   height: 700px;
 }
-
-.position-item {
-  flex-basis: 50%;
+.col-sm-4 {
+    padding-left: 60px;
+}
+h1 {
+padding-left: 43px;
 }
 
-img.profile {
-    border-radius: 25%;
-}
-.profile {
-    width: 71%;
-    height: 9%;
-    object-fit: cover;
-    margin-top: 10px
-}
-.col-sm-6.div_list {
-    margin-top: 15px;
-    padding-left: 5px;
-    position: absolute;
-    display: table-cell;
-}
-table td[class*=col-], table th[class*=col-] {
-    position: static;
-    display: table-cell;
-}
-td.col-sm-3 {
-    padding: 0px;
-    margin: 0;
-    width: 8%;
-}
-td.col-sm-4,
-td.col-sm-6 {
-  vertical-align: top; /* 이미지 상단에 맞추기 */
-}
-td.col-sm-6 a,
-td.col-sm-6 h5 {
-  margin-bottom: 10px; /* 아래쪽 간격 설정 */
+.col-sm-6.a_psm6 {
+    padding-top: 10px;
+    padding-left: 0px;
+    font-size: 18px;
 }
 
+p {
+    margin: 5px -4px 9px 0px;
+    padding-bottom: 11px;
+    font-size: 13px;
+}
 </style>

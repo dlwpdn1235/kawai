@@ -8,9 +8,9 @@
 MarketDto dto = new MarketDto();
 %>
 
-<body>
    <div class="container panel">
       <h3 class="panel-heading"></h3>   
+      <form action="${pageContext.request.contextPath}/marketSearch" method="get">
    	<div class="row well">
    		<div class="col-sm-4">
 	   		<div class="row">
@@ -33,7 +33,7 @@ MarketDto dto = new MarketDto();
    		</div>
    		
    		<div class="col-sm-4">
-	   			<input type="search" value="asd"/>
+	   			   <input type="search" id="market_search" placeholder="책 정보입력" autocomplete="off"/>  
    		</div>
    		
    		<div class="col-sm-4">
@@ -56,11 +56,21 @@ MarketDto dto = new MarketDto();
    			</div>
    		</div>
    	</div>
-   	
-   	<c:forEach var="market" items="${marketlist}">
-   	${market.MPrice}
-   	</c:forEach>
+	</form>
 
+	<a class="marketWriting" href="${pageContext.request.contextPath }/kawai/market/marketProductWrite.jsp">
+			<input type="submit" class="btn btn-info" id="marketWriteForm" value="상품 등록"/>
+	</a>
+	
+	 <form action="${pageContext.request.contextPath}/market/marketProductInsert" method="GET">
+	 
+		<div class="marketShop">
+			<input type="submit" class="btn btn-info"  id="marketCartRec" value="장바구니 담기"/>
+		</div>
+		
+
+
+	<!-- Form 체크하는 곳 select 박스 이용해서 장바구니 -->
 		<div id="marketCheck">
 			<label for="marketAllcheck">전체선택</label>
 			<input type="checkbox" id="marketAllCheck"/>
@@ -69,8 +79,8 @@ MarketDto dto = new MarketDto();
 			<input type="checkbox" id="marketLikeCheck" style="display:none;"/>
 			<img src="../img/marketLikeUnCheck.jpg" />
 			</label>
-			
 		</div>
+</form>
 
 <%--     <c:forEach var="i" begin="1" end="20" step="1"> --%>
 <!--     <div class="col-sm-3"> -->
@@ -85,21 +95,30 @@ MarketDto dto = new MarketDto();
 <!--       </div> -->
 <%--     </c:forEach> --%>
 
+	
+
     <c:forEach var="market" items="${marketlist}">
     <div class="col-sm-3">
     
         <label for="marketProductCheck${i}"></label>
-        <input type="checkbox" value="1" id="marketProductCheck${i}" />
-        <a href="marketDetail.jsp?market_id=${market.market_id }">
-        <img src="${pageContext.request.contextPath }../img/marketLikeUnCheck.jpg" alt="책이미지" />
+        <input type="checkbox" name="marketCartCheck" value="${market.market_id}" id="marketProductCheck${i}" />
+         
+        <a href="${pageContext.request.contextPath }/market/marketDetail?market_id=${market.market_id}">
+        <img src="${market.bookinfo.book_image }" alt="책이미지" />
         </a>
-        <p>출판사 : </p>
-        <span id="marketPrice">가격</span>
+		
+        <p>출판사 :${market.bookinfo.book_author }</p>
+        <span id="marketPrice">${market.MPrice }</span>
+        
       </div>
     </c:forEach>
+
   </div>
-  
+
  <script>
+ 
+ 
+ 
   $(function() {
     $("#marketAllCheck").on("click", function() {
       var isChecked = $(this).is(":checked");
@@ -111,6 +130,21 @@ MarketDto dto = new MarketDto();
       $(this).siblings("img").attr("src", isChecked ? "../img/marketLikeCheck.jpg" : "../img/marketLikeUnCheck.jpg");
     });
   });
+
+  $(function(){
+  	$("#market_search").keydown(function(event){
+  		event.preventDefault();
+  		var marketSearch ="";
+  		if (event.keyCode === 13) {
+  			marketSearch=$("#market_search").val();
+  			location.href='${pageContext.request.contextPath}/market/marketSearch?book_title='+marketSearch;
+  		}
+  		
+  		marketSearch = "";
+  	});
+  });
+
+  
 </script>
                             
 <%@include file="../inc/footer.jsp" %>

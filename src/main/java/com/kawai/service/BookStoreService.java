@@ -11,10 +11,10 @@ import com.kawai.dto.BookStoreVO;
 import com.kawai.dto.BookTagBoxVO;
 
 public interface BookStoreService {
-	public int bookstoreinsert(BookStoreVO vo);
-	public int bookstoreupdate(BookStoreVO vo);
+	public int bookstoreinsert(MultipartFile file, HttpServletRequest request , BookStoreVO vo);
+	public int bookstoreupdate(MultipartFile file, HttpServletRequest request , BookStoreVO vo);
 	public int bookstoredelete(int no); 
-	public  BookStoreVO bookstoreread(int no);
+	public  BookStoreVO bookstoreread(BookStoreVO  vo);
 	public  List<BookStoreVO>  bookstorereadAll();
 	
 	public Integer findMaxBsNo();

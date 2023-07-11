@@ -8,9 +8,9 @@ import com.kawai.dto.CommDtoComment;
 
 
 public interface CommServiceComment {
-	public List<CommDtoComment> commentInsert(CommDtoComment commDtoComment, HttpServletRequest request);
-	public List<CommDtoComment> commentUpdate(CommDtoComment commDtoComment);
-	public List<CommDtoComment> commentDelete(CommDtoComment commDtoComment);
+	public int commentInsert(CommDtoComment commDtoComment, HttpServletRequest request);
+	public int commentUpdate(CommDtoComment commDtoComment);
+	public int commentDelete(CommDtoComment commDtoComment);
 	public List<CommDtoComment> commCommentAllRead(int comment_id);
 	public int commCommentStepUpdate(CommDtoComment commDtoComment);
 	

@@ -54,13 +54,13 @@ public class BookTest {
 		for( BookHashTagVO u  : tagdao.tagreadAll()) { System.out.println(u); }
 	}
 	
-	@Test @Ignore
+	@Test //@Ignore
 	public void testimg() {
 		BookImgVO vo = new BookImgVO(); 
 		
-		vo.setBs_no(0);  // 해당 이미지와 관련된 bookstore의 bs_no (예: 3번 서점)
+	//	vo.setBs_no(0);  // 해당 이미지와 관련된 bookstore의 bs_no (예: 3번 서점)
 	    vo.setImg_file_name("새로운이미지.jpg");  // 추가할 이미지 파일명
-	    //vo.setImg_reg_date(LocalDateTime.now());  // 이미지 등록 날짜 및 시간
+	//    vo.setImg_reg_date(LocalDateTime.now());  // 이미지 등록 날짜 및 시간
 
 	    System.out.println(imgdao.imginsert(vo)); // 이미지 추가 메서드 호출
 /*		
@@ -89,12 +89,14 @@ public class BookTest {
 		vo.setBs_address_detail("2층");
 		vo.setBs_start_time("17:00");
 		vo.setBs_end_time("22:00");
+		vo.setBs_content("국 내 최초의 독립출판물 전문 서점이다. 출판사를 겸하고 있다. 2009년부터 매년 서울아트부게어 '언리미티드 에디션(UE, Unlimited Edition)'을 열어오고 있다.");
 		
 		java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 		vo.setBs_opendate(currentDate);
 		vo.setBs_content("국 내 최초의 독립출판물 전문 서점이다. 출판사를 겸하고 있다. 2009년부터 매년 서울아트부게어 '언리미티드 에디션(UE, Unlimited Edition)'을 열어오고 있다.");
 		vo.setBs_reg_date(currentDate);
-
+		
+		
 	    System.out.println(bookdao.bookstoreinsert(vo)); // insert	
 		
 		
@@ -140,7 +142,7 @@ public class BookTest {
 		for( BookLikesVO u  : likesdao.likesreadAll()) { System.out.println(u); }
 	}
 	
-	@Test  //@Ignore
+	@Test  @Ignore
 	public void testbox() {
 		BookTagBoxVO vo = new BookTagBoxVO();
 		// 테스트할 BookTagBoxVO 객체 생성 및 설정
