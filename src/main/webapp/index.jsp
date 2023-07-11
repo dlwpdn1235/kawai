@@ -2,4 +2,3 @@
 <script>location.href='main/view';</script>
 
 
-<!-- 출석체크이벤트 , 네아로 ...하.... -->

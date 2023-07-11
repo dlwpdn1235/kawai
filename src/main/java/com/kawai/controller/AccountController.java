@@ -1,5 +1,11 @@
 package com.kawai.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,10 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kawai.dao.AccountUserDao;
 import com.kawai.dto.AccountUserVO;
 import com.kawai.service.AccountEventService;
 import com.kawai.service.AccountUserService;
+
+import lombok.extern.log4j.Log4j;
 @Controller
+@Log4j
 @RequestMapping("/account/*")
 public class AccountController {
 	@Autowired AccountUserService userService;
@@ -80,11 +90,32 @@ public class AccountController {
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String accountLogout(HttpServletRequest request, RedirectAttributes rttr) {
 	    // 세션 제거
-	    request.getSession().invalidate();
-	    
+	    // 1. 카카오 세션이 있다면  -  세션.겟에튜리뷰트할때 kakaoUser
+		// 2. ver1 - ㄱUrl connection 끊기
+		//"https://kauth.kakao.com/oauth/logout?client_id=5b0f67c0f0c2554251291f96f710c67d&logout_redirect_uri=http://localhost:8080/kawai/account/kakaoLogout"
+	    // ver2 - 로그아웃 버튼이 나오게 
+		request.getSession().invalidate(); 
 	    rttr.addFlashAttribute("success", "로그아웃되었습니다.");
-	    return "redirect:/main/view";
+	    return "redirect:https://kauth.kakao.com/oauth/logout?client_id=5b0f67c0f0c2554251291f96f710c67d&logout_redirect_uri=http://localhost:8080/kawai/account/logout2";
 	}
+	
+	@RequestMapping(value = "logout2", method = RequestMethod.GET)
+	public String accountLogout2(HttpServletRequest request, RedirectAttributes rttr) {
+		rttr.addFlashAttribute("success", "로그아웃되었습니다.");
+		return "redirect:/main/view";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
     @RequestMapping(value = "/userList", method = RequestMethod.GET)
     public String userList(Model model) {
@@ -93,9 +124,6 @@ public class AccountController {
         return "account/userList";
     }
 
-	
-	
-	
 
 	@RequestMapping(value= "userDetail" , method = RequestMethod.GET)
 	public void userDetail(AccountUserVO userVO , Model model) {
@@ -181,20 +209,45 @@ public class AccountController {
 	
 	
 	
+	@Autowired AccountUserDao dao;
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	//카카오 로그인기능
+	@RequestMapping(value="/kakaoToken", method=RequestMethod.GET)
+	public String kakaoToken(@RequestParam(value = "code", required = false) String code , HttpServletRequest request , AccountUserVO user) throws Exception {
+		System.out.println("코드컨트롤 : " + code);
+		String access_Token = userService.kakaoToken(code);
+		
+		System.out.println("토큰컨트롤 : " + access_Token);
+		HashMap<String, Object> kakaoInfo =userService.kakaoInfo(access_Token); 
+		// 위에서 만든 코드 아래에 코드 추가
+		//HashMap<String, Object> userInfo = userSe);
+		System.out.println("###access_Token#### : " + kakaoInfo);
+		System.out.println("###nickname#### : " + kakaoInfo.get("nickname"));
+		System.out.println("###email#### : " + kakaoInfo.get("email"));
+		
+		String result = dao.emailfind((String) kakaoInfo.get("email"));
+		
+		
+		System.out.println(result);
+		if(result == null) {
+			System.out.println(result+"2");
+			//컨트롤러 만들어줄것
+			return "redirect:/account/kakaoSingUp";			
+		}else {
+			request.getSession().setAttribute("kakaoUser", 1);
+			request.getSession().setAttribute("account", result);
+			request.getSession().setAttribute("role_id", 0);
+			return "redirect:/main/view";
+			}
+		
+    	}
+
+	@RequestMapping(value="/kakaoSingUp", method=RequestMethod.GET)
+	public String singUp_view2() { return "account/singUp1"; }
 	
 	
 	
 	// 여기는 이벤트 페이지에대한 처리
-	
 	@RequestMapping(value="userEvent" , method = RequestMethod.GET )
 	public String userEvent(
 			//AccountUserVO userVO , AccountEventVO eventVO
