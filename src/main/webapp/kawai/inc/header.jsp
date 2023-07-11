@@ -386,6 +386,33 @@ float:right;
 margin-right:300px;
 }
 /* 승재리*/
+/* 메인 도연 */
+img.profile {
+    width: 200px;
+    border-radius: 50%;
+}
+.map-container {
+  height: 700px;
+}
+.col-sm-4 {
+    padding-left: 60px;
+}
+h1 {
+padding-left: 43px;
+}
+
+.col-sm-6.a_psm6 {
+    padding-top: 10px;
+    padding-left: 0px;
+    font-size: 18px;
+}
+
+p {
+    margin: 5px -4px 9px 0px;
+    padding-bottom: 11px;
+    font-size: 13px;
+}
+/* 메인 도연 */
  </style>
 </head>
 

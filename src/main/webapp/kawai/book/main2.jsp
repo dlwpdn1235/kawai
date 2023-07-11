@@ -4,7 +4,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=75bc52b7e552dc0c2e818096144eaeeb&libraries=services,clusterer,drawing"></script>
-<%@ include file="/kawai/inc/header.jsp" %>
 <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="map_container">
  	<h1>지도</h1>
@@ -48,14 +47,6 @@
 		    			</div>
 			   </div>   
 </div>
-<div>
-<p>임시용 사용자리스트 </p>
-<a  href="${pageContext.request.contextPath}/kawai/book_user.kawai?bs_no=${bs_no}">사용자리스트 </a>
-</div>
- <div>
-  	<p>임시용 관리자리스트</p>
-  	<a href="${pageContext.request.contextPath}/kawai/book_admin_list.kawai?bs_no=${bs_no}">관리자리스트</a>
-  </div> 
 
 <script>
 function searchLocation() {
@@ -144,30 +135,3 @@ $(document).ready(function() {
 });
 </script>
 
-<style>
-img.profile {
-    width: 200px;
-    border-radius: 50%;
-}
-.map-container {
-  height: 700px;
-}
-.col-sm-4 {
-    padding-left: 60px;
-}
-h1 {
-padding-left: 43px;
-}
-
-.col-sm-6.a_psm6 {
-    padding-top: 10px;
-    padding-left: 0px;
-    font-size: 18px;
-}
-
-p {
-    margin: 5px -4px 9px 0px;
-    padding-bottom: 11px;
-    font-size: 13px;
-}
-</style>
