@@ -11,25 +11,23 @@ import com.kawai.dto.BookLikesVO;
 @Service
 public class BookLikesServiceImpl implements BookLikesService{
 	@Autowired BookLikesDao dao;
+
+	@Override
+	public void insertBookLikes(BookLikesVO bookLikes) {
+		dao.insertBookLikes(bookLikes);
+	}
+
+	@Override
+	public void deleteBookLikes(BookLikesVO bookLikes) {
+		dao.deleteBookLikes(bookLikes);
+	}
+
+	@Override
+	public boolean checkLikes(String fk_id, String fk_bs_no) {
+		return dao.checkLikes(fk_id, fk_bs_no);
+	}
 	
-	@Override
-	public int likesinsert(BookLikesVO vo) {
-		return dao.likesinsert(vo);
-	}
+	
 
-	@Override
-	public int likesdelete(int no) {
-		return dao.likesdelete(no);
-	}
-
-	@Override
-	public BookLikesVO likesread(int no) {
-		return dao.likesread(no);
-	}
-
-	@Override
-	public List<BookLikesVO> likesreadAll() {
-		return dao.likesreadAll();
-	}
 
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.kawai.dao.BookTagBoxDao">
+  
+  		<!-- <insert id="boxinsert" parameterType="BookTagBoxVO">
+  			INSERT INTO tag_box (bs_no, tag_id)
+		    VALUES (
+		      (SELECT bs_no FROM bookstore WHERE bs_no = #{bs_no}),
+		      (SELECT tag_id FROM hashtag WHERE tag_id = #{tag_id})
+		    )
+  		</insert> -->
+  
+		<!-- <insert id="boxtaginsert" parameterType="BookTagBoxVO">
+		    INSERT INTO tag_box (bs_no, tag_id)
+		    VALUES (
+		      (SELECT bs_no FROM bookstore WHERE bs_no = #{bs_no}),
+		      (SELECT tag_id FROM hashtag WHERE tag_id = #{tag_id})
+		    )
+		 </insert> -->
+		
+				<insert id="boxinsert"   >
+		    INSERT INTO tag_box (bs_no, tag_id)
+		    VALUES  (#{bs_no}, #{tag_id}) 
+		 </insert>
+		
+     <update id="boxupdate" parameterType="BookTagBoxVO">
+  		UPDATE tag_box
+		SET bs_no = #{bs_no}, tag_id = #{tag_id}
+		WHERE box_no = #{box_no};
+  	</update>
+  	<delete id="boxdelete" parameterType="int">
+  		delete from tag_box where box_no = #{box_no}
+  	</delete>
+  	<select id="boxread" parameterType="int" resultType="BookTagBoxVO">
+	  SELECT tb.box_no, tb.bs_no, tb.tag_id, bs.bs_name, tg.tag_name
+	  FROM tag_box tb
+	  INNER JOIN bookstore bs ON tb.bs_no = bs.bs_no
+	  INNER JOIN hashtag tg ON tb.tag_id = tg.tag_id
+	  WHERE tb.box_no = #{box_no}
+	</select>
+
+
+	<resultMap id="boxResultMap" type="BookTagBoxVO">
+	  <id property="box_no" column="box_no"/>
+	  <result property="bs_no" column="bs_no"/>
+	  <result property="tag_id" column="tag_id"/>
+	  <result property="bs_name" column="bs_name"/>
+	  <result property="tag_name" column="tag_name"/>
+	</resultMap>
+
+	<select id="boxreadAll" resultMap="boxResultMap">
+	  SELECT tb.box_no, tb.bs_no, tb.tag_id, bs.bs_name, tg.tag_name
+	  FROM tag_box tb
+	  INNER JOIN bookstore bs ON tb.bs_no = bs.bs_no
+	  INNER JOIN hashtag tg ON tb.tag_id = tg.tag_id
+	  ORDER BY tb.box_no DESC
+	</select>
+	
+  	<select id="findTagByName" resultType="BookTagBoxVO">
+	  SELECT * FROM tag_box 
+	  WHERE tag_id IN 
+	  ( SELECT tag_id FROM hashtag WHERE tag_name = #{tag_name} )
+	</select>
+	
+	<!-- <select id="findTagNamesByBsNo" resultType="String" parameterType="BookTagBoxVO" >
+	    SELECT DISTINCT tg.tag_name
+	    FROM tag_box tb
+	    INNER JOIN hashtag tg ON tb.tag_id = tg.tag_id
+	    WHERE tb.bs_no = #{bsNo}
+	</select> -->
+	
+	<select id="findTagNamesByBsNo" resultType="String" parameterType="int">
+    SELECT DISTINCT tg.tag_name
+    FROM tag_box tb
+    INNER JOIN hashtag tg ON tb.tag_id = tg.tag_id
+    WHERE tb.bs_no = #{bsNo}
+	</select>
+	
+<!-- 	<insert id="boxtaginsert" parameterType="BookTagBoxVO">
+	    INSERT INTO tag_box (bs_no, tag_id)
+	    SELECT bs.bs_no, tg.tag_id
+	    FROM bookstore bs
+	    INNER JOIN hashtag tg ON bs.bs_name = #{bs_name} AND tg.tag_name = #{tag_name}
+	</insert> -->
+	
+	<select id="findTagByName2"   resultType="BookTagBoxVO" >
+		select *  
+		from tag_box
+		where bs_no = #{bs_no}
+	</select>
+  </mapper>

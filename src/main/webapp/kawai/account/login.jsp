@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../inc/header.jsp" %>    
-    
+    <script>
+var result = '${success}';
+if(result=="fail"){ alert("회원가입 실패!"); history.go(-1); }
+else if(result.length != 0){ alert(result); }
+</script>          
 	<!-- img 태그의 width에 맞춰 h태그의 사이즈가 따라옴 -->
 	<div class="container" id="accountLoginView">
 		<p class="text-center"><img  style="width:100px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFP0-wv89LkxDV8yIpgNVEe7T-0YIqczCH3A&usqp=CAU" alt="??" ><p>
@@ -9,49 +13,37 @@
 			<fieldset>
 				<div class="form-group text-center">
 					<label class="a" for="input_id">ID</label>
-					<input type="text" id="input_id" name="id" />
+					<input type="text" id="input_id" name="id" data-check="" />
 				</div>
 				<div class="form-group text-center">
 					<label for="input_pass">PASSWORD</label>
-					<input type="password" id="input_pass" name="pass" />
+					<input type="password" id="input_pass" name="pass" data-check="" />
 				</div>
 				<div class="form-group text-center">
 					<input type="submit" class="btn btn-warning" value="LOGIN"  />
 				</div>
-				<div class="form-group text-center">
-					<p><a href="https://www.naver.com"><img  style="width: 300px;" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F9902043E5B34B47D0D" ></a></p>
-				</div>
-				<div id="my-signin2"></div>
-				  <script>
-				    function onSuccess(googleUser) {
-				      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-				    }
-				    function onFailure(error) {
-				      console.log(error);
-				    }
-				    function renderButton() {
-				      gapi.signin2.render('my-signin2', {
-				        'scope': 'profile email',
-				        'width': 240,
-				        'height': 50,
-				        'longtitle': true,
-				        'theme': 'dark',
-				        'onsuccess': onSuccess,
-				        'onfailure': onFailure
-				      });
-				    }
-				  </script>
-				
-				  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-				  <div class="form-group text-center">
-				  	<p><a href="https://www.kakaocorp.com/"><img style="width: 300px;" src="https://papaspick.com/web/upload/2019_web/icon/kakao_login.jpg" ></a></p>
-				  </div>
+				<!-- 카카오 로그인 -->
+				<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=5b0f67c0f0c2554251291f96f710c67d&redirect_uri=http://localhost:8080/kawai/account/kakaoToken&response_type=code">
+				<img style="width: 300px; margin-left: 430px;" src="https://papaspick.com/web/upload/2019_web/icon/kakao_login.jpg" >
+  				</a>
 			</fieldset>
 		</form>
-		
-		
-		
-		
-		
+			<div class="row  text-right"    >
+				 <a href="${pageContext.request.contextPath}/account/findPass"  class="btn" >비밀번를 잊으셨나요</a> 
+			</div>	
 	</div>
+	
+<script>
+	$("#loginform").on("submit",function(){
+		if ($("#input_id").val().trim()==""){
+			alert('아이디를 입력해주세요.');
+			$("#input_id").focus();
+			retrun false;
+		}else if($("#input_pass").val().trim()==""){
+			alert('비밀번호를 입력해주세요.');
+			$("#input_pass").focus();
+			retrun false;
+		};
+	});
+</script>
 <%@ include file="../inc/footer.jsp" %>

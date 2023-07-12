@@ -1,5 +1,6 @@
 package com.kawai.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,5 +31,15 @@ public interface AccountUserService {
 	
 	// 회원탈퇴 accountUserDelete
 	public int accountUserDelete(AccountUserVO user);
+	
+	//카카오 로그인
+	public String kakaoToken(String authorize_code);
+	
+	//카카오 토큰정보 받아오기
+	public HashMap<String, Object> kakaoInfo(String access_Token);
+	
+	//카카오 로그아웃
+	public void kakaoLogOut();
+
 	
 }

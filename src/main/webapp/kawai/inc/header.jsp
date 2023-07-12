@@ -85,11 +85,6 @@
     -webkit-animation-duration: 1s;
     visibility: visible;
   }
-  
-  img{
-  	width: 50px;
-  }
-  
 	
 #gogogo{
 	width:250px;
@@ -399,6 +394,33 @@ float:right;
 margin-right:300px;
 }
 /* 승재리*/
+/* 메인 도연 */
+img.profile {
+    width: 200px;
+    border-radius: 50%;
+}
+.map-container {
+  height: 700px;
+}
+.col-sm-4 {
+    padding-left: 60px;
+}
+h1 {
+padding-left: 43px;
+}
+
+.col-sm-6.a_psm6 {
+    padding-top: 10px;
+    padding-left: 0px;
+    font-size: 18px;
+}
+
+p {
+    margin: 5px -4px 9px 0px;
+    padding-bottom: 11px;
+    font-size: 13px;
+}
+/* 메인 도연 */
  </style>
 </head>
 
@@ -416,7 +438,7 @@ margin-right:300px;
     </div>
     
 	    <ul class="nav navbar-nav">
-	      <li><a href="#">지도</a></li>
+	      <li><a href="${pageContext.request.contextPath}/kawai/main3">지도</a></li>
 	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
 	      <li><a href="${pageContext.request.contextPath}/market/marketview">마켓</a></li>
 	    </ul>
@@ -444,7 +466,12 @@ if (role_id == -1) { // 값이 없을 경우
       <ul class="dropdown-menu">
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
-        <li><a href="#" class="userMenu">서점관리</a></li>
+
+
+ 
+
+        <li><a href="${pageContext.request.contextPath}/kawai/book_admin_list" class="userMenu">서점관리</a></li>
+
         <li><a href="${pageContext.request.contextPath}/market/marketList" class="userMenu">마켓관리</a></li>
         <li><a href="${pageContext.request.contextPath}/community/commAdminPage" class="userMenu">커뮤니티관리</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
@@ -463,8 +490,13 @@ if (role_id == -1) { // 값이 없을 경우
       <ul class="dropdown-menu userMenu">
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
-        <li><a href="#">내가찜한서점</a></li>
-        <li><a href="${pageContext.request.contextPath}/market/marketCartList?user_id=<%=user_id%>">장바구니</a></li>
+
+
+       
+
+        <li><a href="${pageContext.request.contextPath}/kawai/book_user">내가찜한서점</a></li>
+          <li><a href="${pageContext.request.contextPath}/market/marketCartList?user_id=<%=user_id%>">장바구니</a></li>
+
         <li><a href="${pageContext.request.contextPath}/community/communityMyPage">내가쓴글</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>

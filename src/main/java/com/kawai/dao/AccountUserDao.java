@@ -26,4 +26,10 @@ public interface AccountUserDao {
 	
 	// 회원탈퇴 accountUserDelete
 	public int accountUserDelete(AccountUserVO user);
+	
+	// email 찾기 emailfind
+	public String emailfind(String email);
+	
+	//<!-- pass 전송 -->
+	public String findPass(String email);
 }

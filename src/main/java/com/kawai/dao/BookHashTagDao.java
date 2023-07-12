@@ -12,4 +12,12 @@ public interface BookHashTagDao {
 	// CRUD  -- selectOne (1개)  selectList(여러줄)
 	public  BookHashTagVO tagread(int no);
 	public  List<BookHashTagVO>  tagreadAll();
+	
+	
+	// tag_id를 사용하여 실제 해시태그 값을 가져오기
+	public List<String> findTagNamesByIds(List<Integer> tagIds);
+	
+	
+	
+	public String getTagNameByTagId(Integer tagId);
 }

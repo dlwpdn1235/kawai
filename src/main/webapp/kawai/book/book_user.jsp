@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/kawai/inc/header.jsp" %>
 <%@ taglib  prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-	
 <div class="container map_container">
 		<h1>서점 등록 리스트</h1>
 		<c:forEach items="${list}" var="store">
@@ -18,34 +17,23 @@
 					</div>	
 		</c:forEach>
 						
-							
+							<a href='${pageContext.request.contextPath}/kawai/main2'>메인으로</a>
 </div>
-<div>
-	<a href='${pageContext.request.contextPath}/kawai/main2'>메인으로</a>
-</div>
-
 <%@ include file="/kawai/inc/footer.jsp" %>
 <style>
 img.profile {
     border-radius: 44%;
 }
-.profile {
-    width: 11%;
-    height: 11%;
-    object-fit: cover;
-}
 img.img_bs_img {
     width: 157px;
     height: 155px;
-    border: 2px #666 solid;
-    flex-basis: 128px;
-    flex-shrink: 0;
 }
-.col-sm-8 {
-    padding: 16px;
+.col-sm-6.text-center {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 200px;
 }
-.div_img {
-    width: 165px;
+.col-sm-6 {
+    margin-top: 56px;
 }
-
 </style>

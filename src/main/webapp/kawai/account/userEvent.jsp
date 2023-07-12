@@ -12,7 +12,7 @@ else if(result.length != 0){ alert(result); }
 		         <thead>
 		            <tr>   
 		                <th  colspan="7">
-		                   <h4 class="text-center"><span class="myc year"></span><button id="prevButton">이전</button>년<span class="myc month"></span>월의 이벤트!!<button id="nextButton">다음</button></h4>  
+		                   <h4 class="text-center">년<span class="myc month"></span>월의 이벤트!!</h4>  
 		                </th>
 		            </tr>
 		            <tr id="yoil" ><th scope="col">SUN</th><th scope="col">MON</th><th scope="col">TUE</th>
