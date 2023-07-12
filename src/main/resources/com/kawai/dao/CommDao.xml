@@ -125,10 +125,50 @@
 		</where>
 	</update>
 	
-	<select id="commUserAllRead" parameterType="String" resultType="CommDto">
+	<select id="commUserAllRead" parameterType="java.util.HashMap" resultType="CommDto">
 		SELECT * 
 		FROM community
 		WHERE user_id = #{user_id}
+		AND community_hide = 1
 		ORDER BY community_date DESC
+		LIMIT #{plusPage},10
+	</select>
+	<select id="commAdminCommunityAllRead" parameterType="CommSearch"
+		resultType="CommDto">
+		SELECT c.*
+		FROM community c
+		<where>
+			<if test="category_id != 0">
+				AND c.comm_category_id = #{category_id}
+			</if>
+			<if test="condition == 1">
+				AND c.community_date >= NOW() - INTERVAL 2 HOUR
+			</if>
+			<if test="condition == 3">
+				AND c.community_date >= NOW() - INTERVAL #{day} DAY
+			</if>
+			<if test="searchKeyword != '' and searchType != 0">
+				<choose>
+					<when test="searchType == 1">
+						AND c.community_title LIKE CONCAT('%',
+						#{searchKeyword}, '%')
+					</when>
+					<when test="searchType == 2">
+						AND c.user_id LIKE CONCAT('%', #{searchKeyword},
+						'%')
+					</when>
+				</choose>
+			</if>
+		</where>
+		<if test="condition == 2">
+			ORDER BY c.community_date DESC
+		</if>
+		<if test="condition != 2">
+			ORDER BY c.community_hit DESC
+		</if>
+		LIMIT #{count}, 10;
+	</select>
+	<select id="commCommunityCnt" resultType="int">
+		select count(*) from community
 	</select>
 </mapper>

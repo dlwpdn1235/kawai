@@ -9,6 +9,8 @@ public class BookImgVO {
 	private int img_no;
 	private String img_file_name;
 	private String img_reg_date;
+	
+	
 	private int bs_no;
 	
 }

@@ -23,7 +23,6 @@
 	    book_title = #{book_title}
 	    AND book_author = #{book_author}
 	    AND book_publisher = #{book_publisher}
-	    AND book_pubdate = #{book_pubdate}
 	</select>
 	
 </mapper>

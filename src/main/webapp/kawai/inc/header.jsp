@@ -58,8 +58,9 @@
     font-family: Montserrat, sans-serif;
   }
   .navbar li a, .navbar .navbar-brand {
-    color: #fff !important;
+    color: #000000 !important;
   }
+
   .navbar-brand{
   	font-size: 25px;
   }
@@ -84,11 +85,6 @@
     -webkit-animation-duration: 1s;
     visibility: visible;
   }
-  
-  img{
-  	width: 50px;
-  }
-  
 	
 #gogogo{
 	width:250px;
@@ -176,13 +172,247 @@ label.a {
 	text-align: center;
 }
 
-ul .dropdown-menu li a {
-    color: #000000; 
+.tmpt{
+	margin-top: 75px;
+}
+
+/* end account part */
+/* 승재리*/
+#marketCheck{
+margin-left:700px;
 }
 
 
-/* end account part */
+#marketLikeCheck + label {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-image: url('../img/marketLikeCheck.png');
+  background-size: cover;
+}
 
+#market-paying{
+font-size:14px;
+font-weight:bold;
+text-align:center;
+margin-right:20px;
+}
+
+#marketPayNameUpdate{
+float:right;
+}
+
+#marketThOption{
+font-wieght:bold;
+padding:15px;
+border:solid 0.5px;
+}
+
+#marketTdOption{
+border-bottom-style: solid;
+border-top-style:solid;
+width:1000px;
+}
+
+#marketShop{
+   float:right;
+   margin-right:60px;
+}
+
+.marketCartImg{
+margin-bottom:20px;
+}
+
+.marketDetailMenubar{
+padding-top:80px;
+}
+
+.marketDetailSumPrice{
+border: 1px solid gray;
+width:120px;
+padding-top:10px;
+margin-top : 30px;
+margin-left:60px;
+}
+
+.marketDetailPlus{
+font-size:40px;
+border-style: none;
+size: 10px;
+line-height:15px;
+}
+
+.marketDetailMinus{
+text-align:right;
+font-size:40px;
+border-style: none;
+line-height:15px;
+}
+
+.marketDetailLine{
+border:1px solid black;
+size: 220px;
+margin-top:20px;
+}
+
+.marketRec{
+margin-top:300px;
+margin-left:40px;
+}
+
+.market-group{
+width:1000px;
+margin:auto;
+}
+
+.marketPrice{
+float:right;
+}
+
+.marketTitle{
+padding:100px;
+}
+
+.marketDetail-group{
+text-align:center;
+}
+
+.marketWriting{
+float:right;
+margin-right:30px;
+}
+
+.marketUserUpdateSubmit{
+float:right;
+}
+
+.marketUserUpdateCon{
+margin-bottom:30px;
+}
+
+.marketUserUpdate-group{
+padding:25px;
+
+}
+
+.marketUpdateSubmit{
+float:right;
+}
+
+.marketUpdateCon{
+margin-bottom:30px;
+}
+
+.marketUpdate-group{
+padding:25px;
+
+}
+
+.marketWriteSubmit{
+float:right;
+}
+
+.marketWriteCon{
+margin-bottom:30px;
+}
+
+.marketWrite-group{
+padding:25px;
+
+}
+
+.marketProductWrite{
+margin-left:200px;
+}
+
+.marketProductTable{
+border-style:none;
+}
+
+.marketOrderCommit{
+margin-top:30px;
+text-align:center;
+}
+
+.marketOderOkLine{
+margin-top:50px;
+margin-bottom:50px;
+}
+
+.marketProductPaying{
+text-align:center;
+margin-top:50px;
+}
+
+.marketProductSumPrice{
+font-weight: bold;
+margin-top:30px;
+text-align:center;
+margin-right:30px;
+}
+
+.marketProduct-group{
+border:solid 1px;
+border-radius: 1px;
+
+}
+
+.marketProductReceive{
+font-weight:bold;
+font-size:22px;
+text-align:center;
+}
+
+.marketProductCheck{
+float:left;
+}
+
+
+.marketCheck{
+float:right;
+margin-right:360px;
+}
+
+.marketBuy{
+text-align:center;
+}
+
+.market-search-group{
+text-align:center;
+}
+
+.marketDelete{
+float:right;
+margin-right:300px;
+}
+/* 승재리*/
+/* 메인 도연 */
+img.profile {
+    width: 200px;
+    border-radius: 50%;
+}
+.map-container {
+  height: 700px;
+}
+.col-sm-4 {
+    padding-left: 60px;
+}
+h1 {
+padding-left: 43px;
+}
+
+.col-sm-6.a_psm6 {
+    padding-top: 10px;
+    padding-left: 0px;
+    font-size: 18px;
+}
+
+p {
+    margin: 5px -4px 9px 0px;
+    padding-bottom: 11px;
+    font-size: 13px;
+}
+/* 메인 도연 */
  </style>
 </head>
 
@@ -200,13 +430,14 @@ ul .dropdown-menu li a {
     </div>
     
 	    <ul class="nav navbar-nav">
-	      <li><a href="#">지도</a></li>
+	      <li><a href="${pageContext.request.contextPath}/kawai/main3">지도</a></li>
 	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
 	      <li><a href="${pageContext.request.contextPath}/market/marketview">마켓</a></li>
 	    </ul>
 	    
 <!-- 로그인되지 않은 경우 -->
 <%
+String user_id = (String) session.getAttribute("account");
 int role_id = (int) (request.getSession().getAttribute("role_id") != null ? request.getSession().getAttribute("role_id") : -1);
 
 if (role_id == -1) { // 값이 없을 경우
@@ -226,11 +457,11 @@ if (role_id == -1) { // 값이 없을 경우
       </a>
       <ul class="dropdown-menu">
       <!-- 각자 경로 입력 -->
-        <li><a href="${pageContext.request.contextPath}/account/userList">회원관리</a></li>
-        <li><a href="#">서점관리</a></li>
-        <li><a href="#">마켓관리</a></li>
-        <li><a href="#">커뮤니티관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/account/logout">로그아웃</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/kawai/book_admin_list" class="userMenu">서점관리</a></li>
+        <li><a href="#" class="userMenu">마켓관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/commAdminPage" class="userMenu">커뮤니티관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
   </ul>
@@ -243,13 +474,13 @@ if (role_id == -1) { // 값이 없을 경우
         <span class="glyphicon glyphicon-user"></span> 사용자
         <span class="caret"></span>
       </a>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu userMenu">
       <!-- 각자 경로 입력 -->
-        <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}">내정보</a></li>
-        <li><a href="#">내가찜한서점</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
+        <li><a href="${pageContext.request.contextPath}/kawai/book_user">내가찜한서점</a></li>
         <li><a href="#">장바구니</a></li>
-        <li><a href="#">내가쓴글</a></li>
-        <li><a href="${pageContext.request.contextPath}/account/logout">로그아웃</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/communityMyPage">내가쓴글</a></li>
+        <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
     </li>
   </ul>

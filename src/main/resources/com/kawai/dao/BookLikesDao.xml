@@ -7,33 +7,22 @@
   <!-- bookimg   bookstore 만들고 다시 test readall은 됬음 -->
   
    <mapper namespace="com.kawai.dao.BookLikesDao">
-   
+    
+    <insert id="insertBookLikes" parameterType="BookLikesVO">
+        INSERT INTO likes (fk_id, fk_bs_no)
+        VALUES (#{fk_id}, #{fk_bs_no})
+    </insert>
   
-   	 <insert id="likesinsert" parameterType="BookLikesVO">
-  		INSERT INTO likes (fk_id, fk_bs_no)
-		VALUES (#{fk_id}, #{fk_bs_no})
-  	</insert>
-  	 
-  	<!-- 
-  	<update id="likesupdate" parameterType="BookLikesVO">
-  		update likes set fk_id =#{fk_id} , fk_bs_no = #{fk_bs_no}
-  		where fk_id=#{fk_id}
-  	</update>
-  	update는 없음. -->
-  	 
-  	 
-  	
-  	<delete id="likesdelete" parameterType="int">
-  		delete from likes where fk_bs_no = #{fk_bs_no}
-  	</delete>
-  	
-  	 
-  	<select id="likesread" parameterType="int" resultType="BookLikesVO">
-  		select * from likes where fk_bs_no=#{fk_bs_no}
-  	</select> 
-  	
-  	<select id="likesreadAll" resultType="BookLikesVO">
-  		select * from likes order by fk_id desc
-  	</select>
-  	
+    <delete id="deleteBookLikes" parameterType="BookLikesVO">
+        DELETE FROM likes
+        WHERE fk_id = #{fk_id} AND fk_bs_no = #{fk_bs_no}
+    </delete>
+    
+        <select id="checkLikes" parameterType="map" resultType="boolean">
+	        SELECT COUNT(*) > 0
+	        FROM book_likes
+	        WHERE fk_id = #{fk_id}
+	        AND fk_bs_no = #{fk_bs_no}
+	    </select>
+  
   </mapper>

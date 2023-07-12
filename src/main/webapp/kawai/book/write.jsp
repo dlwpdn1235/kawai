@@ -8,14 +8,13 @@
 <div class="container map_container" id="bs_write_div">
 		<h1 class="panel-heading">서점등록</h1>
 	  <div class="form-group">
-	  <form action="${pageContext.request.contextPath}/kawai/write"  method="post" class="writeform">
-	   	 <!--  <input type="hidden" id="selectedTagsInput" name="selectedTagsInput" >   -->
+	  <form action="${pageContext.request.contextPath}/kawai/write"  method="post" class="writeform" enctype="multipart/form-data">
+	   <!-- 	 <input type="hidden" id="selectedTagsInput" name="selectedTagsInput"> -->
       <dl>
 	  <dd>
 	    <label for="bs_name">이름*</label>
 	    <input type="text" name="bs_name" id="bs_name" 
-	    	   placeholder="한글 상호" class="form-control" value="${bookStoreVO.bs_name}">
-	    	   <p>${Param.bs_name}</p>
+	    	   placeholder="한글 상호" class="form-control">
 	  </dd>
 	  </dl>
       <div>
@@ -33,10 +32,13 @@
 	  		<input type="text" id="bs_address_detail" name="bs_address_detail"
 	  		        placeholder="상세주소">
 	  </div>
-	 <%--  
+	  
 	  <div>
 		 <span id="HashTag">#HashTag &nbsp;</span>
-			<input type="button" value="#추가하기" name="addtag" id="addtag">
+		 <input type="button" value="#추가하기" name="addtag" id="addtag">
+		 <div>
+		 	<input type="hidden"  name="selected_tagname" readonly  class="addtag_result" />
+		 </div>	
 	  </div>
 	  <br/>
 	  <!-- Modal 창으로 태그추가 -->
@@ -44,13 +46,7 @@
 		  <div class="modal-content">
 		    <span class="close">&times;</span>
 		    <h2>#태그 추가하기</h2>
-		    <div id="checkboxContainer">
-		      <c:forEach var="tag" items="${list}">
-		        <input type="checkbox" id="${tag.tag_id}" value="${tag.tag_id}"
-		               class="tag-checkbox" name="taglist">
-		        <label for="taglist">#${tag.tag_name}</label><br>
-		      </c:forEach>
-		    </div>
+		    <div id="checkboxContainer"></div>
 		    <div class="modal-body">
 		    	<p class="text-right"> 
 		    	<input type="button" class="btn btn-danger" value="적용하기">
@@ -59,17 +55,15 @@
 		  </div>
 		</div>
 		<!-- Modal 창으로 태그추가 -->
-		--%>
+		
 		<dl>
         <dd>
-        	<label for="bs_start_date">오픈 :</label>
-        	<input type="time" name="bs_start_date" id="bs_start_date" 
-        	        placeholder="시간입력">
-        	<label for="bs_end_date">마감 :</label>
-        	<input type="time" name="bs_end_date" id="bs_end_date" 
-        	        placeholder="시간입력">
+        	<label for="bs_end_time">오픈 :</label>
+        	<input type="time" name="bs_start_time" id="bs_start_time" >
+        	<label for="bs_end_time">마감 :</label>
+        	<input type="time" name="bs_end_time" id="bs_end_time" >
        	</dd>
-        </dl>
+        </dl> 
         <dl>
         <dd>
         <label for="bs_closeday">휴무일</label>
@@ -91,10 +85,18 @@
                   class="form-control"></textarea>
         </dd>
         </dl>
-       <!--  <dl>
-        <dt>사진</dt>
-        <dd><input type="file" id="img" name="img" > </dd>
+<!--         <dl>
+        <dd>
+          <label for="img_file_name">사진</label>
+        <input type="file" id="img_file_name" name="img_file_name" >
+        </dd>
         </dl> -->
+         <dl>
+        <dd>
+          <label for="file">사진</label>
+        <input type="file" id="bfile" name="file" >
+        </dd>
+        </dl>  
         <dl>
         <dd>
         <label for="bs_opendate">오픈일자</label>
@@ -102,6 +104,7 @@
                placeholder="날짜 입력" >
         </dd>
         </dl>
+       <!--  <input type=hidden name="bs_reg_date" id="bs_reg_date"> -->
         <br/>
         <br/>
         <div class="input_button">
@@ -118,7 +121,7 @@ $(document).ready(function() {
 	  var selectedTags = []; // 선택한 태그를 담을 배열
 
 	  // 모달 열기
-	  $("#addtag").click(function() {
+	  $("body").on("click" , "#addtag" , function() {
 	    // 서버에서 해시태그 데이터 가져오기
 	    $.ajax({
 	      url: "${pageContext.request.contextPath}/kawai/getHashtags", // 서버의 API 엔드포인트
@@ -138,25 +141,32 @@ $(document).ready(function() {
 
 	        // 해시태그 옵션을 모달의 checkboxContainer에 추가
 	        $("#checkboxContainer").html(options);
+	        
+	        ////////
+	        // 적용하기 버튼 클릭 이벤트 처리
+		    $(".btn-danger").click(function() {
+		      // 선택한 체크박스 태그 값 가져오기
+		      selectedTags = []; // 선택한 태그를 초기화
+		      $(".tag-checkbox:checked").each(function() {
+		        var tagId = $(this).attr("id");
+		        selectedTags.push(tagId); // tagId를 배열에 추가
+		      });
+			
+		      $(".addtag_result").val(selectedTags);
+		      
+		      // 모달 창 닫기
+		      $("#myModal").hide();
+		      $("#myModal").css("height", "0");
+		    });
+	        
+	        ////////
 	      },
 	      error: function(xhr, status, error) {
 	        console.log(error);
 	      }
 	    });
 
-	    // 적용하기 버튼 클릭 이벤트 처리
-	    $(".btn-danger").click(function() {
-	      // 선택한 체크박스 태그 값 가져오기
-	      selectedTags = []; // 선택한 태그를 초기화
-	      $(".tag-checkbox:checked").each(function() {
-	        var tagId = $(this).attr("id");
-	        selectedTags.push(tagId); // tagId를 배열에 추가
-	      });
-
-	      // 모달 창 닫기
-	      $("#myModal").hide();
-	      $("#myModal").css("height", "0");
-	    });
+	   
 
 	    // 모달 닫기
 	    $(".close").click(function() {

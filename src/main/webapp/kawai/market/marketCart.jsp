@@ -13,37 +13,35 @@
 
       
    </div>   
-     <form action="/market_order?mcart_id="${mcart_id } method="post">
+     <form action="/market_order" method="post">
      
    <div class="marketCheck">
 			<label for="marketAllcheck" id="marketAllcheck">전체선택</label>
 			<input type="checkbox" id="marketAllCheck"/>
   </div>
      
-   <div>
-       <c:forEach var="market" items="${marketlist}">
-       <hr/>
-    <div class="col-sm-3">
-   
-        <label for="marketProductCheck${i}"></label>
-        <input type="checkbox" value="1" id="marketProductCheck${i}" />
-      
-        <a href="${pageContext.request.contextPath }/market/marketDetail?market_id=${market.market_id }">
-        <img src="${pageContext.request.contextPath }../img/marketLikeUnCheck.jpg" alt="책이미지" />
-        </a>
-        
-        <p>출판사 : </p>
-        <span id="marketPrice">${market.MPrice}</span>
-        
-      </div>
-      <hr/>
-    </c:forEach>
-    
+   <div class="container panel">
+       
+		<c:forEach var="i" items="${cartlist}">		
+		<div class="row">
+    	<div class="col-sm-2">${i.MCart_id}</div>
+    	<div class="col-sm-2">
+		<img src="${i.market.bookinfo.book_image }" class="marketCartImg"  alt="${i.market.bookinfo.book_title }" style="height:200px;"/>
+    	</div>
+    	<div class="col-sm-2">${i.market.bookinfo.book_title }</div>
+    	<div class="col-sm-2">${i.market.bookinfo.book_author}</div>
+    	<div class="col-sm-2">${i.MCartDate}</div>
+    	<div class="col-sm-2">${i.market.MPrice}</div>
+		</div>
+		</c:forEach>
+
 
   <div class="row"></div>
-  <p id="market-paying">결제 예정 금액 : ${mSumPrice }</p>
+  
+  <p id="market-paying">결제 예정 금액 : ${totalPrice} </p>
+
   <div class="marketBuy">
-  		<input type="submit" class="btn btn-info" value="주문하기(${mCount})"/>
+  		<input type="submit" class="btn btn-info" value="주문하기"/>
   </div>
   
   <div class="marketDelete">
@@ -54,10 +52,10 @@
     
   </div>
   
+  </form>                
   
 
   
-  </form>                
    <script>
    $(function() {
 	    $("#marketAllCheck").on("click", function() {

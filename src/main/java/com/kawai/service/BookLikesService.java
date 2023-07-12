@@ -6,9 +6,7 @@ import com.kawai.dto.BookImgVO;
 import com.kawai.dto.BookLikesVO;
 
 public interface BookLikesService {
-	public int likesinsert(BookLikesVO vo);
-	//public int likesupdate(BookLikesVO vo);
-	public int likesdelete(int no); 
-	public  BookLikesVO likesread(int no);
-	public  List<BookLikesVO>  likesreadAll();
+	public void insertBookLikes(BookLikesVO bookLikes);
+    public void deleteBookLikes(BookLikesVO bookLikes);
+    public boolean checkLikes(String fk_id, String fk_bs_no);
 }
