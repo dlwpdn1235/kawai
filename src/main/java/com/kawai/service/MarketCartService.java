@@ -9,4 +9,5 @@ public interface MarketCartService {
 	public int marketCartUpdate(MarketCart dto);
 	public int marketCartDelete(MarketCart dto);
 	public List<MarketCart>marketCartList(String user_id);
+	public int marketCartCount(int no);
 }

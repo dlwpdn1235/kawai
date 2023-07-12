@@ -11,5 +11,6 @@ public interface MarketOrderDao {
 	public int marketOrderUpdate(MarketOrderDto dto);
 	public int marketOrderDelete(int no);
 	public int marketOrderSum(MarketDto mdto);
-	public List<MarketOrderDto> mOrderReadAll();
+	public List<MarketOrderDto> mOrderReadAll(String user_id);
+	
 }

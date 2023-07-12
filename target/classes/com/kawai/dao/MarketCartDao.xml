@@ -4,6 +4,11 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kawai.dao.MarketCartDao">
 
+	<delete id="marketCartDelete" parameterType="marketCart">
+		delete from mcart 
+		where mCart_id = #{MCart_id} 
+		AND user_id=#{user_id}
+	</delete>
 
 	<insert parameterType="MarketCart" id="marketCartInsert">
 		insert into mcart(mCount ,market_id,user_id)
@@ -60,12 +65,6 @@
 
 	<!-- <select id="marketCartInsertList" parameterType="MarketCart">select</select> -->
 
-
-	<delete parameterType="marketCart" id="marketCartDelete">
-		delete from mcart where
-		mCart_id = #{no}
-	</delete>
-
 	<update id="marketCartCountUpdate">
 		UPDATE mcart AS t1
 		INNER JOIN (
@@ -77,5 +76,9 @@
 		SET t1.mcount = t2.count
 		WHERE t1.user_id = #{user_id} AND t1.market_id = #{market_id}
 	</update>
+	
+	<select id="marketCartCount" parameterType="int">
+		
+	</select>
 
 </mapper>

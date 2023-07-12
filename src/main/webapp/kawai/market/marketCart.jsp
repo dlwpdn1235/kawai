@@ -13,47 +13,48 @@
 
       
    </div>   
-     <form action="/market_order" method="post">
-     
-   <div class="marketCheck">
-			<label for="marketAllcheck" id="marketAllcheck">전체선택</label>
-			<input type="checkbox" id="marketAllCheck"/>
-  </div>
-     
    <div class="container panel">
-       
-		<c:forEach var="i" items="${cartlist}">		
-		<div class="row">
-    	<div class="col-sm-2">${i.MCart_id}</div>
-    	<div class="col-sm-2">
-		<img src="${i.market.bookinfo.book_image }" class="marketCartImg"  alt="${i.market.bookinfo.book_title }" style="height:200px;"/>
-    	</div>
-    	<div class="col-sm-2">${i.market.bookinfo.book_title }</div>
-    	<div class="col-sm-2">${i.market.bookinfo.book_author}</div>
-    	<div class="col-sm-2">${i.MCartDate}</div>
-    	<div class="col-sm-2">${i.market.MPrice}</div>
-		</div>
+
+	<div class="row" style="font-weight:bold">
+				<div class="col-sm-2">번호</div>				
+				<div class="col-sm-2">이미지</div>
+				<div class="col-sm-2">책 내용</div>
+				<div class="col-sm-2">책 저자</div>
+				<div class="col-sm-2">책 등록날짜</div>
+				<div class="col-sm-2">책 가격</div>
+	</div>
+		<c:forEach var="i" items="${cartlist}">
+			<div class="row">
+				<div class="col-sm-2">${i.MCart_id}</div>
+				<div class="col-sm-2">
+					<img src="${i.market.bookinfo.book_image }" class="marketCartImg"
+						alt="${i.market.bookinfo.book_title }"
+						style="height: 200px; width: 150px;" />
+				</div>
+				<div class="col-sm-2">${i.market.bookinfo.book_title }</div>
+				<div class="col-sm-2">${i.market.bookinfo.book_author}</div>
+				<div class="col-sm-2">${i.MCartDate}</div>
+				<div class="col-sm-2">${i.market.MPrice}</div>
+				  <div class="marketCartForm">
+		<a href="${pageContext.request.contextPath}/market/marketCartDelete?MCart_id=${i.MCart_id}&user_id=<%=user_id%>" class="btn btn-danger">삭제</a>  		
+ 				 
+ 				 </div>
+			</div>
 		</c:forEach>
 
 
-  <div class="row"></div>
+		<div class="row"></div>
   
   <p id="market-paying">결제 예정 금액 : ${totalPrice} </p>
 
-  <div class="marketBuy">
-  		<input type="submit" class="btn btn-info" value="주문하기"/>
+  		<a href="marketOrder?user_id=<%=user_id%>" class="btn btn-info" id="marketOrderPage">주문하기</a>
+  		<a href="marketview" id="reshop" class="btn btn-success">계속 쇼핑하기</a>
   </div>
   
-  <div class="marketDelete">
-  		<input type="button" class="btn btn-danger" value="삭제"/>
-  </div>
-    
-    
-    
-  </div>
-  
-  </form>                
-  
+
+
+               
+
 
   
    <script>

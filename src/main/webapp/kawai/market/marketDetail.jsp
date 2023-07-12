@@ -23,49 +23,31 @@ float-left:80px;
 	<div class="market-group">
 		<div class="marketImage-group">
 			<img src="${market.bookinfo.book_image }" alt="${market.bookinfo.book_title }" style="width:500px;"/>
-			
 
-			
 			<div class="marketPrice">
 			<!-- mCart에 있는 장바구니 List를 뽑아서 값 합산하기. 단일값일 경우 market.MPrice. -->
 				<h3 class="marketsumPrice">총 상품 금액 : ${market.MPrice }</h3>
-				
+	<form action="${pageContext.request.contextPath}/market/marketCartInsert" method="get">				
 				<div class="marketRec">
 					<label for="marketAddress"></label>
 				배송지 <input type="button" id="marketAddress" class="btn btn-info" value="변경"/>
 					<div class="marketDetailLine"></div>		
 				</div>
-			
-			    <div class="marketDetailSumPrice">
-				    <label for="minus"></label>
-				    <input Type="button" id="minus" name="minus" value="-" class="marketDetailMinus"/>
-				    1
-				    <label for="plus"></label>
-				    <input Type="button" id="plus" name="plus" value="+" class="marketDetailPlus"/>
-    			</div>	
+
     			
     		    <div class="row"></div>
-  	<form action="${pageContext.request.contextPath}/market/marketCartInsert" method="post">
   	<div class="form-group">
   		<input type="hidden" name="market_id" value="${market.market_id}"/>
-  		<input type="hidden" name="user_id" value="${market.user_id}"/>  		
   	</div>
+	<%if(role_id==0){ %>
     <div class="marketCartPage">
-   		 <input type="submit" class="btn btn-info" id="marketDetailCart" value="장바구니"/>
+    	<label for ="cartInsert">장바구니</label>
+   		 <input type="submit" class="btn btn-info" name="cartInsert" id="marketDetailCart" value="담기"/>
   	</div>
-  	
+  	<%} %>
+
 	</form>
-  	
-    <input type="button" class="btn btn-info" id="marketDetailQuick" value="바로가기"/>
-       
-    
-
-    			
-			
-		</div>
-
-
-			
+		</div>			
     	</div>  
     </div>
 	${market.bookinfo.book_author }
@@ -85,7 +67,7 @@ float-left:80px;
 <script>
 
 $(function() {
-	  var result = 0;
+	  var result = $("#result").val(value);
 
 	  $("#plus").on("click", function() {
 	    result++;
