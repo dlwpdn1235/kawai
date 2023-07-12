@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../inc/header.jsp" %>
 <!-- 사용자 회원가입 폼 -->
+	<script>
+	var result = '${success}';
+	if(result=="fail"){ alert("회원가입 실패!"); history.go(-1); }
+	else if(result.length != 0){ alert(result); }
+	</script> 
 	<div class="container body-top" id="accountSingUpView">
 		
 		<form action="${pageContext.request.contextPath}/account/singUp" method="post" id="form" >
@@ -31,7 +36,7 @@
 				</div>
 				<div class="form-group">
 					<label for="email_form_input">이메일 입력(*)</label>
-					<input type="email" class="form-control" id="email_form_input" name="email" placeholder="이메일을 입력해주세요"/>
+					<input type="email" class="form-control" id="email_form_input"  name="email" value="${email}" placeholder="이메일을 입력해주세요" readonly="readonly"/>
 				</div>
 				<div class="form-group">
 					<label for="phone_form_input">휴대전화번호 입력(*)</label>

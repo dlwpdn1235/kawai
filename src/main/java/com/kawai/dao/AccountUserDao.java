@@ -29,4 +29,7 @@ public interface AccountUserDao {
 	
 	// email 찾기 emailfind
 	public String emailfind(String email);
+	
+	//<!-- pass 전송 -->
+	public String findPass(String email);
 }

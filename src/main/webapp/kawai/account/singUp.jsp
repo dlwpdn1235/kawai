@@ -37,6 +37,43 @@
 					<label for="phone_form_input">휴대전화번호 입력(*)</label>
 					<input type="text" class="form-control" id="phone_form_input" name="phonenum" placeholder="휴대전화번호를 입력해주세요"/>
 				</div>
+				<div>
+				<!-- 인증번호를 입력하면 해당 번호로 문자 전송. 
+					  인증번호를 authNum에 입력 맞으면 회원가입 틀리면 회원가입 실패-->
+				<input type="text" id="userNum" placeholder="인증번호 입력" > 
+				<input type="button" id="send" value="인증번호 발송" >
+				<input type="button" id="enterBtn" value="인증하기" >
+				</div>
+				<script>
+				
+				var mobileauth = false;
+				$(function(){
+					$("#send").on("click",function(){
+						$.ajax({
+							url:"${pageContext.request.contextPath}/account/sendSMS",
+							type:"get",
+							data:{"to":$("#phone_form_input").val()},
+							success:function(data){
+								alert("인증번호가 발송되었습니다.");
+								$("#enterBtn").click(function(){
+									var userNum = $("#userNum").val();
+									if(data == userNum){
+										alert("인증 성공함");
+										mobileauth = true;
+									}else{ alert("인증 실패함"); }
+								});
+							}
+						});
+					});
+				});
+				</script>
+				
+				
+				
+				
+				
+				
+				
 				<div class="form-group">
 					<div style="width:200px;">
 						<label for="postnum_form_input">우편번호 입력(5자리)(*)</label>
@@ -149,6 +186,9 @@
 				}else if ($("#addr_form_input").val()==""){ //상세주소 빈칸 체크
 					alert('상세주소를 입력해주세요.');
 					$("#addr_form_input").focus();
+					return false;
+				}else if (mobileauth != true){
+					alert("인증확인 부탁드립니다~");
 					return false;
 				}
 			});						

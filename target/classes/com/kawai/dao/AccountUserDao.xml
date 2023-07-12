@@ -49,6 +49,9 @@
 	select id from user where email=#{email}
 	</select>
 	
-	
+	<!-- pass 전송 -->
+	<select id="findPass" parameterType="string" resultType="string">
+	select pass from user where email = #{email}
+	</select>
 	
 </mapper>
