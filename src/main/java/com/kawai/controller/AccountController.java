@@ -1,10 +1,5 @@
 package com.kawai.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kawai.common.FindPassMail;
+import com.kawai.common.MobileAuth;
 import com.kawai.dao.AccountUserDao;
 import com.kawai.dto.AccountUserVO;
 import com.kawai.service.AccountEventService;
@@ -28,7 +25,11 @@ import com.kawai.service.AccountUserService;
 
 import lombok.extern.log4j.Log4j;
 
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
+
 import com.kawai.service.BookStoreService;
+
 
 @Controller
 @Log4j
@@ -36,7 +37,18 @@ import com.kawai.service.BookStoreService;
 public class AccountController {
 	@Autowired AccountUserService userService;
 	@Autowired AccountEventService eventService;
+
+	@Autowired FindPassMail mail;
+	@Autowired AccountUserDao dao;
+	@Autowired MobileAuth mobile;
+	
+	@RequestMapping(value = "/sendSMS" , method = RequestMethod.GET)
+	public @ResponseBody String sendSMS(@RequestParam String to) throws CoolsmsException {
+		return mobile.phoneNumberCheck(to);
+	}
+
 	@Autowired BookStoreService storeservice;
+
 	
 	@RequestMapping(value = "/singUp", method = RequestMethod.GET)
 	public String singUp_view() { return "account/singUp"; }
@@ -61,6 +73,14 @@ public class AccountController {
 			return userService.accountIdCheck(id);
 		}
 	
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	
 	@RequestMapping(value = "login" , method = RequestMethod.GET)
@@ -74,22 +94,17 @@ public class AccountController {
 		String result="fail";
 		if((userVO = userService.accountLogin(request , userVO)) != null) {		
 			result="환영합니다."+userVO.getName() + "님!";			
-		}
-	    // 출석체크 처리
-	    int checkCount = eventService.accountEventCheck(userVO.getId());
-	    if (checkCount == 0) {
-	    	eventService.accountEventDo(userVO.getId());
-	    }
 		rttr.addFlashAttribute("success" , result); 
-		
-		//System.out.println(userVO.getRole_id());
-		
-		if(userVO.getRole_id() == 1) {
-			return "redirect:/main/view";
-		}
+	    // 출석체크 처리
+	    int checkCount = eventService.accountEventCheck(userVO.getId());	    
+	    if (checkCount == 0) { eventService.accountEventDo(userVO.getId()); } //사용자일때
+		if(userVO.getRole_id() == 1) { return "redirect:/main/view"; } //관리자일때
 		
 		/* return "redirect:/account/userEvent?id="+userVO.getId(); */
 		return "redirect:/myCalendar_go";
+		} result = "아이디와 비밀번호를 확인해주세요.";
+		rttr.addFlashAttribute("success" , result);
+		return "redirect:/account/login";
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
@@ -211,15 +226,30 @@ public class AccountController {
 	}
 	
 	
+	@RequestMapping(value="/findPass", method=RequestMethod.GET)
+	public String findpass() {
+		return "account/findPassView";
+	}
 	
 	
+	@RequestMapping(value="/findPass", method=RequestMethod.POST)
+	public String findpassAct(RedirectAttributes rttr , HttpServletRequest request) {
+		String result = "e-mail로 전송된 password로 다시 로그인 해 주세요~";
+		String subject = "동네글방에서 비밀번호를 쏴드립니다~";
+		String usermail = request.getParameter("email");
+		String content = dao.findPass(usermail);
+
+		mail.sendMail(subject, content, usermail);
+		rttr.addFlashAttribute("success", result);
+		return "redirect:/main/view";
+	}
+
 	
-	@Autowired AccountUserDao dao;
 	
 
 	//카카오 로그인기능
 	@RequestMapping(value="/kakaoToken", method=RequestMethod.GET)
-	public String kakaoToken(@RequestParam(value = "code", required = false) String code , HttpServletRequest request , AccountUserVO user) throws Exception {
+	public String kakaoToken(@RequestParam(value = "code", required = false) String code , HttpServletRequest request , AccountUserVO user , RedirectAttributes rttr) throws Exception {
 		System.out.println("코드컨트롤 : " + code);
 		String access_Token = userService.kakaoToken(code);
 		
@@ -233,12 +263,12 @@ public class AccountController {
 		
 		String result = dao.emailfind((String) kakaoInfo.get("email"));
 		
-		
-		System.out.println(result);
+
 		if(result == null) {
-			System.out.println(result+"2");
-			//컨트롤러 만들어줄것
-			return "redirect:/account/kakaoSingUp";			
+			String msg = "이메일로그인에 필요한 추가정보를 기입해 주세요.\\n 첫회에만 적용 됩니다.";
+			rttr.addFlashAttribute("success" , msg ); 
+			rttr.addFlashAttribute("email" , kakaoInfo.get("email"));
+			return "redirect:/account/singUp2";			
 		}else {
 			request.getSession().setAttribute("kakaoUser", 1);
 			request.getSession().setAttribute("account", result);
@@ -247,6 +277,12 @@ public class AccountController {
 			}
 		
     	}
+
+	@RequestMapping(value="singUp2" , method = RequestMethod.GET )
+	public String singUp2() {
+		return "account/singUp2";
+	}
+
 
 	@RequestMapping(value="/kakaoSingUp", method=RequestMethod.GET)
 	public String singUp_view2() { return "account/singUp1"; }
@@ -285,6 +321,7 @@ public class AccountController {
 
 	
 	
+
 	
 	// 여기는 이벤트 페이지에대한 처리
 	@RequestMapping(value="userEvent" , method = RequestMethod.GET )
