@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kawai.dao.MarketOrderDao">
 
-
+	
 
 	<select id="mOrderReadAll" resultType="MarketOrder">
 		select * from morder

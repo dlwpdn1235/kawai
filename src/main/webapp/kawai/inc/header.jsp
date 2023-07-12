@@ -224,6 +224,14 @@ width:1000px;
    margin-right:60px;
 }
 
+.marketCartShop-gourp{
+float:right;
+}
+
+.marketCartForm{
+float:right;
+}
+
 .marketCartImg{
 margin-bottom:20px;
 }
@@ -437,7 +445,7 @@ if (role_id == -1) { // 값이 없을 경우
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
         <li><a href="#" class="userMenu">서점관리</a></li>
-        <li><a href="#" class="userMenu">마켓관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/market/marketList" class="userMenu">마켓관리</a></li>
         <li><a href="${pageContext.request.contextPath}/community/commAdminPage" class="userMenu">커뮤니티관리</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
@@ -456,7 +464,7 @@ if (role_id == -1) { // 값이 없을 경우
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
         <li><a href="#">내가찜한서점</a></li>
-        <li><a href="#">장바구니</a></li>
+        <li><a href="${pageContext.request.contextPath}/market/marketCartList?user_id=<%=user_id%>">장바구니</a></li>
         <li><a href="${pageContext.request.contextPath}/community/communityMyPage">내가쓴글</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>

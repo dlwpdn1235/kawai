@@ -20,6 +20,7 @@ import com.kawai.dto.MarketDto;
 import com.kawai.dto.MarketPageDto;
 import com.kawai.service.CommServiceBookinfo;
 import com.kawai.service.MarketCartService;
+import com.kawai.service.MarketOrderService;
 import com.kawai.service.MarketService;
 
 @RequestMapping("/market/*")
@@ -36,7 +37,8 @@ public class MarketController {
 	@Autowired
 	CommServiceBookinfo bookservice;
 	
-
+	@Autowired
+	MarketOrderService oservice;
 
 	@RequestMapping(value = "marketview", method = RequestMethod.GET)
 	public String market( Model model , MarketPageDto pDto) {
@@ -52,13 +54,14 @@ public class MarketController {
 		return "market/marketDetail";
 	}
 	
-	@RequestMapping(value = "marketCartInsert", method = RequestMethod.POST)
-	public String marketCartInsert(@RequestParam int market_id , @RequestParam String user_id , Model model) {
+	@RequestMapping(value = "marketCartInsert", method = RequestMethod.GET)
+	public String marketCartInsert(@RequestParam int market_id , Model model, HttpServletRequest request) {
 		MarketCart mCart = new MarketCart();
 		mCart.setMarket_id(market_id);
-		mCart.setUser_id(user_id);
+		System.out.println((String)request.getSession().getAttribute("account"));
+		mCart.setUser_id((String)request.getSession().getAttribute("account"));
 		cartService.marketCartInsert(mCart);
-	    return "redirect:/market/marketCartList?user_id="+user_id;
+	    return "redirect:/market/marketCartList?user_id="+mCart.getUser_id();
 	}
 	
 	@RequestMapping(value = "marketCartList", method = RequestMethod.GET)
@@ -69,7 +72,7 @@ public class MarketController {
 		for(MarketCart c : mCart) {
 			total += c.getMarket().getMPrice();
 		}
-		
+		System.out.println(mCart);
 		model.addAttribute("cartlist",mCart);
 		model.addAttribute("totalPrice",total);		
 		return "/market/marketCart";
@@ -84,7 +87,7 @@ public class MarketController {
 
 		dto.setBookinfo(info);
 		dto.setMarket_id(1);
-		dto.setUser_id("user001");
+		dto.setUser_id((String)request.getSession().getAttribute("account"));
 		dto.setMIp(Inet4Address.getLocalHost().getHostAddress());
 		model.addAttribute("marketlist",service.marketInsert(dto));
 
@@ -117,9 +120,11 @@ public class MarketController {
 		return "/market/marketProductWriteUpdate";
 	}
 	@RequestMapping(value = "marketProductWriteUpdate", method = RequestMethod.POST)
-	public String marketProductWriteUpdateAction(MarketDto dto ,CommDtoBookinfo info) throws UnknownHostException {
+	public String marketProductWriteUpdateAction(MarketDto dto ,CommDtoBookinfo info , Model model) throws UnknownHostException {
 		dto.setBookinfo(info);
 		service.marketUpdate(dto);
+		MarketCart cdto = new MarketCart();
+		model.addAttribute("detail" , cdto);
 		return "redirect:/market/marketDetail?market_id=" + dto.getMarket_id();
 	}
 	@RequestMapping(value = "marketProductDelete", method = RequestMethod.GET)
@@ -129,5 +134,20 @@ public class MarketController {
 		return "redirect:/market/marketList";
 	}
 	
+	@RequestMapping(value = "marketCartDelete", method = RequestMethod.GET)
+	public String marketCartDelete(@RequestParam int MCart_id , @RequestParam String user_id) throws UnknownHostException {
+		MarketCart dto = new MarketCart();
+		dto.setMCart_id(MCart_id);
+		dto.setUser_id(user_id);
+		cartService.marketCartDelete(dto);
+		
+		return "redirect:/market/marketCartList?user_id="+dto.getUser_id();
+	}
+	
+//	@RequestMapping(value = "marketOrder", method = RequestMethod.GET)
+//	public String marketOrder(@RequestParam int MCart_id , @RequestParam String user_id) throws UnknownHostException {
+//		
+//		return "";
+//	}
 	
 }

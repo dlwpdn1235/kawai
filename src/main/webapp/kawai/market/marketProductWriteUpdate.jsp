@@ -7,7 +7,7 @@
 
       <form action="${pageContext.request.contextPath}/market/marketProductWriteUpdate" method="post">   
 		   <div class="marketWriteName marketWriteCon">
-		   		<input type="text" class="form-control" placeholder="작성자" readOnly/>
+		   		<input type="text" class="form-control" value="${market.user_id}" readOnly/>
 		   </div>
 		   <div class="form-group">
 		  	 	<input type="hidden" name="market_id" value="${market.market_id}"/>

@@ -4,9 +4,6 @@
 <%@include file="../inc/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-MarketDto dto = new MarketDto();
-%>
 
    <div class="container panel">
       <h3 class="panel-heading"></h3>   
@@ -57,32 +54,16 @@ MarketDto dto = new MarketDto();
    		</div>
    	</div>
 	</form>
-
+	<%if(role_id==1){ %>
 	<a class="marketWriting btn btn-info" href="${pageContext.request.contextPath }/kawai/market/marketProductWrite.jsp">
 			상품 등록
 	</a>
 	<div class="marketList">
 		<a href="${pageContext.request.contextPath }/market/marketList" class="btn btn-info">리스트</a>
 	</div>
-	<form action="${pageContext.request.contextPath}/market/marketProductInsert" method="GET">
-	 
-		<div class="marketShop">
-			<input type="submit" class="btn btn-info"  id="marketCartRec" value="장바구니 담기"/>
-		</div>
+	<%} %>	 
+	
 		
-
-
-	<!-- Form 체크하는 곳 select 박스 이용해서 장바구니 -->
-		<div id="marketCheck">
-			<label for="marketAllcheck">전체선택</label>
-			<input type="checkbox" id="marketAllCheck"/>
-
-			<label for="marketLikeCheck">
-			<input type="checkbox" id="marketLikeCheck" style="display:none;"/>
-			<img src="../img/marketLikeUnCheck.jpg" />
-			</label>
-		</div>
-</form>
 
 <%--     <c:forEach var="i" begin="1" end="20" step="1"> --%>
 <!--     <div class="col-sm-3"> -->
@@ -103,15 +84,14 @@ MarketDto dto = new MarketDto();
     <div class="col-sm-3">
     
         <label for="marketProductCheck${i}"></label>
-        <input type="checkbox" name="marketCartCheck" value="${market.market_id}" id="marketProductCheck${i}" />
+       
          
         <a href="${pageContext.request.contextPath }/market/marketDetail?market_id=${market.market_id}">
         <img src="${market.bookinfo.book_image }" alt="책이미지" />
         </a>
 		
         <p>출판사 :${market.bookinfo.book_author }</p>
-        <span id="marketPrice">${market.MPrice }</span>
-        
+        <span id="marketPrice">${market.MPrice}</span>
       </div>
     </c:forEach>
 

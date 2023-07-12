@@ -116,7 +116,7 @@ public class MarketTest {
 	// List All
 	@Test @Ignore
 	public void marketOrderList() {
-		System.out.println(mOrderDao.mOrderReadAll());
+//		System.out.println(mOrderDao.mOrderReadAll());
 	}
 	
 	// Delete
@@ -226,7 +226,7 @@ public class MarketTest {
 	public void marketCartDelete() {
     MarketCart dto = new MarketCart();
     dto.setMCart_id(1);
-    int result = mCartDao.marketCartDelete(1);
-    System.out.println(result);
+//    int result = mCartDao.marketCartDelete(1);
+//    System.out.println(result);
 	}
 }
