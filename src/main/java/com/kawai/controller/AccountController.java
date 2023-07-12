@@ -185,27 +185,27 @@ public class AccountController {
 	
 	
 	@RequestMapping(value="/book_admin_list", method=RequestMethod.GET)
-	public String book_admin(@RequestParam("bs_no") int bsNo, Model model) {
+	public String book_admin( Model model) {
 	    model.addAttribute("list", storeservice.bookstorereadAll());
 
-	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
-	    List<String> tagNames = storeservice.getBookStoreTagNames(bsNo);
-
-	    // 모델에 해시태그 목록 저장
-	    model.addAttribute("tagNames", tagNames);
+//	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
+//	    List<String> tagNames = storeservice.getBookStoreTagNames(bsNo);
+//
+//	    // 모델에 해시태그 목록 저장
+//	    model.addAttribute("tagNames", tagNames);
 
 	    return "book/book_admin_list";
 	}
 	
 	@RequestMapping(value="/book_user", method=RequestMethod.GET)
-	public String book_user(@RequestParam("bs_no") int bs_no, Model model) {
+	public String book_user( Model model) {
 	    model.addAttribute("list", storeservice.bookstorereadAll());
 
-	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
-	    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
-
-	    // 모델에 해시태그 목록 저장
-	    model.addAttribute("tagNames", tagNames);
+//	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
+//	    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
+//
+//	    // 모델에 해시태그 목록 저장
+//	    model.addAttribute("tagNames", tagNames);
 
 	    return "book/book_user";
 	}

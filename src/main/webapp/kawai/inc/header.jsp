@@ -430,7 +430,7 @@ p {
     </div>
     
 	    <ul class="nav navbar-nav">
-	      <li><a href="${pageContext.request.contextPath}/book/main2">지도</a></li>
+	      <li><a href="${pageContext.request.contextPath}/kawai/main3">지도</a></li>
 	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
 	      <li><a href="${pageContext.request.contextPath}/market/marketview">마켓</a></li>
 	    </ul>
@@ -458,7 +458,7 @@ if (role_id == -1) { // 값이 없을 경우
       <ul class="dropdown-menu">
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/account/book_admin_list?bs_no=${bs_no}" class="userMenu">서점관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/kawai/book_admin_list" class="userMenu">서점관리</a></li>
         <li><a href="#" class="userMenu">마켓관리</a></li>
         <li><a href="${pageContext.request.contextPath}/community/commAdminPage" class="userMenu">커뮤니티관리</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
@@ -477,7 +477,7 @@ if (role_id == -1) { // 값이 없을 경우
       <ul class="dropdown-menu userMenu">
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
-        <li><a href="${pageContext.request.contextPath}/account/book_user?bs_no=${bs_no}">내가찜한서점</a></li>
+        <li><a href="${pageContext.request.contextPath}/kawai/book_user">내가찜한서점</a></li>
         <li><a href="#">장바구니</a></li>
         <li><a href="${pageContext.request.contextPath}/community/communityMyPage">내가쓴글</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
