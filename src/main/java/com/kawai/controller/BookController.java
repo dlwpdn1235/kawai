@@ -48,12 +48,12 @@ public class BookController {
 	@Autowired BookLikesService likeservice;
 	
 	//index 에서 main2 페이지로 a태그 받아왔을때 처리
-	@RequestMapping(value = "main2", method = RequestMethod.GET)
+	@RequestMapping(value = "/main3", method = RequestMethod.GET)
 	public String list(Model model ) {
-		int bsNo = 123; // 실제로 bs_no 값을 가져오는 로직이 필요
-		model.addAttribute("bs_no" ,bsNo);
+//		int bsNo = 123; // 실제로 bs_no 값을 가져오는 로직이 필요
+//		model.addAttribute("bs_no" ,bsNo);
 		model.addAttribute("list" , storeservice.bookstorereadAll());
-		return "book/main2";
+		return "book/main3";
 	}
 	
 	//main2 에서 write.jsp a태그 등록하기버튼 눌렀을때 처리
@@ -76,7 +76,8 @@ public class BookController {
 	        @RequestParam("bs_end_time") String end_time  */
 	      ) throws ParseException {
 	
-	    vo.setUser_id("admin1"); //user_id(user 테이블의 id) 설정 
+	    vo.setUser_id((String)request.getSession().getAttribute("account")); //user_id(user 테이블의 id) 설정 
+	    
 	    log.info("............." + vo);
 	    log.info("............." + selectedTagIds);
 	
@@ -182,29 +183,32 @@ public class BookController {
 	//임시용 
 	// main2 에서 book_admin_list.jsp a태그 리스트로 가기 눌렀을때 처리
 	@RequestMapping(value="/book_admin_list", method=RequestMethod.GET)
-	public String test(@RequestParam("bs_no") int bsNo, Model model) {
+	public String test( Model model ) {
 	    model.addAttribute("list", storeservice.bookstorereadAll());
 
 	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
-	    List<String> tagNames = storeservice.getBookStoreTagNames(bsNo);
-
+//	    int bs_no = bvo.getBs_no();
+//	    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
+	    
 	    // 모델에 해시태그 목록 저장
-	    model.addAttribute("tagNames", tagNames);
-
+//	    model.addAttribute("tagNames", tagNames);
+	    
 	    return "book/book_admin_list";
 	}
 	
 	//임시용 2
 		// main2 에서 book_user.jsp a태그 리스트로 가기 눌렀을때 처리
 		@RequestMapping(value="/book_user", method=RequestMethod.GET)
-		public String book_user(@RequestParam("bs_no") int bs_no, Model model) {
+		public String book_user(Model model ) {
+			
 		    model.addAttribute("list", storeservice.bookstorereadAll());
 
 		    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
-		    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
-
-		    // 모델에 해시태그 목록 저장
-		    model.addAttribute("tagNames", tagNames);
+//		    int bs_no = bvo.getBs_no();
+//		    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
+//
+//		    // 모델에 해시태그 목록 저장
+//		    model.addAttribute("tagNames", tagNames);
 
 		    return "book/book_user";
 		}
