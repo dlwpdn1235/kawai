@@ -65,7 +65,7 @@
           </p> --%>
 
 		<div class="">
-			<iframe width="250" height="150" src="https://www.youtube.com/embed/Qi6dVLBAa-g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+			
 		</div>
 
         </div>
@@ -83,12 +83,6 @@
           <p>
             <a class="text-reset" href="https://ovenapp.io/project/Z50rYvmyZlUbpio1I2J83ITu7xwBfL7j#kCHwW">김원수(회원관리)</a>
           </p>
-          <p>
-            <a class="text-reset" href="https://ovenapp.io/view/KBRhaxJYTunVswTLD0OjzoHyOzE29Wh1#7NcSY">이승재(마켓)</a>
-          </p>
-          <p>
-            <a class="text-reset" href="https://ovenapp.io/view/rsawQzHd3m5GMO9WJLRbpBInkdeUJBSj/">김도연(지도)</a>
-          </p>
         </div>
         <!-- Grid column -->
 
@@ -99,16 +93,10 @@
             사이트 맵
           </h6>
           <p>
-            <a href="#!" class="text-reset">지도검색</a>
-          </p>
-          <p>
-            <a href="${pageContext.request.contextPath}/market/marketview" class="text-reset">마켓</a>
-          </p>
-          <p>
             <a href="${pageContext.request.contextPath}/community/commView" class="text-reset">커뮤니티</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">마이페이지</a>
+            <a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="text-reset">마이페이지</a>
           </p>
         </div>
         <!-- Grid column -->
@@ -117,13 +105,12 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">찾아오시는길</h6>
-          <p><i class="fas fa-home me-3"></i>서울 강남구 강남대로96길 16 dev402</p>
+          <p><i class="fas fa-home me-4"></i>서울 강남구 강남대로96길 16 dev402</p>
           <p>
-            <i class="fas fa-envelope me-3"></i>
+            <i class="fas fa-envelope me-4"></i>
             kimwonsu007@gmail.com
           </p>
-          <p><i class="fas fa-phone me-3"></i> 010-3518-9041 </p>
-          <p><i class="fas fa-print me-3"></i> 010-2246-7357 </p>
+          <p><i class="fas fa-phone me-4"></i> dlwpdn1235@naver.com </p>
         </div>
         <!-- Grid column -->
       </div>

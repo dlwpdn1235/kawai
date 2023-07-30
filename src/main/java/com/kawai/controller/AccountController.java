@@ -22,13 +22,8 @@ import com.kawai.dto.AccountUserVO;
 import com.kawai.service.AccountEventService;
 import com.kawai.service.AccountUserService;
 
-
 import lombok.extern.log4j.Log4j;
-
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
-
-
-import com.kawai.service.BookStoreService;
 
 
 @Controller
@@ -47,7 +42,6 @@ public class AccountController {
 		return mobile.phoneNumberCheck(to);
 	}
 
-	@Autowired BookStoreService storeservice;
 
 	
 	@RequestMapping(value = "/singUp", method = RequestMethod.GET)
@@ -116,8 +110,8 @@ public class AccountController {
 	    // ver2 - 로그아웃 버튼이 나오게 
 		request.getSession().invalidate(); 
 	    rttr.addFlashAttribute("success", "로그아웃되었습니다.");
-	    return "redirect:https://kauth.kakao.com/oauth/logout?client_id=5b0f67c0f0c2554251291f96f710c67d&logout_redirect_uri=http://localhost:8080/kawai/account/logout2";
-	}
+	    return "redirect:https://kauth.kakao.com/oauth/logout?client_id=5b0f67c0f0c2554251291f96f710c67d&logout_redirect_uri=http://3.34.129.104:8080/kawaiProject/account/logout2";
+	}                 																										//http://3.34.129.104:8080/kawaiProject/kawai/account/logout2
 	
 	@RequestMapping(value = "logout2", method = RequestMethod.GET)
 	public String accountLogout2(HttpServletRequest request, RedirectAttributes rttr) {
@@ -216,10 +210,10 @@ public class AccountController {
 
 	@RequestMapping(value = "userDelete", method = RequestMethod.POST)
 	public String userDelete(AccountUserVO userVO, RedirectAttributes rttr , HttpServletRequest request) {
-	    String result = "fail";
+	    String result = "비밀번호를 확인해주세요.";
 	    if (userService.accountUserDelete(userVO) > 0) {
 	    	 request.getSession().invalidate();
-	        result = "회원탈퇴가 정상 처리되었습니다.";
+	         result = "회원탈퇴가 정상 처리되었습니다.";
 	    }
 	    rttr.addFlashAttribute("success", result);
 	    return "redirect:/main/view";
@@ -287,31 +281,7 @@ public class AccountController {
 	@RequestMapping(value="/kakaoSingUp", method=RequestMethod.GET)
 	public String singUp_view2() { return "account/singUp1"; }
 
-	@RequestMapping(value="/book_admin_list", method=RequestMethod.GET)
-	public String book_admin( Model model) {
-	    model.addAttribute("list", storeservice.bookstorereadAll());
 
-//	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
-//	    List<String> tagNames = storeservice.getBookStoreTagNames(bsNo);
-//
-//	    // 모델에 해시태그 목록 저장
-//	    model.addAttribute("tagNames", tagNames);
-
-	    return "book/book_admin_list";
-	}
-	
-	@RequestMapping(value="/book_user", method=RequestMethod.GET)
-	public String book_user( Model model) {
-	    model.addAttribute("list", storeservice.bookstorereadAll());
-
-//	    // 해당 서점의 해시태그 정보 가져오기 (조인 사용)
-//	    List<String> tagNames = storeservice.getBookStoreTagNames(bs_no);
-//
-//	    // 모델에 해시태그 목록 저장
-//	    model.addAttribute("tagNames", tagNames);
-
-	    return "book/book_user";
-	}
 	
 	
 	

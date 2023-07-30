@@ -5,7 +5,7 @@
 
 <head>
   <!-- Theme Made By www.w3schools.com -->
-  <title>Bootstrap Theme Company Page</title>
+  <title>동네글방</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
@@ -430,9 +430,9 @@ p {
     </div>
     
 	    <ul class="nav navbar-nav">
-	      <li><a href="${pageContext.request.contextPath}/kawai/main3">지도</a></li>
+
 	      <li><a href="${pageContext.request.contextPath}/community/commView">커뮤니티</a></li>
-	      <li><a href="${pageContext.request.contextPath}/market/marketview">마켓</a></li>
+
 	    </ul>
 	    
 <!-- 로그인되지 않은 경우 -->
@@ -458,8 +458,6 @@ if (role_id == -1) { // 값이 없을 경우
       <ul class="dropdown-menu">
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userList" class="userMenu">회원관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/kawai/book_admin_list" class="userMenu">서점관리</a></li>
-        <li><a href="#" class="userMenu">마켓관리</a></li>
         <li><a href="${pageContext.request.contextPath}/community/commAdminPage" class="userMenu">커뮤니티관리</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>
@@ -477,8 +475,6 @@ if (role_id == -1) { // 값이 없을 경우
       <ul class="dropdown-menu userMenu">
       <!-- 각자 경로 입력 -->
         <li><a href="${pageContext.request.contextPath}/account/userDetail2?id=${sessionScope.account}" class="userMenu">내정보</a></li>
-        <li><a href="${pageContext.request.contextPath}/kawai/book_user">내가찜한서점</a></li>
-        <li><a href="#">장바구니</a></li>
         <li><a href="${pageContext.request.contextPath}/community/communityMyPage">내가쓴글</a></li>
         <li><a href="${pageContext.request.contextPath}/account/logout" class="userMenu">로그아웃</a></li>
       </ul>

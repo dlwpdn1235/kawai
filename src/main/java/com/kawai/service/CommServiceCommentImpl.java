@@ -75,6 +75,14 @@ public class CommServiceCommentImpl implements CommServiceComment{
 		commDtoComment.setUser_id((String)request.getSession().getAttribute("account"));
 		return commentdao.commentInsert(commDtoComment);
 	}
+	@Override
+	public int commCommentStepUpdate(CommDtoComment commDtoComment) {
+		Map<String, Integer> para = new HashMap<>();
+		para.put("prev", (int)(Math.ceil(commDtoComment.getComment_step()/(float)1000)*1000-1000) );              //0
+		para.put("curr", commDtoComment.getComment_step());  //1000 , 999-1000 
+		log.info(".....service para" + para);
+		return commentdao.commCommentStepUpdate(para);
+	}	
 
 	@Override
 	public int commentUpdate(CommDtoComment commDtoComment) {
@@ -88,14 +96,6 @@ public class CommServiceCommentImpl implements CommServiceComment{
 		return commentdao.commentDelete(commDtoComment.getComment_id());
 	}
 
-	@Override
-	public int commCommentStepUpdate(CommDtoComment commDtoComment) {
-		Map<String, Integer> para = new HashMap<>();
-		para.put("prev", (int)(Math.ceil(commDtoComment.getComment_step()/(float)1000)*1000-1000) );              //0
-		para.put("curr", commDtoComment.getComment_step());  //1000 , 999-1000 
-		log.info(".....service para" + para);
-		return commentdao.commCommentStepUpdate(para);
-	}	
 
 
 }

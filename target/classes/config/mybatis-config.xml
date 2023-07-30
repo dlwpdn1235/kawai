@@ -5,11 +5,7 @@
 <configuration>
 	<typeAliases>
 		
-		<typeAlias type="com.kawai.dto.MarketCart" alias="MarketCart"/>
-		<typeAlias type="com.kawai.dto.MarketDto" alias="Market"/>
-	  	<typeAlias type="com.kawai.dto.MarketPayDto" alias="MarketPay"/>
-	  	<typeAlias type="com.kawai.dto.MarketOrderDto" alias="MarketOrder"/>
-		<typeAlias type="com.kawai.dto.MarketPageDto" alias="MarketPage"/>
+
 
 		<typeAlias type="com.kawai.dto.CommDto" alias="CommDto"/>
 		<typeAlias type="com.kawai.dto.CommDtoBookinfo" alias="CommDtoBookinfo"/>
@@ -21,11 +17,7 @@
 		<typeAlias type="com.kawai.dto.CommDtoSearch" alias="CommSearch"/>
 		<typeAlias type="com.kawai.dto.CommDtoCategory" alias="CommCategory"/>
 		
-		<typeAlias type="com.kawai.dto.BookHashTagVO" alias="BookHashTagVO"/>
-		<typeAlias type="com.kawai.dto.BookImgVO" alias="BookImgVO"/>
-		<typeAlias type="com.kawai.dto.BookLikesVO" alias="BookLikesVO"/>
-		<typeAlias type="com.kawai.dto.BookStoreVO" alias="BookStoreVO"/>
-		<typeAlias type="com.kawai.dto.BookTagBoxVO" alias="BookTagBoxVO"/>
+
 		
 		<typeAlias alias="AccountUserVO" type="com.kawai.dto.AccountUserVO"/>
 		<typeAlias alias="AccountUserRoleVO" type="com.kawai.dto.AccountUserRoleVO"/>

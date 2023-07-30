@@ -137,7 +137,7 @@ public class AccountUserServiceImpl implements AccountUserService {
 				sb.append("grant_type=authorization_code");
 	            
 				sb.append("&client_id=5b0f67c0f0c2554251291f96f710c67d"); //본인이 발급받은 key
-				sb.append("&redirect_uri=http://localhost:8080/kawai/account/kakaoToken"); // 본인이 설정한 주소
+				sb.append("&redirect_uri=http://3.34.129.104:8080/kawaiProject/account/kakaoToken"); // 본인이 설정한 주소
 				
 
 				sb.append("&code=" + authorize_code);

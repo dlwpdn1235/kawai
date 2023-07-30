@@ -318,7 +318,7 @@ else if( result.length !=0 ){  alert(result);  }
         	         $("<input type='button' class='btn btn-info commCommentInBtn' value='답글'>")
         	      );
 				<%} %>
-        	      if (user_id == comment.user_id) {
+        	      if (user_id == comment.user_id && comment.comment != '삭제된 댓글입니다.') {
         	         $panelBody
         	            .append(
         	               $("<input type='button' class='btn btn-info commentUpBtn' value='수정'>")
